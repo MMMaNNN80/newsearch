@@ -16,9 +16,18 @@ response.count= response.suggestions.length
  return response;
     }
 }
-function update(state){
-    setState(state)
-}
+function update(state,i){
+
+    
+   state =  state.filter( el => el.key !==i)
+
+   setTimeout( setState(state),2000)
+
+       
+        
+    };
+    
+  
 return (
        <div className="container">
             <div className={"lbl lead "}  >ПОИСК</div>
