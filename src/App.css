@@ -70,6 +70,8 @@ align-self:center;
     grid-row: 1;
 
 }
+
+
 .container .lbl {
     grid-column: 2;
     z-index: 2;
@@ -88,7 +90,6 @@ align-self:center;
     padding-left: 10px;
 
 }
-.suggs{color: darkturquoise; padding-bottom: 20px; padding-top: 20px;}
 
 
 
@@ -105,8 +106,6 @@ position: relative;
     font-size:8px;
 }
 .card{
-    
-
 border: none;
     display: grid;
     grid-template-columns: 8px auto ;
@@ -116,12 +115,15 @@ border: none;
     padding-bottom: 10px;
 }
 .card:hover{
-    opacity: 0.5;;
+    opacity: 0.7;;
 
 }
 .card:hover .orginfo .orgname{
     color:orange;
     font-weight: 700;
+}
+.card:hover .divider{
+    background-color: orange;
 }
 
 .card .status{
@@ -136,7 +138,7 @@ border: none;
 grid-column: 2;
     grid-row:1;
     color:white;
-    font-size:14px;
+    font-size:10px;
    letter-spacing: 1px;
     text-shadow: 1px 1px 1px grey;
 opacity: 0.9;
@@ -145,26 +147,30 @@ opacity: 0.9;
 .card  .orginfo{
     grid-column: 2;
     grid-row:2;
+   
 }
 
 .card  .orginfo .orgname{
-    font-size: 18px;
-
-    color:rgb(158, 193, 207);
+    font-size: 12px;
+    color:rgb(154, 174, 231);
     
+    display: inline-block;
 }
 
 
 .card  .orginfo .orgform{
     font-size: 10px;
-    color:darkturquoise;
-    padding-bottom: 8px;
-    opacity: 0.6;
+   
+    padding-bottom: 6px;
+    opacity: 0.9;
+    display: inline-block;
+    margin-left: 10px;
 
 }
 .card  .orginfo .orgleader{
 font-size: 10px;
 color:white;
+padding-bottom: 5px;
 }
 
 .card hr{
@@ -183,7 +189,13 @@ color:white;
 
 
 }
-pre{color:aqua}
 
+.divider{
+    grid-column: 3;
+    height: 1px;
+    margin-top: 5px;
+    width:100%;
+    background-color: darkseagreen;
+}
 
 
