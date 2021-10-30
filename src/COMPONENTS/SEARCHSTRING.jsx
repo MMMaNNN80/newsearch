@@ -1,37 +1,22 @@
 import React, { useState } from 'react';
 import '../App.css';
-import { getConnection } from '../JS/connection';
-import GETCARDS from './GETCARDS';
 
-function SEARCHSTRING() {
-   const [state,setState]=useState('')
+import {getResponse} from '../JS/properties'
+
+function SEARCHSTRING(props) {
+//    const [state,setState]=useState('')
    const [inputStyle,setinputStyle]=useState([]);
+   
 
-   async function getResponse(e){
-    if(e.target.value){
- let  response =  await getConnection(e.target.value);
-response.req = e.target.value
-response.count= response.suggestions.length
-  setState(response.suggestions);
- return response;
-    }
+
+//suggestions
+const setSuggestions= async (e)=>{
+const mass= await getResponse(e)
+if(mass){props.objState.update(mass.suggestions)}
 }
-function update(state,i){
-
-    
-   state =  state.filter( el => el.key !==i)
-
-   setTimeout( setState(state),2000)
-
-       
-        
-    };
-    
-  
 return (
        <div className="container">
-            <div className={"lbl lead "}  >ПОИСК</div>
-
+            <div className={"lbl  "} >ПОИСК</div>
                 <input type="text" name="searchstr" style = {{...inputStyle}}
                 placeholder={'Введите поисковый запрос'} 
                 onChange={ (e)=> {
@@ -41,13 +26,16 @@ return (
                 ,fontWeight:'500'
                 ,letterSpacing: '1px'})}
                 else {setinputStyle()} 
-             getResponse(e);
+                  ;
+        props.objState.setCardstate(0);
+        setSuggestions(e);
                 }
             
             }
                 />
-<GETCARDS state = {state} update = {update} /> 
-  </div>
+                </div>
+
+  
 
   
  

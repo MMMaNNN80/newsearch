@@ -2,6 +2,7 @@
 const href = 'http://10.42.108.144:8080/suggestions/api/4_1/rs/suggest/party';
 
  export async function getConnection (request) {
+   try {
 
     const response =  await  fetch(href, {
         method: 'POST',
@@ -23,6 +24,13 @@ const href = 'http://10.42.108.144:8080/suggestions/api/4_1/rs/suggest/party';
         
     }
       return '';
-    }
+  } catch (e){
+console.log('Проблемы с подключением',e)
+return null;
+
+  }
+    } 
+
+    
 
 
