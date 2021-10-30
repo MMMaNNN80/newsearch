@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="3d089cf6-a460-4c48-8daf-15646f238d1e" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/COMPONENTS/CARD.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/COMPONENTS/CARD.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/COMPONENTS/CDI_DATA.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/COMPONENTS/CDI_DATA.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/COMPONENTS/SEARCHSTRING.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/COMPONENTS/SEARCHSTRING.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/JS/connection.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/JS/connection.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/JS/properties.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/JS/properties.js" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1zP5V4IjpYWkUY1TiO576aew4oL" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+    <option name="showMembers" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="dart.analysis.tool.window.visible" value="false" />
+    <property name="full.screen.before.presentation.mode" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.General" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="3d089cf6-a460-4c48-8daf-15646f238d1e" name="Default Changelist" comment="" />
+      <created>1634036902720</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1634036902720</updated>
+      <workItem from="1634036905765" duration="13528000" />
+      <workItem from="1634064874784" duration="1925000" />
+      <workItem from="1634213287281" duration="18508000" />
+      <workItem from="1634315384703" duration="15823000" />
+      <workItem from="1634359884048" duration="6510000" />
+      <workItem from="1634499543800" duration="1870000" />
+      <workItem from="1634665734405" duration="231000" />
+      <workItem from="1634766804699" duration="1716000" />
+      <workItem from="1634972549339" duration="13760000" />
+      <workItem from="1635788019485" duration="598000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="304" y="476" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1634499725676">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state x="304" y="476" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.2560.1410/2560.174.1920.1050@0.0.2560.1410" timestamp="1634499725676" />
+    <state x="599" y="510" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1634045033432">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state x="599" y="510" key="#com.intellij.fileTypes.FileTypeChooser/0.0.2560.1410/2560.174.1920.1050@0.0.2560.1410" timestamp="1634045033432" />
+    <state x="183" y="652" key="SettingsEditor" timestamp="1634214135305">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state x="183" y="652" key="SettingsEditor/0.0.2560.1410/2560.174.1920.1050@0.0.2560.1410" timestamp="1634214135305" />
+    <state x="610" y="397" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1634037447404">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state x="610" y="397" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.2560.1410/2560.174.1920.1050@0.0.2560.1410" timestamp="1634037447404" />
+    <state x="936" y="333" key="run.anything.popup" timestamp="1634972725929">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state x="936" y="333" key="run.anything.popup/0.0.2560.1410/2560.174.1920.1050@0.0.2560.1410" timestamp="1634972725929" />
+  </component>
+</project>

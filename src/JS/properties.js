@@ -1,19 +1,20 @@
+import { getConnection } from "./connection";
 
 
-export function getTextObj(text){
-  let info = {}
-    if (text && text.replace(/[^A-Za-zА-Яа-яЁё]/gi , "".length >0)) {
-     
-      info.textlength = text.length;
-      info.text = text;
-      info.isNullorEmpty = false;
-    } else {info.isNullorEmpty = true}    
-    return info;
+
+export async function getResponse(e){
+  if(e.target.value){
+  let  response =  await getConnection(e.target.value);
+  if(response){
+    response.suggestions.map(el=> {
+   el.req = e.target.value;
+   el.count= response.suggestions.length;
+   return el;
+
+ })
+ 
+ return response;
   }
-
-  export function getMassChangeClass(mass, strAdd = null,strRemove =null) {
-
-   if(strRemove  !== null && mass.indexOf(strRemove) !==-1 ) {mass= mass.filter(el => el !== strRemove)}
-   strAdd !== null ? mass.push(strAdd) : mass= mass.filter(el => el !== strAdd)
-   return mass;
-    }
+  return null;
+     }
+ }

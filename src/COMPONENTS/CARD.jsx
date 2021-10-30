@@ -1,17 +1,14 @@
 
 import React  from "react";
 
-
-
-function CARD({state,update}) {
+function CARD({state,update,setCardstate,cardstate}) {
     
-    console.log(state)
+   // console.log(state)
+   
      if (state) {
-        const mass = state
+        let mass = state
 
      return  mass.map((obj, num) => 
-
-
      {
             const shortname = obj.value;
             const data = obj.data;
@@ -34,55 +31,93 @@ function CARD({state,update}) {
             else {
                 color = { backgroundColor: "blue" }
             }
-            function setDataReport(i)
+ 
+            const  closeCards= () => { update(null) }
+
+            function setDataReport(key,e) //onClick
             {
-                const Rmass = mass.filter(el=>el.key === i)
-               update(Rmass)
+                 if (e==='X') {return} //если нажата кнопка закрытия окна
+                
+                 // если ни разу не нажимали до этого на подсказку
+                if (cardstate===0) {
+                   mass = mass.filter(el=>el.key ===key)
+                   setCardstate(1) // ставим состояние карты 1 - для работы с ней
+                    update(mass)              
+                    return
+            } 
+                  if (cardstate === 1) {
+                      console.log('Нажали для открытия карточки')
+                      setCardstate(2)
+                      }
+            } 
+
+            function CARDORG () {
+                if (cardstate === 2){
+                 return (
+                 <div className="maincard">
+                     Карточка клиента
+                 </div>
+                 ) 
+                } return null
             }
 
-///////////*****************************************************************/////////////////////////////////////////////////////////////////////////////////////////////
-            return (
-                <div className="card" key={obj.key} 
-                onClick={()=> setDataReport(obj.key)}
-                
-                >
-                    <div className="status " style={color}></div>
-
-
-                    <div className="reqv  lead">
-
-                        &#9885;  {' ИНН: ' + data.inn + ' КПП: ' + (data.kpp ? data.kpp : '-') + ' ОГРН: ' + (data.ogrn ? data.ogrn : '-')} &#9885;
-                    </div>
-                    <div className="orginfo">
-                        <div className="orgname lead">
-                            {shortname}
-                        </div>
-                        <div className="orgform" style={{ ...branchStyle }}>
-                            &#9971;  {
-                                data.branch_type
-                            }
-                        </div>
-
-                        <div className="orgleader">
-                            {
-                                !data.management ? '' : data.management.post.toLowerCase() + ': ' + data.management.name
-                            }
-                        </div>
-
-
-                        <div className="orgaddress monospace lead">
-                            {data.address.unrestricted_value}
-                        </div>
-                        <div className="divider  "> </div>
-                    </div>
-
-                </div>
-            )
-
+            function BTNCLOSE (){
+                if(cardstate >0) return  (
+            <button name="X" className ={'btn cardbtn btn-danger'} onClick={closeCards}  >&times;</button>) 
+         return null;    
         }
 
-        )
-    } else { return ''; }
+///////////*****************************************************************/////////////////////////////////////////////////////////////////////////////////////////////
+         return (
+            
+                 <div className="card" key={obj.key}
+                     onClick={(e) => {
+                         setDataReport(obj.key,e.target.name)
+
+                     }}>
+                     <div className="status " style={color}></div>
+
+
+                     <div className="reqv  lead">
+
+                         &#9885;  {' ИНН: ' + data.inn + ' КПП: ' + (data.kpp ? data.kpp : '-') + ' ОГРН: ' + (data.ogrn ? data.ogrn : '-')} &#9885;
+                     </div>
+                     <div className="orginfo">
+                         <div className="orgname lead">
+                             {shortname}
+                         </div>
+                         <div className="orgform" style={{ ...branchStyle }}>
+                             &#9971;  {
+                                 data.branch_type ? data.branch_type : ''
+                             }
+                         </div>
+
+                         <div className="orgleader">
+                             {
+                                 !data.management ? '' : data.management.post.toLowerCase() + ': ' + data.management.name
+                             }
+                         </div>
+
+
+                         <div className="orgaddress monospace lead">
+                             {data.address.unrestricted_value}
+
+                             <BTNCLOSE />
+                         </div>
+                     </div>
+
+                     <div className="divider  "> </div>
+                     <CARDORG/>
+                 </div>
+                 
+
+
+           
+         )
+     }
+
+     )
+    } else { return null; }
 
 }
 export default CARD;
