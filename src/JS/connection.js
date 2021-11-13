@@ -27,11 +27,17 @@ export async function getConnection(request) {
 export const getResponsePg =  async ( obj
 
 ) => {
+  //'http://localhost:5000/post'
+  //'http://localhost:5000/151'
+  let host =obj.host // `${obj.end_point}`
+  //console.log(host)
   const response =
-     await fetch('http://localhost:5000/post',
+     await fetch(host,
   {
   method: "POST",
-  headers: { "Content-Type": "application/json"},
+  headers: {
+     "Content-Type": "application/json"  
+},
   body:`{
     "fields": "${obj.fields}",
     "scheme": "${obj.scheme}",
@@ -43,7 +49,9 @@ export const getResponsePg =  async ( obj
   ) 
   
  const jsonData= await response.json()
-return jsonData;
+ //console.log(jsonData)
+
+return await jsonData;
 }
 
 export const  getParamsObj = () => {
@@ -51,7 +59,8 @@ export const  getParamsObj = () => {
     fields : "*",
     scheme : "EXTREP_MDM",
     table : "EXTENDEDREPORT",
-    dopSql: "LIMIT 1"
+    dopSql: "LIMIT 1",
+    host:"/post"
     }
 return  obj;
 }

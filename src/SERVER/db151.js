@@ -10,13 +10,14 @@ let conn = {
      
 }
 
+let conn151 = conn
+conn151.host = '10.42.76.151'
 
 
-//  const pool = new  Pool(conn)
+ const pool151 = new  Pool(conn151)
 
-const  pool = new  Pool(conn)
 
- module.exports =pool
+ module.exports = pool151; 
 
  
 

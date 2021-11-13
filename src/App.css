@@ -14,7 +14,7 @@
 .all{
 display:grid;
 position: relative;
-grid-template-columns: 50px  minmax(auto,600px)  minmax(auto,600px) 1fr;
+grid-template-columns: auto  minmax(auto,600px)  minmax(auto,600px) minmax(auto,600px) 1fr;
 margin: 0px auto;
 column-gap: 50px;
 }
@@ -200,7 +200,14 @@ padding-bottom: 5px;
 
 
 }
-
+.btnBlock{grid-column: 2;
+    grid-row: 3;
+}
+.btnSrc{
+    height: auto;
+    width:100px;
+   
+}
 .divider{
     grid-column: 2;
     height: 1px;
@@ -223,17 +230,59 @@ padding-bottom: 5px;
 }
 
 
+.menu{
+    grid-row: 2;
+    margin: 25px;
+    padding: 20px 20px;
+    color:white;
+    grid-column: 1;
+    border: 1px dotted grey;
+    height: 200px;
+    min-width: 100px;
+    border-radius: 5px;
+    display: block;
 
-.spcard {
-  
-grid-column: 2;
+   
+
+}
+.menu h6{
+   padding: 10px 10px;
+    color:#BC104B;  
+} 
+.menu >a{
+    text-align: right;
+    text-decoration: none;
+    color:rgb(177, 204, 184);
+    font-size: 14px;
+    word-wrap:break-word;
+}
+
+.menu >a:hover{
+    color:orange;
+}
+
+
+
+.result{
+   
+grid-column: 2/10; 
 grid-row: 2;
+
+display:grid;
+grid-template-columns: auto auto auto auto  2fr ; 
+gap:10px; 
+}
+
+  /*linear-gradient(55deg, rgb(86, 83, 100),rgb(9, 24, 26))
+   linear-gradient(55deg, rgb(125, 113, 180),rgb(9, 24, 26))
+  */
+.form {
+    margin-top: 20px;
 max-width: auto;
-background: linear-gradient(55deg, rgb(36, 33, 56),rgb(9, 24, 26));
+background: linear-gradient(55deg, rgb(79, 59, 29),rgb(9, 24, 26));
 padding: 20px;
-
-min-width:100%;
-
+height: fit-content;
+max-width:500px;
 box-shadow: 1px 2px 2px 2px  black;
 
 }
@@ -245,10 +294,10 @@ box-shadow: 1px 2px 2px 2px  black;
     table-layout: fixed;
     padding: 10px;
     border-collapse: collapse;
-    border: 1px dotted white;
+    border: 1px dotted  rgb(14, 174, 248);
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    box-shadow: 0px 0px 1px 0px grey;
-    color: black;
+    box-shadow: 0px 0px 2px 0px rgb(57, 110, 84);
+ 
 }
 th, td{
    
@@ -262,20 +311,20 @@ th, td{
 
 
 th {
-color:lightyellow;
+color:rgb(243, 237, 204);
 font-size: 10px;
 font-weight: 500;
-border-top: 1px solid grey;
-border-bottom: 1px solid grey;
+border-top: 1px dotted grey;
+border-bottom: 1px dotted grey;
 padding: 3px;
-width: 50%;
+width: 40%;
 }
 
 
 
 tbody td {
     text-align: left;
-    border: 1px solid  grey;
+    border: 1px dotted  grey;
      font-weight: 500;
     color:whitesmoke;
    
@@ -283,21 +332,77 @@ tbody td {
     padding: 3px;
 
   }
-.c_name{
 
-    color:rgb(16, 77, 77);
-    font-family: sans-serif;
-    font-weight: 700;
-    padding: 5px;
-}
+ /*background:radial-gradient(ellipse at top, #d4f0e0, rgb(245, 232, 242));*/
 .lblCard{
 
-background:linear-gradient(45deg, rgb(167, 167, 189),rgb(175, 183, 196));
+background:radial-gradient(ellipse at top, #d1e5da, rgb(183, 194, 219));
+box-shadow:1px 1px 1px 1px black;
+display: grid;
+height: auto;
+grid-template-columns: auto auto 1fr;
+column-gap: 2px;
+
+padding: 10px;
 }
+.lblCard >img {
+ 
+    height: 60px;
+    justify-self: left;
+    align-self: left;
+    grid-column:1;
+    grid-row: 1;
+ }
+
+.c_name{
+
+    color:rgb(87, 74, 54);
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+  margin: 0px;
+justify-self:left ;
+align-self: center;
+
+   grid-column: 2;
+   grid-row: 1;
+}
+.fn {
+    color:rgb(144, 223, 243);
+    font-size: 13px;
+    padding: 15px;
+}
+
+.sh_name{
+    grid-row: 2;
+    grid-column: 1/4;
+    justify-self: left;
+    font-size: 25px;
+    font-weight: 700;
+    color: rgb(108, 92, 194);
+    text-shadow: 1px 1px  black;
+
+    margin: 0;
+}
+ .c_source{
+    grid-row: 3;
+    grid-column: 1;
+    justify-self: left;
+    margin: 0;  
+    align-self: center;
+    font-size: 15px;
+    font-weight: bold;
+    color: rgb(44, 4, 4);
+    font-family: cursive;
+ }
   
 .c_159{
-    background-color: red;
+    background:transparent;
+    width: fit-content;
+    height: fit-content;
     grid-column: 3;
     grid-row: 2;
 }
- pre {color: rgb(61, 11, 83);}
+ pre {color: rgb(238, 233, 240);}
+
+

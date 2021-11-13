@@ -1,10 +1,8 @@
 
 import React  from "react";
 
-function CARD({state,update,setCardstate,cardstate}) {
+function CARD({state,update,setCardstate,cardstate,status,setStatus}) {
     
-   // console.log(state)
-   
      if (state) {
         let mass = state
 
@@ -37,28 +35,76 @@ function CARD({state,update,setCardstate,cardstate}) {
             function setDataReport(key,e) //onClick
             {
                  if (e==='X') {return} //если нажата кнопка закрытия окна
+                 //console.log(cardstate)
                 
                  // если ни разу не нажимали до этого на подсказку
                 if (cardstate===0) {
                    mass = mass.filter(el=>el.key ===key)
                    setCardstate(1) // ставим состояние карты 1 - для работы с ней
-                    update(mass)              
+                    update(mass)
+                               
                     return
             } 
-                  if (cardstate === 1) {
-                      console.log('Нажали для открытия карточки')
-                      setCardstate(2)
-                      }
+                      
             } 
 
-            function CARDORG () {
-                if (cardstate === 2){
+            function BTNSRC () {
+               if(cardstate<1) {return null}
                  return (
-                 <div className="maincard">
-                     Карточка клиента
+                 <div className="btnBlock" style={{"color":"orange"}}>
+                    <button id={"CDI"} className="btn btnSrc btn-primary" onClick={(e)=>clickHanhler(e)}> CDI</button>
+                    <button id = {"159"} className="btn btnSrc btn-primary" onClick={(e)=>clickHanhler(e)}>Внешний контур</button>
+                    <button id ={"151"} className="btn btnSrc btn-primary" onClick={(e)=>clickHanhler(e)}>Продуктив</button>
                  </div>
                  ) 
-                } return null
+     
+            }
+
+            function clickHanhler(e) {
+               
+                if (e.target.id==="159"){(status.S159)? setStatus(prev=>
+                   { 
+                       return {
+                    ...prev,
+                       S159:false
+                    } }) : setStatus(prev=>
+                        { 
+                            return {
+                         ...prev,
+                            S159:true
+                            
+                         } }); setCardstate(2);
+                        return
+                        }
+                        if (e.target.id==="151"){(status.S151)? setStatus(prev=>
+                            { 
+                                return {
+                             ...prev,
+                                S151:false
+                             } }) : setStatus(prev=>
+                                 { 
+                                     return {
+                                  ...prev,
+                                     S151:true
+                                  } }); setCardstate(2);
+                                 return
+                                 }
+                                 if (e.target.id==="CDI"){(status.CDI)? setStatus(prev=>
+                                    { 
+                                        return {
+                                     ...prev,
+                                        CDI:false
+                                     } }) : setStatus(prev=>
+                                         { 
+                                             return {
+                                          ...prev,
+                                            CDI :true
+                                          } }); setCardstate(2);
+                                         return
+                                         }
+               
+               
+                
             }
 
             function BTNCLOSE (){
@@ -73,6 +119,7 @@ function CARD({state,update,setCardstate,cardstate}) {
                  <div className="card" key={obj.key}
                      onClick={(e) => {
                          setDataReport(obj.key,e.target.name)
+    
 
                      }}>
                      <div className="status " style={color}></div>
@@ -105,9 +152,9 @@ function CARD({state,update,setCardstate,cardstate}) {
                              <BTNCLOSE />
                          </div>
                      </div>
-
+                    <BTNSRC/>
                      <div className="divider  "> </div>
-                     <CARDORG/>
+                  
                  </div>
                  
 
