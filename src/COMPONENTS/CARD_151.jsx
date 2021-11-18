@@ -67,7 +67,7 @@ const CARD_151 = (props) => {
                     <GETTABLE funcGetRows={getMassForm("151",'OSN',mainForm)}
                         style={
                             {
-                                tclass: "maininfo",
+                                tclass: ["maininfo"],
                                 captionStyle: { "color": "white", "alignText": "center" }
                             }
                         }
@@ -77,7 +77,7 @@ const CARD_151 = (props) => {
                                 <GETTABLE funcGetRows={getMassForm("151",'CONT',mainForm)}
                         style={
                             {
-                                tclass: "maininfo",
+                                tclass: ["maininfo"],
                                 captionStyle: { "color": "white", "alignText": "center", }
                             }
                         }

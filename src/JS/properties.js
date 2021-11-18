@@ -1,5 +1,6 @@
 import { getConnection } from "./connection";
 import { getOBJpublic } from "./MAPPING_SQL";
+import React,{Fragment} from "react";
 
 
 export async function getResponse(e){
@@ -19,7 +20,7 @@ export async function getResponse(e){
      }
  }
 
- export function getRows(mass) {
+ export function getRows(mass = []) {
   let masshttp = []
   
 
@@ -34,6 +35,29 @@ export async function getResponse(e){
           )
   } return masshttp
 }
+export function getMassRows(mass = [] ,ishead = true) {
+  let m = []
+    mass.forEach((el,i) => {
+    m.push(
+    <Fragment key={i}>
+    <tr key={i} style={{ }}>
+      {
+      [...el.map((el,x) => {
+        return (
+     <Fragment key={x}>
+            { i===0 && ishead?
+            <th key={x} style={{ }}>{el}</th> :
+            <td key={x} style={{  }}>{el}</td>
+            }
+      </Fragment>
+        )})]}
+    </tr>
+    </Fragment>
+    )
+  }
+  )
+  return m
+}
 
  export function getMassForm (server = "159",form = "OSN",mainForm = getOBJpublic()){
   let mass = []
@@ -44,9 +68,12 @@ export async function getResponse(e){
   if(server === "151"){mass.push([mainForm.full_name.name, mainForm.full_name.value, 'OSN',{"color":"lightgreen", "fontSize": "16px","fontWeight":"700" ,"padding":"10px"}])}
   if(server === "159"){mass.push([mainForm.full_name.name, mainForm.full_name.value, 'OSN',{"color":"gold", "fontSize": "16px","fontWeight":"700" ,"padding":"10px"}])}
    
-   
+  
   mass.push([mainForm.name_eng.name, mainForm.name_eng.value, 'OSN',{}])
-  mass.push([mainForm.date_first_reg.name, mainForm.date_first_reg.value, 'OSN', {}])
+  mass.push([mainForm.date_first_reg.name,
+  mainForm.massRegistr && mainForm.massRegistr.regdate 
+  && !isNaN(Date.parse(mainForm.massRegistr[1].regdate))
+  ? new Date(mainForm.massRegistr[0].regdate).toLocaleDateString():'', 'OSN', {}])
   mass.push([mainForm.ogrn.name, mainForm.ogrn.value, 'OSN', {}])
   mass.push([mainForm.inn.name, mainForm.inn.value, 'OSN', {}])
   mass.push([mainForm.kpp.name, mainForm.kpp.value, 'OSN', {}])

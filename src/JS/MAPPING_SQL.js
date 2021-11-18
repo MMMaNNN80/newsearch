@@ -8,7 +8,7 @@ export const getMainform = async (obj) => {
             
                 let objX = mass[0].f_getforms; // такое название объекта по имени процедуры
             
-                console.log("запрос к данным 159")
+                //console.log("запрос к данным 159")
           
             
                 //MAPPING с источника
@@ -55,6 +55,20 @@ export const getMainform = async (obj) => {
                   // --Финансовая информация
                 mainForm.massFinPok = objX.filter((el)=>el.src==='FinPok')
                //console.log(mainForm)
+
+               // Регистрация
+               mainForm.massRegistr = objX.filter((el)=>el.src==='REGISTR')
+               // Фонды
+               mainForm.massFonds = objX.filter((el)=>el.src==='FONDS')
+               mainForm.massAddrHis = objX.filter((el)=>el.src==='ADDRESS_HIS')
+               mainForm.massSUCCSPRED= objX.filter((el)=>el.src==='PREDSHESTV')
+               mainForm.massLeadersHis= objX.filter((el)=>el.src==='LEADER_HIS')
+               mainForm.massCOWSEGRUL= objX.filter((el)=>el.src==='EGRUL_COW')
+               mainForm.massCOWSROSSTAT= objX.filter((el)=>el.src==='ROSSTAT_COWS')
+          
+               
+
+            
     })
     localStorage.setItem('159',JSON.stringify(mainForm))
 
@@ -113,7 +127,7 @@ export function getOBJpublic () {
      regauthorityFNS:{name:  'ФНС по месту регистрации', value: ''},
      regauthorityaddress:{name:  'Адрес ФНС по месту регистрации', value: ''},
      report_id: {name:  'Идентификатор отчета на 159 сервере', value: ''},
-     rosstat_report_id: {name:  'Идентификатор отчета в Росстат на 159 сервере', value: ''}  
+     rosstat_report_id: {name:  'Идентификатор отчета в Росстат на 159 сервере', value: ''},
      
 }
 // if (src ==="FinPok"){

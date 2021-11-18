@@ -231,14 +231,14 @@ padding-bottom: 5px;
 
 
 .menu{
-    grid-row: 2;
+    grid-row: 1;
     margin: 25px;
     padding: 20px 20px;
     color:white;
     grid-column: 1;
     border: 1px dotted grey;
-    height: 200px;
-    min-width: 100px;
+    height: 500px;
+    min-width: 150px;
     border-radius: 5px;
     display: block;
 
@@ -246,26 +246,33 @@ padding-bottom: 5px;
 
 }
 .menu h6{
-   padding: 10px 10px;
+   padding:  0px 10px;
     color:#BC104B;  
 } 
 .menu >a{
     text-align: right;
     text-decoration: none;
     color:rgb(177, 204, 184);
-    font-size: 14px;
+    font-size: 10px;
     word-wrap:break-word;
 }
-
+.menu .navdiv {
+    color:#9e8bca;
+    padding-top: 10px;
+    padding-bottom: 5px;
+    font-size: 12px; 
+}
 .menu >a:hover{
     color:orange;
 }
 
-
+.menu .active {
+    color:orange;
+}
 
 .result{
    
-grid-column: 2/10; 
+grid-column: 1/10; 
 grid-row: 2;
 
 display:grid;
@@ -277,12 +284,14 @@ gap:10px;
    linear-gradient(55deg, rgb(125, 113, 180),rgb(9, 24, 26))
   */
 .form {
+
     margin-top: 20px;
 max-width: auto;
 background: linear-gradient(55deg, rgb(79, 59, 29),rgb(9, 24, 26));
 padding: 20px;
-height: fit-content;
-max-width:500px;
+
+min-height: 500px;
+max-width:600px;
 box-shadow: 1px 2px 2px 2px  black;
 
 }
@@ -405,4 +414,49 @@ align-self: center;
 }
  pre {color: rgb(238, 233, 240);}
 
+.mtbl {
+ 
+    background:radial-gradient(ellipse at top, #144042, rgb(30, 51, 82));
 
+}
+
+.mtbl tbody td {
+    font-size: 10px;
+   
+}
+.mtbl a {
+text-decoration: none;
+
+
+}
+.mtbl th {
+    font-size: 9px;
+}
+
+.fondtb {
+    
+   background:radial-gradient(ellipse at top, #2e4b83, rgb(43, 43, 92));
+   width: 100%;
+   border-collapse: collapse;
+   font-size: 10px;
+}
+.fondtb tbody {
+   display: table;
+   table-layout: fixed;
+ 
+}
+
+.fondtb  th {
+    color:rgb(207, 226, 137);
+    padding: 10px;
+    }
+.fondtb tbody th:nthchild(1) {width: 15%;} 
+.fondtb  th:nth-child(2) {width: 85%;}              
+.okvosn  th:nth-child(1) {width: 5%;} 
+.Empty {color:white ;font-size: 8px;opacity: 0.5;}
+.quadr {
+    height: 8px;
+    width: 8px;
+    background-color: lime;
+    margin-right: 5px;
+}

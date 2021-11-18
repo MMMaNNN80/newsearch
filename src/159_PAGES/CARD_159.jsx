@@ -1,46 +1,25 @@
-import React,{ useRef,useState} from 'react'
-import {getMainform,getOBJpublic} from '../JS/MAPPING_SQL'
-import { getMassForm,getParamsObj} from "../JS/properties"
+import React,{ useMemo,useState} from 'react'
+import {getOBJpublic} from '../JS/MAPPING_SQL'
+import { getMassForm} from "../JS/properties"
+import { render } from '../JS/connection'
 import GETTABLE from '../COMPONENTS/GETTABLE'
-
 
 const CARD_159 = (props) => {
 
-const [mainForm, setMainform] = useState(()=>getOBJpublic())
-
-
-//const refMainForm = mainForm
    
- 
-    const ref = useRef(true);
-   if (ref.current )  { render()  }
+const [mainForm, setMainform] = useState(()=>getOBJpublic())
+let inn = null
 
+if (props.objState && props.objState[0].data ) {inn = props.objState[0].data.inn}
 
-     async function  render () {
+const cardstate = props.cardstate
 
-            ref.current = false;
-            let obj =  getParamsObj()
-            obj.inn = props.objState[0].data.inn
-            obj.fields = "*"
-            obj.table = `f_getforms('${props.objState[0].data.inn}')`
-            obj.host = '/159'
-            
-             await getMainform(obj).then(
-                data=>{
-                    
-                    setMainform (prev=> {return{ ...prev, ...data}})
-                })
-           
-            
-     }
-         
-        // console.log(mainForm,refMainForm)
-     
-
-
-
-
-
+const result = useMemo(()=>{
+     if (inn && cardstate===2) {
+    return render(inn).then( data=>{
+        setMainform (prev=> {return{ ...prev, ...data}})
+    })} },[inn,cardstate])
+    if(result&& cardstate===2) {
     return (
         <div className="form" style={{"background":"linear-gradient(55deg, rgb(25, 23, 100),rgb(1, 60, 26))"}} >
             <div className="spcard">
@@ -54,8 +33,8 @@ const [mainForm, setMainform] = useState(()=>getOBJpublic())
                     <GETTABLE funcGetRows={getMassForm("159",'OSN',mainForm)}
                         style={
                             {
-                                tclass: "maininfo",
-                                captionStyle: { "color": "cyan", "alignText": "center" }
+                                tclass: ["maininfo"],
+                                captionStyle: { "color": "lightgrey", "alignText": "center" }
                             }
                         }
                         name={"Основная информация:"}
@@ -64,8 +43,8 @@ const [mainForm, setMainform] = useState(()=>getOBJpublic())
                                 <GETTABLE funcGetRows={getMassForm("159",'CONT',mainForm)}
                         style={
                             {
-                                tclass: "maininfo",
-                                captionStyle: { "color": "cyan", "alignText": "center", }
+                                tclass: ["maininfo"],
+                                captionStyle: { "color": "lightgrey", "alignText": "center", }
                             }
                         }
                         name={"Контакты:"}
@@ -77,6 +56,7 @@ const [mainForm, setMainform] = useState(()=>getOBJpublic())
         </div>
 
     )
+} else {return null;}                 
 
 }
 export default CARD_159;
