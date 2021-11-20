@@ -24,10 +24,12 @@ function SEARCHSTRING(props) {
                                 , fontWeight: '500'
                                 , letterSpacing: '1px'
                             })
+                            
                     }
-                    else { setinputStyle() }
-                    ;
-                    props.objState.setCardstate(0);
+                    else { setinputStyle() };
+                  props.objState.setCardstate(0);
+                  props.objState.clearStatus()
+               
                     setSuggestions(e);
                 }
                 }

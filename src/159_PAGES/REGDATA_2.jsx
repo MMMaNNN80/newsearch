@@ -3,12 +3,12 @@ import GETTABLE from "../COMPONENTS/GETTABLE";
 import { getRows, getMassRows } from "../JS/properties";
 
 
-const REGDATA = () => {
-  let mainForm = JSON.parse(localStorage.getItem('159'))
-  // console.log(mainForm)
-  //'dataport_id','ogrn',"inn",'kpp',
-  // правки вывода полей
-  mainForm.okfs.value = mainForm.okfs_code.value
+
+const REGDATA = (props) => {
+
+const mainForm = props.mainForm
+
+mainForm.okfs.value = mainForm.okfs_code.value
     + '-' + mainForm.okfs.value
   //mainForm.okfs.style = {}
 
@@ -21,8 +21,6 @@ const REGDATA = () => {
   ], 'REG_1', mainForm).filter(el => el[1])
 
   // сделали массив 1 таблицы
-
-
   function getmass(mass, table_name, mainForm) {
     let mass_ = []
     mass.forEach(el => {

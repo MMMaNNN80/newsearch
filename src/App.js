@@ -1,6 +1,6 @@
 
 import './App.css';
-import { useState } from 'react'
+import {useState } from 'react'
 import HEAD from './COMPONENTS/HEAD';
 import SEARCHSTRING from "./COMPONENTS/SEARCHSTRING";
 import CARD from "./COMPONENTS/CARD"
@@ -8,12 +8,12 @@ import CDI_CARD from './COMPONENTS/CDI_DATA';
 import CARD_151 from './COMPONENTS/CARD_151';
 import NAVLINKS from './NAVIGATIONS/NAVLINKS'
 import ROUTERS from './NAVIGATIONS/ROUTERS';
-
-
+import { getOBJpublic } from './JS/MAPPING_SQL';
+import { render } from './JS/connection';
 
 function App() {
-
-  const [state, setState] = useState('');
+  const [mainForm, setMainform] = useState(()=>getOBJpublic())
+  const [state, setState] = useState(null);
   const [cardstate, setCardstate] = useState(0);
   const [status, setStatus] = useState(
     {
@@ -29,10 +29,29 @@ function App() {
     state: state,
     setCardstate: x => setCardstate(x)
     ,cardstate: cardstate
+    ,clearStatus: () =>setStatus({    
+      S151: false,
+      S159: false,
+      CDI: false})
   }
+
+const inn = (state  &&  cardstate===2)? state[0].data.inn:null
+
+
+
+async function result (inn) {
+   if (inn){ render(inn).then( data=>{setMainform (
+      prev=> {return { ...prev, ...data}})})}}
+      
+      if(state &&  cardstate===2 && mainForm.inn.value!==inn)  
+      {
+        result(inn)
+      }
+  
+
+
   return (
     <div className="App bg-dark border-danger h6 mr-5">
-
       <div className={'all'}>
         <div className={'fix'}>
 
@@ -41,14 +60,20 @@ function App() {
         </div>
         <div className={"cards"}>
           <CARD
-            state={objState.state} update={objState.update}
-            setCardstate={objState.setCardstate} cardstate={objState.cardstate}
-            setStatus={setStatus} status={status}
+            state={objState.state} 
+            update={objState.update}
+            setCardstate={objState.setCardstate} cardstate={cardstate}
+            setStatus={setStatus}
+             status={status}
           />
         </div>
+
         <div className={"result"}>
-          <NAVLINKS />
-          <ROUTERS status={status} objState={state} cardstate={cardstate} state={state} />
+          {state && cardstate ?
+           <ROUTERS mainForm={mainForm} 
+          result={result} state={state} status={status} cardstate={cardstate} /> : null}
+          {state && cardstate === 2 ? <NAVLINKS state={state} cardstate={cardstate} /> : null}
+
           {state && status.CDI && cardstate === 2 ? <CDI_CARD objState={state} /> : ''}
           {state && status.S151 && cardstate === 2 ? <CARD_151 objState={state} /> : ''}
         </div>

@@ -7,7 +7,7 @@ import { getMassRows } from "../../../JS/properties";
 
 const ROSSTAT_IN_COWNERS = (props) => {
     const mainForm = props.mainForm
-    if (!mainForm) { return null }
+    if (!mainForm || mainForm.massCOWSROSSTAT) { return null }
 
     //mainForm.okfs.style = {}
 

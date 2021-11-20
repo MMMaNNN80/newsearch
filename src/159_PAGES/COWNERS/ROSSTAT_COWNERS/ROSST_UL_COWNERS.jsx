@@ -8,11 +8,7 @@ import { getMassRows } from "../../../JS/properties";
 
 const ROSSTAT_UL_COWNERS = (props) => {
     const mainForm = props.mainForm
-    if (!mainForm) { return null }
-
-    //mainForm.okfs.style = {}
-
-    //console.log(mainForm.massCOWSROSSTAT)
+    if (!mainForm || mainForm.massCOWSROSSTAT) { return null }
 
     function getCompany(inn) {
         alert(inn)

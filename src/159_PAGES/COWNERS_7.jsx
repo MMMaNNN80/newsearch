@@ -9,7 +9,9 @@ import ROSSTAT_IN_COWNERS from "./COWNERS/ROSSTAT_COWNERS/ROSST_IN_COWNERS"
 
 
 const COWNERS = (props) => {
-  let mainForm = JSON.parse(localStorage.getItem('159'))
+  //let mainForm = JSON.parse(localStorage.getItem('159'))
+  
+const mainForm = props.mainForm
   if (!mainForm) { return null }
 
 

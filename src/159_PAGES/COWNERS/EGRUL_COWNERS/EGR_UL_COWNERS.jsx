@@ -9,7 +9,7 @@ import { getMassRows } from "../../../JS/properties";
 
 const EGRUL_UL_COWNERS = (props) => {
     const mainForm = props.mainForm
-    if (!mainForm) { return null }
+    if (!mainForm || !mainForm.massCOWSEGRUL) { return null }
    
     //mainForm.okfs.style = {}
 
@@ -25,7 +25,9 @@ const EGRUL_UL_COWNERS = (props) => {
     let head
      
     //ЮЛ
-     mass = mainForm.massCOWSEGRUL.filter(el => el.coowner_type === "0")
+    if(!mainForm.massCOWSEGRUL) {return null}
+    mass = mainForm.massCOWSEGRUL.filter(el => el.coowner_type === "0")
+     
 
      if (mass.length > 0){
       head = ["Наименование организации", 

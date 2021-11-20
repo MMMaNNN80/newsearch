@@ -9,7 +9,7 @@ import { getMassRows } from "../../../JS/properties";
 
 const EGRUL_FL_COWNERS = (props) => {
     const mainForm = props.mainForm
-    if (!mainForm) { return null }
+    if (!mainForm || !mainForm.massCOWSEGRUL) { return null }
    
     //mainForm.okfs.style = {}
 
@@ -21,7 +21,6 @@ const EGRUL_FL_COWNERS = (props) => {
 
     let massCowsFL = [] //Физ лица
 
- if (mainForm.massCOWSEGRUL) {
         let head = ["ФИО", "ИНН", "Доля,%   ", "Доля,руб   ", "ГРН сведения"]
         let mass = []
         mass = mainForm.massCOWSEGRUL.filter(el => el.coowner_type === "2")
@@ -41,7 +40,7 @@ const EGRUL_FL_COWNERS = (props) => {
                         el.share_part_grn + ' от ' + el.share_part_grn_date : "-"]
                 )
             })
-        };}
+        };
 
 
         return (

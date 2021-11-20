@@ -1,25 +1,10 @@
-import React,{ useMemo,useState} from 'react'
-import {getOBJpublic} from '../JS/MAPPING_SQL'
+import React, {  } from 'react'
 import { getMassForm} from "../JS/properties"
-import { render } from '../JS/connection'
 import GETTABLE from '../COMPONENTS/GETTABLE'
 
-const CARD_159 = (props) => {
+const CARD_159 = ({mainForm,cardstate}) => {
 
-   
-const [mainForm, setMainform] = useState(()=>getOBJpublic())
-let inn = null
-
-if (props.objState && props.objState[0].data ) {inn = props.objState[0].data.inn}
-
-const cardstate = props.cardstate
-
-const result = useMemo(()=>{
-     if (inn && cardstate===2) {
-    return render(inn).then( data=>{
-        setMainform (prev=> {return{ ...prev, ...data}})
-    })} },[inn,cardstate])
-    if(result&& cardstate===2) {
+ if(cardstate===2) {
     return (
         <div className="form" style={{"background":"linear-gradient(55deg, rgb(25, 23, 100),rgb(1, 60, 26))"}} >
             <div className="spcard">
@@ -48,7 +33,6 @@ const result = useMemo(()=>{
                             }
                         }
                         name={"Контакты:"}
-
                     />
 
                 </div>

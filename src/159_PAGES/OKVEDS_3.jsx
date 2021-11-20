@@ -2,9 +2,10 @@ import React, { Fragment } from "react";
 import GETTABLE from "../COMPONENTS/GETTABLE";
 import { getMassRows} from "../JS/properties";
 
-const OKVEDS = () => {
-  let mainForm = JSON.parse(localStorage.getItem('159'))
+const OKVEDS = (props) => {
+  //let mainForm = JSON.parse(localStorage.getItem('159'))
  
+const mainForm = props.mainForm
   let massOkvedsOsn =[]
  let massOkveds = []
   if (mainForm.massOkved) {

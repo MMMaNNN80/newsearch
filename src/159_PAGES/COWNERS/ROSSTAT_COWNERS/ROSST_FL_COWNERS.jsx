@@ -8,17 +8,8 @@ import { getMassRows } from "../../../JS/properties";
 
 const ROSSTAT_FL_COWNERS = (props) => {
     const mainForm = props.mainForm
-    if (!mainForm) { return null }
-
-    //mainForm.okfs.style = {}
-
-  //  console.log(mainForm.massCOWSROSSTAT)
-
-
-
+    if (!mainForm || !mainForm.massCOWSROSSTAT) { return null }
     let massCowsFL = [] //Физ лица
-
-
 
     if (mainForm.massCOWSROSSTAT) {
         let head = ["Наименование", "ОКПО", "Доля,%", "Доля,руб", "Актуально на дату"]
@@ -40,8 +31,6 @@ const ROSSTAT_FL_COWNERS = (props) => {
             })
         };
     }
-
-
     return (
         <Fragment>
             {massCowsFL.length > 0 ? <GETTABLE funcGetRows={[...getMassRows(massCowsFL)]}  //Регистрационные данные

@@ -6,7 +6,9 @@ import {getMassRows} from "../JS/properties";
 
 
 const LEADERS = (props) => {
-  let mainForm = JSON.parse(localStorage.getItem('159'))
+  //let mainForm = JSON.parse(localStorage.getItem('159'))
+  
+const mainForm = props.mainForm
  if (!mainForm) {return null} 
  
   //mainForm.okfs.style = {}

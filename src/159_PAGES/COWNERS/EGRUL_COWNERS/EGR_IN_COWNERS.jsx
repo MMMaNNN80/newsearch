@@ -6,7 +6,7 @@ import { getMassRows } from "../../../JS/properties";
 
 const EGRUL_IN_COWNERS = (props) => {
   const mainForm = props.mainForm
-  if (!mainForm) { return null }
+  if (!mainForm || !mainForm.massCOWSEGRUL) { return null }
 
   let massCowsINUL = [] //Иностранные юридические лица
 
