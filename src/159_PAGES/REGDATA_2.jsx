@@ -8,8 +8,7 @@ const REGDATA = (props) => {
 
 const mainForm = props.mainForm
 
-mainForm.okfs.value = mainForm.okfs_code.value
-    + '-' + mainForm.okfs.value
+mainForm.okfs_ism = {value : mainForm.okfs_code.value + '-' + mainForm.okfs.value, name: "ОКФС"} 
   //mainForm.okfs.style = {}
 
   mainForm.okogu_code.name = "ОКОГУ"
@@ -17,7 +16,7 @@ mainForm.okfs.value = mainForm.okfs_code.value
     'dataport_id', 'short_name',
     "inn", 'kpp', 'ogrn', 'okpo'
     , 'okopf', 'okogu_code'
-    , 'okfs', 'oktmo'
+    , 'okfs_ism', 'oktmo'
   ], 'REG_1', mainForm).filter(el => el[1])
 
   // сделали массив 1 таблицы

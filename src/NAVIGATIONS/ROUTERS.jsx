@@ -5,11 +5,13 @@ import CONTACTS_DATA from '../159_PAGES/CONTACTS_DATA_4';
 import CHANGES_COMP from '../159_PAGES/CHANGES_COMP_5';
 import LEADERS from '../159_PAGES/LEADERS_6';
 import COWNERS from '../159_PAGES/COWNERS_7';
+import STRUCTURE_OPEN from '../159_PAGES/STRUCTURE_OPEN_8/STRUCTURE_OPEN_8';
 
 import { 
     Route,
     Routes,
   } from "react-router-dom";
+
 
 
 const ROUTERS = (props) =>{
@@ -30,6 +32,7 @@ const ROUTERS = (props) =>{
                 <Route path="/changescompany/:inn" element={props.state &&props.status.S159 ? <CHANGES_COMP mainForm={props.mainForm} /> : ''} />
                 <Route path="/leaders/:inn" element={props.state &&props.status.S159 ? <LEADERS mainForm={props.mainForm} /> : ''} />
                 <Route path="/cowners/:inn" element={props.state &&props.status.S159 ? <COWNERS mainForm={props.mainForm} /> : ''} />
+                <Route path="/openstruct/:inn" element={props.state &&props.status.S159 ? <STRUCTURE_OPEN mainForm={props.mainForm} /> : ''} />
                 <Route path="*" element={<CARD_159 mainForm={props.mainForm} cardstate={props.cardstate}  />} />
             </Routes>
         </>

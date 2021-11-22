@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router';
 import '../App.css';
 
 import { getResponse } from '../JS/properties'
 
 function SEARCHSTRING(props) {
     const [inputStyle, setinputStyle] = useState([]);
+    let navigate= useNavigate()
 
     //suggestions
     const setSuggestions = async (e) => {
@@ -17,6 +19,7 @@ function SEARCHSTRING(props) {
             <input type="text" name="searchstr" style={{ ...inputStyle }}
                 placeholder={'Введите поисковый запрос'}
                 onChange={(e) => {
+                    navigate('/') 
                     if (e.target.value.length > 0) {
                         setinputStyle(
                             {

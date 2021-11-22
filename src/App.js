@@ -11,6 +11,7 @@ import ROUTERS from './NAVIGATIONS/ROUTERS';
 import { getOBJpublic } from './JS/MAPPING_SQL';
 import { render } from './JS/connection';
 
+
 function App() {
   const [mainForm, setMainform] = useState(()=>getOBJpublic())
   const [state, setState] = useState(null);
@@ -22,7 +23,9 @@ function App() {
       CDI: false,
     })
 
-  let objState = {
+
+
+  const objState = {
     update: function (state) {
     setState(state)
     },
@@ -72,7 +75,7 @@ async function result (inn) {
           {state && cardstate ?
            <ROUTERS mainForm={mainForm} 
           result={result} state={state} status={status} cardstate={cardstate} /> : null}
-          {state && cardstate === 2 ? <NAVLINKS state={state} cardstate={cardstate} /> : null}
+          {state && cardstate === 2 ? <NAVLINKS   state={state} cardstate={cardstate} /> : null}
 
           {state && status.CDI && cardstate === 2 ? <CDI_CARD objState={state} /> : ''}
           {state && status.S151 && cardstate === 2 ? <CARD_151 objState={state} /> : ''}

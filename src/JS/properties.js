@@ -46,8 +46,8 @@ export function getMassRows(mass = [] ,ishead = true) {
         return (
      <Fragment key={x}>
             { i===0 && ishead?
-            <th key={x} style={{ }}>{el}</th> :
-            <td key={x} style={{  }}>{el}</td>
+            <th  key={x} style={{alignText:"left"}}>{el}</th> :
+            <td key={x} style={{ }}>{el}</td>
             }
       </Fragment>
         )})]}
