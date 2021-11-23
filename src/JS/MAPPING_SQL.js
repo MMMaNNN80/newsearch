@@ -66,7 +66,7 @@ export const getMainform = async (obj) => {
                mainForm.massCOWSEGRUL= objX.filter((el)=>el.src==='EGRUL_COW')
                mainForm.massCOWSROSSTAT= objX.filter((el)=>el.src==='ROSSTAT_COWS')
                mainForm.massBranchesEgrul = objX.filter((el)=>el.src==='BRANCHES_EGRUL')
-          
+               mainForm.massBranchesRosstat = objX.filter((el)=>el.src==='BRANCHES_ROSSTAT')
                
 
             

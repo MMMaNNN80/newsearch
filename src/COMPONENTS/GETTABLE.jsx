@@ -5,7 +5,6 @@ function GETTABLE(props) {
         <Fragment>
             <table className={[...props.style.tclass]} onClick = {props.onClick}>
                 <caption align="top" style={props.style.captionStyle}> {props.name}</caption>
-                
                 <tbody>
                     {[...props.funcGetRows]}
                 </tbody>

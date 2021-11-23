@@ -79,6 +79,7 @@ mainForm.okfs_ism = {value : mainForm.okfs_code.value + '-' + mainForm.okfs.valu
 
 
 
+
             <GETTABLE funcGetRows={[...getRows(mass)]}  //Регистрационные данные
               style={{
                 tclass: ["mtbl"],
@@ -93,7 +94,8 @@ mainForm.okfs_ism = {value : mainForm.okfs_code.value + '-' + mainForm.okfs.valu
               }}
               name={"Сведения о государственной регистрации"} /> <br />
 
-            <GETTABLE funcGetRows={[...getMassRows(massFonds)]}  //Регистрационные данные
+
+<GETTABLE funcGetRows={[...getMassRows(massFonds)]}  //Регистрационные данные
               style={{
                 tclass: ["mtbl"],
                 captionStyle: { "paddingBottom": "10px", "color": "lightblue", "alignText": "center", "fontSize": "12px" }

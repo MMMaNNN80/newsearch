@@ -1,5 +1,5 @@
 import { getMainform } from './MAPPING_SQL';
-import { getParamsObj } from './properties';
+
 const href = 'http://10.42.108.144:8080/suggestions/api/4_1/rs/suggest/party';
 
 export async function getConnection(request) {
@@ -56,12 +56,8 @@ export const getResponsePg =  async ( obj
 return await jsonData;
 }
 
-export async function  render (inn) {
-  let obj =  getParamsObj()
-  obj.inn = inn
-  obj.fields = "*"
-  obj.table = `f_getforms('${inn}')`
-  obj.host = '/159'
+export async function  render (obj) {
+
   console.log('загружаем данные с БД')
   return await getMainform(obj)
 }

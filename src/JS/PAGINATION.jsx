@@ -10,8 +10,8 @@ for (let i = 1; i <= Math.ceil(totalItems/perCountPages); i++) {
     }
     return (
         <Fragment>
-            <div className="pag_div" style={{ fontSize: '8px', marginTop: '10px'}}>
-                <ul className="pagination">
+            <div className="pag_div" style={{display:"block",fontSize: '8px', marginTop: '10px'}}>
+                <ul className="pagination" style={{display:"flex",overflowX:"auto" }}>
                     {
                         pageNumbers.map(number => {
                             return (

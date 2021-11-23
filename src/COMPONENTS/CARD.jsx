@@ -122,7 +122,10 @@ function CARD({ state, update, setCardstate, cardstate, status, setStatus }) {
 
                         <div className="orgleader">
                             {
-                                !data.management ? '' : data.management.post.toLowerCase() + ': ' + data.management.name
+                                !data.management ?
+                                 '' : data.management.post
+                                  ? data.management.post.toLowerCase() + ' : ' + data.management.name ? data.management.name:''  :'' 
+                                  
                             }
                         </div>
 
