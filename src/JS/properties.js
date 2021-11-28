@@ -102,9 +102,7 @@ export function getMassRows(mass = [] ,ishead = true) {
   return mass   // 
 }
 
-
-
- export const  getParamsObj = () => {
+export const  getParamsObj = () => {
   const obj = {
     fields : "*",
     scheme : "EXTREP_MDM",
@@ -113,6 +111,17 @@ export function getMassRows(mass = [] ,ishead = true) {
     host:"/post"
     }
 return  obj;
+}
+
+export const getEmpty = (text) =>{
+  return (
+    <>
+    <div 
+   style={{color:'white',fontSize:"12px"
+   ,marginTop:'10px', opacity: '0.7'
+  ,textAlign:"center"}}>{text}</div>
+    </>
+  )
 }
 
 

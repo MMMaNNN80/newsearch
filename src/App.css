@@ -237,7 +237,7 @@ padding-bottom: 5px;
     color:white;
     grid-column: 1;
     border: 1px dotted grey;
-    max-height: 350px;
+    max-height: 500px;
     min-width: 180px;
     border-radius: 5px;
   
@@ -288,7 +288,7 @@ gap:10px;
 margin-top: 20px;
 background: linear-gradient(55deg, rgb(79, 59, 29),rgb(9, 24, 26));
 padding: 20px;
-width: 600px;
+width: 700px;
 box-shadow: 1px 2px 2px 2px  black;
 max-height:min-content ;
 min-height: 600px;
@@ -362,9 +362,9 @@ padding: 10px;
     grid-row: 1;
  }
 
-.c_name{
 
-    color:rgb(87, 74, 54);
+.c_name{
+   color:rgb(87, 74, 54);
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     font-weight: 700;
     font-size: 12px;
@@ -414,22 +414,30 @@ align-self: center;
  pre {color: rgb(238, 233, 240);}
 
 .mtbl {
-    background:radial-gradient(ellipse at top, #144042, rgb(30, 51, 82));
+    background:radial-gradient(ellipse at top, #022418, rgb(10, 64, 146));
    width: 100%;
+   
+  
+
 }
 
 .mtbl tbody  {
-  
-    width: 100%;
-    
+    width: 100%;   
+}
+
+.mtbl th {
+    font-size: 10px;
+    text-align: left;
+    width:min-content;
 }
 
 
 .mtbl tbody td {
     
-    font-size: 10px;
-  position: relative;
-  height: min-content
+  font-size: 10px;
+  color:rgb(149, 235, 241)
+  
+
    
 }
 .mtbl a {
@@ -437,18 +445,9 @@ text-decoration: none;
 }
 .tblcolorhead th {
     height: 30px;
-    background: #346892;
+    background: rgb(21, 78, 105);
 }
 
-.mtbl th {
-    font-size: 12px;
- 
-   
-     display: flexbox;
-     text-align: left;
-    width: min-content;
-     
-}
 
 
 .fondtb {
@@ -478,3 +477,32 @@ text-decoration: none;
     background-color: lime;
     margin-right: 5px;
 }
+.endreport{
+background-color: rgb(21, 78, 105);
+text-align: center;
+height: auto;
+opacity: 0.9;
+}
+.endreport:hover {
+   box-shadow: 1px 0px 0px 0px orange;
+    
+}
+
+    
+.fz44 td{
+    padding: 2px; 
+  }
+  .fz44 th{
+    padding: 2px; 
+    width: min-content;
+    word-wrap: break-word;
+    white-space:normal;
+  }
+  .graf_44 {
+    background: radial-gradient(ellipse at top, #77215d, rgb(233, 143, 110));
+     
+ }
+ .graf_223 {
+    background: radial-gradient(ellipse at top, #aea7ce, rgb(200, 200, 252));
+     
+ }

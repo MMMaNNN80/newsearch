@@ -2,6 +2,7 @@
 import React, { Fragment } from "react";
 import GETTABLE from "../../../COMPONENTS/GETTABLE";
 import { getMassRows } from "../../../JS/properties";
+import { getEmpty } from "../../../JS/properties";
 
 
 
@@ -38,7 +39,8 @@ const ROSSTAT_FL_COWNERS = (props) => {
                     tclass: ["mtbl"],
                     captionStyle: { "color": "lightblue", "alignText": "center", "fontSize": "12px" }
                 }}
-                name={"Физические лица в структуре совладения (Росстат)"} /> : null}
+                name={"Физические лица в структуре совладения (Росстат)"} /> : 
+                getEmpty('Нет данных по совладению физическими лицами')}
         </Fragment>
     )
 }

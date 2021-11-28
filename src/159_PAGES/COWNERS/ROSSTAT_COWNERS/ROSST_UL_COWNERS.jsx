@@ -3,12 +3,15 @@ import React, { Fragment } from "react";
 import GETTABLE from "../../../COMPONENTS/GETTABLE";
 import { getMassRows } from "../../../JS/properties";
  import { Link } from "react-router-dom";
+ import { getEmpty } from "../../../JS/properties";
 
 
 
 const ROSSTAT_UL_COWNERS = (props) => {
+    
     const mainForm = props.mainForm
-    if (!mainForm || mainForm.massCOWSROSSTAT) { return null }
+
+    if (!mainForm || !mainForm.massCOWSROSSTAT ) { return null }
 
     function getCompany(inn) {
         alert(inn)
@@ -49,7 +52,9 @@ const ROSSTAT_UL_COWNERS = (props) => {
                     tclass: ["mtbl"],
                     captionStyle: { "color": "lightblue", "alignText": "center", "fontSize": "12px" }
                 }}
-                name={"Юридические лица в структуре совладения (Росстат)"} /> : null}
+                name={"Юридические лица в структуре совладения (Росстат)"} /> : 
+                getEmpty('Нет данных по совладению юридическими лицами')
+                }
         </Fragment>
     )
 }

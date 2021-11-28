@@ -3,17 +3,12 @@ import { getResponsePg } from './connection'
 
 export const getMainform = async (obj) => {
     let mainForm = getOBJpublic() 
+
     await getResponsePg(obj).then(mass => {
                 
-            
+             
                 let objX = mass[0].f_getforms; // такое название объекта по имени процедуры
-            
-                //console.log("запрос к данным 159")
-          
-            
-                //MAPPING с источника
-
-                //MAPPING с источника
+                 
                 //---ОСНОВНАЯ ИНФОРМАЦИЯ
                 
                 mainForm.report_id.value = objX[0].report_id
@@ -51,7 +46,7 @@ export const getMainform = async (obj) => {
                 mainForm.phones.value = (objX[0].phone) ? objX[0].phone : ''
              
                // ОКВЭД 2
-                mainForm.massOkved = objX.filter((el)=>el.src==='OKVED2')
+                mainForm.massOkveds = objX.filter((el)=>el.src==='OKVED2')
                   // --Финансовая информация
                 mainForm.massFinPok = objX.filter((el)=>el.src==='FinPok')
                //console.log(mainForm)
@@ -67,20 +62,19 @@ export const getMainform = async (obj) => {
                mainForm.massCOWSROSSTAT= objX.filter((el)=>el.src==='ROSSTAT_COWS')
                mainForm.massBranchesEgrul = objX.filter((el)=>el.src==='BRANCHES_EGRUL')
                mainForm.massBranchesRosstat = objX.filter((el)=>el.src==='BRANCHES_ROSSTAT')
-               
-
+               mainForm.massFinReport = objX.filter((el)=>el.src==='FIN_REPORT')
+               mainForm.mass44FZAGG = objX.filter((el)=>el.src==='44FZ_AGGR')
+               mainForm.mass223FZAGG = objX.filter((el)=>el.src==='223FZ_AGGR')
+                 
             
     })
-    localStorage.setItem('159',JSON.stringify(mainForm))
-
-
+ 
     return mainForm 
 }
 
 
 export function getOBJpublic () {
-    let obj ={}
-        obj= {
+    return  {
      dataport_id:{name:'dataport_id',value:''},
      sparkid: {name:'Sparkid (Идентификатор интерфакс)', value:''},
      okved_name:{name:'ОКВЭД',value:''},
@@ -131,22 +125,5 @@ export function getOBJpublic () {
      rosstat_report_id: {name:  'Идентификатор отчета в Росстат на 159 сервере', value: ''},
      
 }
-// if (src ==="FinPok"){
-// obj=
-// {
-//     code: {name:  'Код финансового показателя', value: ''}, 
-//     name: {name:  'Наименование финансового показателя', value: ''}, 
-//     period: {name:  'Период сдачи отчетности', value: ''}, 
-// }  
-// if (src ==="OKVED2"){
-//     obj=
-//     {
-//         code: {code:  'Код ОКВЭД', value: ''}, 
-//         name: {name:  'Наименование ОКВЭД', value: ''}, 
-//         value: {value:  'Период сдачи отчетности', value: ''} 
-//     }  
 
-// }
-//     }
-    return obj;
 }

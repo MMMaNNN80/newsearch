@@ -6,17 +6,13 @@ import EGRUL_IN_COWNERS from "./COWNERS/EGRUL_COWNERS/EGR_IN_COWNERS";
 import ROSSTAT_FL_COWNERS from "./COWNERS/ROSSTAT_COWNERS/ROSST_FL_COWNERS";
 import ROSSTAT_UL_COWNERS from "./COWNERS/ROSSTAT_COWNERS/ROSST_UL_COWNERS";
 import ROSSTAT_IN_COWNERS from "./COWNERS/ROSSTAT_COWNERS/ROSST_IN_COWNERS"
+import { getEmpty } from "../JS/properties";
 
 
 const COWNERS = (props) => {
-  //let mainForm = JSON.parse(localStorage.getItem('159'))
-  
+
 const mainForm = props.mainForm
-  if (!mainForm) { return null }
-
-
-
-
+  if (!mainForm) { getEmpty('Нет данных по Росстат') }
 
   return (
     <Fragment>
@@ -30,19 +26,16 @@ const mainForm = props.mainForm
           </div>
           <div className="main_card">
             
-            <div className="cowners" style={{"padding":"5px","border":"1px dotted white"}}>
+            
              <div style={{"color":"lightblue", "padding":"5px", "margin":"0","textAlign":"center" }}>
                 Совладение по данным ЕГРЮЛ
              </div>
                   <EGRUL_FL_COWNERS mainForm={mainForm}/> 
                   <EGRUL_UL_COWNERS mainForm={mainForm}/> 
                   <EGRUL_IN_COWNERS mainForm={mainForm}/> 
-
-                  </div>
+              
                   <br/>
 
-              <div className="cowners" style={{"padding":"5px","border":"1px dotted white"}}>
-            
             <div style={{"color":"lightblue", "padding":"5px", "margin":"0","textAlign":"center" }}>
                 Совладение по данным РОССТАТ
              </div>
@@ -50,10 +43,10 @@ const mainForm = props.mainForm
                   <ROSSTAT_UL_COWNERS mainForm={mainForm}/> 
                   <ROSSTAT_IN_COWNERS mainForm={mainForm}/> 
 
-                  </div>
+              </div>
           </div>
-        </div>
-      </div>
+          </div>
+      
     </Fragment>
 
   )

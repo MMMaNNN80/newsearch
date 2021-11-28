@@ -3,7 +3,7 @@ import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 import GETTABLE from "../../../COMPONENTS/GETTABLE";
 import { getMassRows } from "../../../JS/properties";
-
+import { getEmpty } from "../../../JS/properties";
 
 
 
@@ -41,8 +41,6 @@ const EGRUL_FL_COWNERS = (props) => {
                 )
             })
         };
-
-
         return (
             <Fragment>
              { massCowsFL.length > 0 ? <GETTABLE funcGetRows={[...getMassRows(massCowsFL)]}  //Регистрационные данные
@@ -50,7 +48,9 @@ const EGRUL_FL_COWNERS = (props) => {
                         tclass: ["mtbl"],
                         captionStyle: { "color": "lightblue", "alignText": "center", "fontSize": "12px" }
                     }}
-                    name={"Физические лица в структуре совладения"} /> : null} 
+                    name={"Физические лица в структуре совладения"} /> : 
+                    getEmpty('Нет данных по совладению физическими лицами')}
+                     
             </Fragment>
         )
     }

@@ -1,26 +1,28 @@
-import React, { Fragment } from "react";
+import React, {Fragment } from "react";
 import GETTABLE from "../COMPONENTS/GETTABLE";
 import { getMassRows} from "../JS/properties";
+import { getEmpty } from "../JS/properties";
 
 const OKVEDS = (props) => {
-  //let mainForm = JSON.parse(localStorage.getItem('159'))
- 
-const mainForm = props.mainForm
-  let massOkvedsOsn =[]
- let massOkveds = []
-  if (mainForm.massOkved) {
 
-    massOkveds.push(["Код", 'Наименование'])
-    massOkvedsOsn.push(["Код", 'Наименование'])
+  const mainForm = props.mainForm
+
+  if(!mainForm.massOkveds || mainForm.massOkveds.length<1)
+  {return getEmpty("Отсутствуют сведения о зарегистрированных ОКВЭД у компании ")}
+
+
+
+let massOkvedsOsn =[]
+let massOkveds = []
+
+ massOkveds.push(["Код", 'Наименование'])
+ massOkvedsOsn.push(["Код", 'Наименование'])
     
-  
-    mainForm.massOkved.forEach((el)=>{ 
-
+ mainForm.massOkveds.forEach((el)=>{ 
       if(el.ismain ==="1"){massOkvedsOsn.push([el.code,el.name])}
       if(el.ismain !=="1") {massOkveds.push([el.code,el.name])}
-
     })
-  }
+ 
   return (
 <Fragment>
     <div className="form" style={{ "background": "linear-gradient(55deg, rgb(25, 23, 100),rgb(1, 60, 26))" }} >
@@ -39,13 +41,17 @@ const mainForm = props.mainForm
                 captionStyle: { "color": "lightblue", "alignText": "center","fontSize":"12px" }
               }}
             name={"Основная деятельность"} /> <br />
-            
-            {massOkveds.length > 1 ? <GETTABLE funcGetRows={[...getMassRows(massOkveds)]}  //Регистрационные данные
+
+            {massOkveds.length > 1 ? 
+            <GETTABLE funcGetRows={[...getMassRows(massOkveds)]}  //Регистрационные данные
             style={{
-                tclass: ["fondtb"],
+                tclass: ["mtbl"],
                 captionStyle: {"paddingBottom":"10px", "color": "lightblue", "alignText": "center","fontSize":"12px" }
               }}
-            name={"Побочная деятельность"} /> : <div className ="Empty"> Отсутствуют сведения о дополнительных видах деятельности компании </div>} <br />
+            name={"Побочная деятельность"}
+            endtbl = {true}
+            /> : 
+            getEmpty("Отсутствуют сведения о дополнительных видах деятельности")}
 
         </div>
       </div>

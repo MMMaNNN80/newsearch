@@ -6,9 +6,9 @@ import { getRows, getMassRows } from "../JS/properties";
 
 const REGDATA = (props) => {
 
-const mainForm = props.mainForm
+  const mainForm = props.mainForm
 
-mainForm.okfs_ism = {value : mainForm.okfs_code.value + '-' + mainForm.okfs.value, name: "ОКФС"} 
+  mainForm.okfs_ism = { value: mainForm.okfs_code.value + '-' + mainForm.okfs.value, name: "ОКФС" }
   //mainForm.okfs.style = {}
 
   mainForm.okogu_code.name = "ОКОГУ"
@@ -77,9 +77,6 @@ mainForm.okfs_ism = {value : mainForm.okfs_code.value + '-' + mainForm.okfs.valu
           </div>
           <div className="main_card">
 
-
-
-
             <GETTABLE funcGetRows={[...getRows(mass)]}  //Регистрационные данные
               style={{
                 tclass: ["mtbl"],
@@ -95,7 +92,7 @@ mainForm.okfs_ism = {value : mainForm.okfs_code.value + '-' + mainForm.okfs.valu
               name={"Сведения о государственной регистрации"} /> <br />
 
 
-<GETTABLE funcGetRows={[...getMassRows(massFonds)]}  //Регистрационные данные
+            <GETTABLE funcGetRows={[...getMassRows(massFonds)]}  //Регистрационные данные
               style={{
                 tclass: ["mtbl"],
                 captionStyle: { "paddingBottom": "10px", "color": "lightblue", "alignText": "center", "fontSize": "12px" }

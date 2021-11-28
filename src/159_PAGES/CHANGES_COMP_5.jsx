@@ -32,12 +32,7 @@ const mainForm = props.mainForm
 
   }
 
- // console.log(mainForm.massSUCCSPRED)
-
-//console.log(mainForm.massSUCCSPRED.filter(x=>x.bySort ==="Преемники"))
-
-  ///  массив из н   скольких столбцов с врехней строкой и без!
-  return (
+ return (
 <Fragment>
     <div className="form" style={{ "background": "linear-gradient(55deg, rgb(25, 23, 100),rgb(1, 60, 26))" }} >
       <div className="spcard">
@@ -54,14 +49,15 @@ const mainForm = props.mainForm
                 tclass: ["mtbl"],
                 captionStyle: { "color": "lightblue", "alignText": "center","fontSize":"12px" }
               }}
-            name={"Преемники"} /> <br />
+            name={"Преемники"} endtbl={true}/> <br />
 
-<GETTABLE funcGetRows={[...getMassRows(massPREDS)]}  //Регистрационные данные
+<GETTABLE 
+funcGetRows={[...getMassRows(massPREDS)]}  //Регистрационные данные
             style={{
                 tclass: ["mtbl"],
                 captionStyle: { "color": "lightblue", "alignText": "center","fontSize":"12px" }
               }}
-            name={"Предшественники"} /> <br />
+            name={"Предшественники"} endtbl={true} /> <br />
             
 
 

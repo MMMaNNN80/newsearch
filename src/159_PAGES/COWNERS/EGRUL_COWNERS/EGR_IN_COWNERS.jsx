@@ -1,7 +1,7 @@
 
 import React, { Fragment } from "react";
 import GETTABLE from "../../../COMPONENTS/GETTABLE";
-import { getMassRows } from "../../../JS/properties";
+import { getEmpty, getMassRows } from "../../../JS/properties";
 
 
 const EGRUL_IN_COWNERS = (props) => {
@@ -40,7 +40,9 @@ const EGRUL_IN_COWNERS = (props) => {
           tclass: ["mtbl"],
           captionStyle: { "color": "lightblue", "alignText": "center", "fontSize": "12px" }
         }}
-        name={"Иностранные юридические лица в структуре совладения"} /> : null} <br />
+        name={"Иностранные юридические лица в структуре совладения"} /> : 
+        getEmpty('Нет данных по совладению иностранными компаниями')
+        } <br />
 
     </Fragment>
   )

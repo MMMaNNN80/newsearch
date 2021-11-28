@@ -2,12 +2,12 @@
 import React, { Fragment } from "react";
 import GETTABLE from "../../../COMPONENTS/GETTABLE";
 import { getMassRows } from "../../../JS/properties";
-
+import { getEmpty } from "../../../JS/properties";
 
 
 const ROSSTAT_IN_COWNERS = (props) => {
     const mainForm = props.mainForm
-    if (!mainForm || mainForm.massCOWSROSSTAT) { return null }
+    if (!mainForm || !mainForm.massCOWSROSSTAT) { return null }
 
     //mainForm.okfs.style = {}
 
@@ -48,7 +48,9 @@ const ROSSTAT_IN_COWNERS = (props) => {
                     tclass: ["mtbl"],
                     captionStyle: { "color": "lightblue", "alignText": "center", "fontSize": "12px" }
                 }}
-                name={"Иностранные компании в структуре совладения (Росстат)"} /> : null}
+                name={"Иностранные компании в структуре совладения (Росстат)"} /> : 
+                getEmpty('Нет данных по совладению иностранными компаниями')
+                }
         </Fragment>
     )
 }

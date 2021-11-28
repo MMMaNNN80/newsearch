@@ -6,22 +6,27 @@ import CHANGES_COMP from '../159_PAGES/CHANGES_COMP_5';
 import LEADERS from '../159_PAGES/LEADERS_6';
 import COWNERS from '../159_PAGES/COWNERS_7';
 import STRUCTURE_OPEN from '../159_PAGES/STRUCTURE_OPEN_8/STRUCTURE_OPEN_8';
-
+import FINSTR from '../159_PAGES/FINSTR_9';
+import NOT_FOUND from '../COMPONENTS/NOT_FOUND';
+import GOSZAKUPKI from '../159_PAGES/GOSZAKUPKI_10';
 import { 
     Route,
     Routes,
+    useNavigate
   } from "react-router-dom";
 
 
 
 const ROUTERS = (props) =>{
+
+    
     //console.log(props)
+  useNavigate('/not_found')
    
  return (
         <>
             <Routes>
-
-                
+             <Route path="/not_found" element = {<NOT_FOUND/>} />
                 <Route path="/:inn" element={
                     props.state && props.status.S159 ? <CARD_159 mainForm={props.mainForm} cardstate={props.cardstate}  /> : ''
                 } /> 
@@ -33,7 +38,11 @@ const ROUTERS = (props) =>{
                 <Route path="/leaders/:inn" element={props.state &&props.status.S159 ? <LEADERS mainForm={props.mainForm} /> : ''} />
                 <Route path="/cowners/:inn" element={props.state &&props.status.S159 ? <COWNERS mainForm={props.mainForm} /> : ''} />
                 <Route path="/openstruct/:inn" element={props.state &&props.status.S159 ? <STRUCTURE_OPEN mainForm={props.mainForm} cowmass={props.cowmass}/> : ''} />
+                <Route path="/finstr/:inn" element={props.state &&props.status.S159 ? <FINSTR mainForm={props.mainForm}/> : ''} />
+                <Route path="/goszakupki/:inn" element={props.state &&props.status.S159 ? <GOSZAKUPKI mainForm={props.mainForm}/> : ''} />
+                
                 <Route path="*" element={<CARD_159 mainForm={props.mainForm} cardstate={props.cardstate}  />} />
+            
             </Routes>
         </>
 

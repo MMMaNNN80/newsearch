@@ -18,17 +18,16 @@ const CARD_159 = ({mainForm,cardstate}) => {
                     <GETTABLE funcGetRows={getMassForm("159",'OSN',mainForm)}
                         style={
                             {
-                                tclass: ["maininfo"],
+                                tclass: ["mtbl"],
                                 captionStyle: { "color": "lightgrey", "alignText": "center" }
                             }
-                        }
-                        name={"Основная информация:"}
+                        } name={"Основная информация:"}
 
                     />
                                 <GETTABLE funcGetRows={getMassForm("159",'CONT',mainForm)}
                         style={
                             {
-                                tclass: ["maininfo"],
+                                tclass: ["mtbl"],
                                 captionStyle: { "color": "lightgrey", "alignText": "center", }
                             }
                         }

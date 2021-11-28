@@ -4,16 +4,13 @@ import GETTABLE from "../../COMPONENTS/GETTABLE";
 import PAGINATION from "../../JS/PAGINATION";
 import { getMassRows } from "../../JS/properties";
 
-
-
-
-
 const BRANCHES_EGR = (props) => {
   //let mainForm = JSON.parse(localStorage.getItem('159'))
 
 
 
   const mainForm = props.mainForm
+  
   const [isopen, setIsOpen] = useState(false)
   const [styleimg,setStyleimg] = 
   useState({transform: "rotate(0deg)", backgroundColor: "white"})
@@ -30,7 +27,6 @@ const BRANCHES_EGR = (props) => {
   if (!mainForm || !mainForm.massBranchesEgrul || mainForm.massBranchesEgrul.length<1) { return null }
 
   let cnt = ''
-  //let EgrulStatistic = []
   let mass = [];
   let massBranchesEgrul = []
   let head = ["№","Наименование", "КПП", "Адрес", "Дата регистр действий", "ГРН сведения"]

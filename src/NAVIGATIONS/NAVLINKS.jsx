@@ -31,6 +31,9 @@ const inn =(props.state && props.cardstate===2) ? props.state[0].data.inn  : 'em
                 <NavLink to={`/leaders/${inn}`}>Органы управления</NavLink> <br />
                 <NavLink to={`/cowners/${inn}`}>Совладельцы</NavLink> <br />
                 <NavLink to={`/openstruct/${inn}`}>Структура (развернуто)</NavLink> <br />
+                <div className = "navdiv">Деятельность компании</div>
+                <NavLink to={`/finstr/${inn}`}>Баланс и отчет о финансовых результатах</NavLink> <br />
+                <NavLink to={`/goszakupki/${inn}`}>Участие в Госконтрактах</NavLink> <br />
             </animated.div>
         </Fragment>
     )

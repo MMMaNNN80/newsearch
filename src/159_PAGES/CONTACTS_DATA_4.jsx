@@ -2,6 +2,7 @@
 import React, { Fragment } from "react";
 import GETTABLE from "../COMPONENTS/GETTABLE";
 import {getMassRows} from "../JS/properties";
+import { getEmpty } from "../JS/properties";
 
 
 
@@ -11,27 +12,22 @@ const CONTACTS_DATA = (props) => {
 const mainForm = props.mainForm
  if (!mainForm) {return null} 
  
-
-  
-
-
-  //mainForm.okfs.style = {}
-  
-
-
   let massAddrHis =[]
   if (mainForm.massAddrHis) {
 
     massAddrHis.push(["Адрес", 'ГРН',"Дата ГРН"])
     
     mainForm.massAddrHis.forEach((el,n)=>{ 
-      if (n===0) {massAddrHis.push([el.address + '  (актуально)',el.grn,el.grn_date])}
+      if (n===0) {massAddrHis.push([
+      <span>
+        <div className="quadr" style={{"display":"inline-flex"}}></div> 
+       <div style={{"display":"inline"}}>{el.address + '  (актуально)'}</div>
+       </span> ,el.grn,el.grn_date])}
       else {massAddrHis.push([el.address,el.grn,el.grn_date])}
     })
   }
 
-
-  let massPhones = []
+let massPhones = []
   if(mainForm.phone_parsed.value) 
   {
     mainForm.phone_parsed.value.split(',') 
@@ -43,9 +39,7 @@ const mainForm = props.mainForm
     massPhones.unshift(['Телефоны компании'])
   }
 
-
-
-  //  массив из н   скольких столбцов с врехней строкой и без!
+//  массив из н   скольких столбцов с врехней строкой и без!
 
 
   return (
@@ -60,22 +54,18 @@ const mainForm = props.mainForm
         </div>
         <div className="main_card">
 
-        <GETTABLE funcGetRows={[...getMassRows(massPhones)]}  //Регистрационные данные
+       {massPhones.length>0 ? <GETTABLE funcGetRows={[...getMassRows(massPhones)]}  //Регистрационные данные
             style={{
                 tclass: ["mtbl"],
-                captionStyle: { "color": "lightblue", "alignText": "center","fontSize":"12px" }
-              }}
-            name={"Контактные данные"} /> <br />
-           <GETTABLE funcGetRows={[...getMassRows(massAddrHis)]}  //Регистрационные данные
+                captionStyle: { "color": "lightblue", "alignText": "center","fontSize":"12px" }  }}
+            tblend = {true}    
+            name={"Контактные данные"} />  : getEmpty('Сведения о контактных телефонах отсутствуют')} <br />
+          {massAddrHis.length>0 ? <GETTABLE funcGetRows={[...getMassRows(massAddrHis)]}  //Регистрационные данные
             style={{
                 tclass: ["mtbl"],
-                captionStyle: { "color": "lightblue", "alignText": "center","fontSize":"12px" }
-              }}
-            name={"История смены юридического адреса"} /> <br />
-                    
-   
-            
-      
+                captionStyle: { "color": "lightblue", "alignText": "center","fontSize":"12px"}}}
+            name={"История смены юридического адреса"}
+             /> : getEmpty('Сведения о юридических адресах отсутствуют')}
 
         </div>
       </div>
