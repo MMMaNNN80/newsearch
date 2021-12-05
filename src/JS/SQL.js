@@ -1,0 +1,25 @@
+import {getParamsObj} from './properties'
+import {getResponsePg,render} from './connection'
+
+  export async function getDATAGoszakupki (inn)  {
+    if(inn) {
+      let obj =  getParamsObj()
+       obj.inn = inn
+       obj.fields = "*"
+       obj.table = `f_getgoszakupkioptimal('${inn}')`
+       obj.host = '/159'
+       return await getResponsePg(obj)
+       } }
+
+
+       
+     export async function result (inn) {
+        if (inn){ 
+          
+         let obj =  getParamsObj()
+         obj.inn = inn
+         obj.fields = "*"
+         obj.table = `f_getforms('${inn}')`
+         obj.host = '/159'
+        return await render(obj)
+         }}

@@ -1,8 +1,31 @@
 import React, {  } from 'react'
 import { getMassForm} from "../JS/properties"
 import GETTABLE from '../COMPONENTS/GETTABLE'
+import { getRows } from '../JS/properties'
 
 const CARD_159 = ({mainForm,cardstate}) => {
+
+    let masshd = []
+    let mass = []
+    if(mainForm.massFinReport && mainForm.massFinReport.length>1) 
+     {
+       
+        mass = mainForm.massFinReport.filter(el =>el.form.toLowerCase().includes('о прибылях и убытках') && el.curr ===1)
+        
+        masshd.push (['Количество филиалов',  mainForm.branches_count.value, 'ХД', {}])
+        mass.forEach(el => {
+        if(el.code ==='2110') { masshd.push((['Выручка', `${el.p_value} (актульно на 31.12.${el.period}) `, 'ХД', {}]))}
+        if(el.code ==='2100') { masshd.push((['Валовая прибыль (убыток)', `${el.p_value} (актульно на 31.12.${el.period}) `, 'ХД', {}]))}
+        if(el.code ==='2400') { masshd.push((['Чистая прибыль (убыток)', `${el.p_value} (актульно на 31.12.${el.period}) `, 'ХД', {}]))}
+        if(el.code ==='2410') { masshd.push((['Налог на прибыль ', `${el.p_value} (актульно на 31.12.${el.period}) `, 'ХД', {}]))}
+        if(el.code ==='2411') { masshd.push((['в т.ч. текущий налог на прибыль', `${el.p_value} (актульно на 31.12.${el.period}) `, 'ХД', {}]))}
+        if(el.code ==='2412') { masshd.push((['отложенный налог на прибыль', `${el.p_value} (актульно на 31.12.${el.period}) `, 'ХД', {}]))}
+    });
+         
+    mass =  getRows(masshd)
+
+     }
+   
 
  if(cardstate===2) {
     return (
@@ -33,6 +56,16 @@ const CARD_159 = ({mainForm,cardstate}) => {
                         }
                         name={"Контакты:"}
                     />
+
+                   {mass.length>1 ? <GETTABLE funcGetRows={mass}
+                        style={
+                            {
+                                tclass: ["mtbl"],
+                                captionStyle: { "color": "lightgrey", "alignText": "center", }
+                            }
+                        }
+                        name={"Признаки хозяйственной деятельности"}
+                    /> :''}
 
                 </div>
             </div>

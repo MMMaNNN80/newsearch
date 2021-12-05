@@ -1,5 +1,5 @@
 import { getResponsePg } from './connection'
-
+import XLSX from 'xlsx';
 
 export const getMainform = async (obj) => {
     let mainForm = getOBJpublic() 
@@ -35,6 +35,7 @@ export const getMainform = async (obj) => {
                 mainForm.capital.value = objX[0].chartercapital
                 mainForm.leader.value = objX[0].fio
                 mainForm.leader_post.value = objX[0].position
+                
             //
                 mainForm.regauthorityFNS.value = objX[0].regauthority
                 mainForm.regauthorityaddress.value = objX[0].regauthorityaddress
@@ -44,7 +45,7 @@ export const getMainform = async (obj) => {
                 mainForm.email.value = (objX[0].email) ? objX[0].email : ''
                 mainForm.phone_parsed.value = objX[0].phone_parsed
                 mainForm.phones.value = (objX[0].phone) ? objX[0].phone : ''
-             
+                mainForm.branches_count.value = (objX[0].branchs_count) ? objX[0].branchs_count : ''
                // ОКВЭД 2
                 mainForm.massOkveds = objX.filter((el)=>el.src==='OKVED2')
                   // --Финансовая информация
@@ -63,8 +64,7 @@ export const getMainform = async (obj) => {
                mainForm.massBranchesEgrul = objX.filter((el)=>el.src==='BRANCHES_EGRUL')
                mainForm.massBranchesRosstat = objX.filter((el)=>el.src==='BRANCHES_ROSSTAT')
                mainForm.massFinReport = objX.filter((el)=>el.src==='FIN_REPORT')
-               mainForm.mass44FZAGG = objX.filter((el)=>el.src==='44FZ_AGGR')
-               mainForm.mass223FZAGG = objX.filter((el)=>el.src==='223FZ_AGGR')
+               
                  
             
     })
@@ -123,7 +123,54 @@ export function getOBJpublic () {
      regauthorityaddress:{name:  'Адрес ФНС по месту регистрации', value: ''},
      report_id: {name:  'Идентификатор отчета на 159 сервере', value: ''},
      rosstat_report_id: {name:  'Идентификатор отчета в Росстат на 159 сервере', value: ''},
+     branches_count: {name:  'Количество филиалов', value: ''},
      
 }
 
 }
+
+
+
+export const writeExcelFile  = (info) =>
+{
+
+    if (info.query) {} else {
+        const workSheetColumnNames = ['ID','QUERY', 'ИНН', 'КПП', 'ОГРН', 'Название'
+            , 'Адрес', 'countResult']
+        const workSheetName = 'DATA';
+
+
+        const data = info.filter(el=>el.data).map(el => {
+
+                    return [
+                        (el.data) ? el.request.id : '1'
+                        , (el.data) ? el.request.query : ''
+                        , (el.data) ? el.data.inn  : ''
+                        , (el.data) ? el.data.kpp : ''
+                        , (el.data) ? el.data.ogrn  : ''
+                        , (el.data) ? el.value : ''
+                        , (el.data) ? el.data.address.unrestricted_value  : ''
+                        , (el.data) ? el.countResult : '0'
+
+                    ];
+
+
+            }
+        )
+
+        const workSheetData = [workSheetColumnNames, ...data]
+
+        const workBook = XLSX.utils.book_new();
+        const workSheet = XLSX.utils.aoa_to_sheet(workSheetData);
+
+        const filePath = './xxx.xls'
+
+        XLSX.utils.book_append_sheet(workBook, workSheet, workSheetName);
+        XLSX.writeFile(workBook, filePath)
+
+        // console.log(workSheetColumnNames);
+        console.log(info);
+    }
+}
+
+export default writeExcelFile;

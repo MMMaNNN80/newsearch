@@ -7,8 +7,7 @@ import { Link } from "react-router-dom";
 
 
 const STRUCTURE_EGRUL = ({ cowmass }) => {
-  const [isopen, setIsOpen] = useState(false)
-  const [styleimg, setStyleimg] =
+
     useState({ transform: "rotate(0deg)", backgroundColor: "white" })
 
   // paginations
@@ -27,7 +26,6 @@ const STRUCTURE_EGRUL = ({ cowmass }) => {
 
 
   mass = cowmass.filter(el => el.src === "EGRUL_CHILD" && el.lvl === 1)
-  console.log(massEGRULChild)
   let head = ["№", "Наименование", "ИНН", "Доля,%", "Доля,руб", "Дата совладения"]
   mass.forEach((el, i) => {
     massEGRULChild.push(
@@ -45,42 +43,23 @@ const STRUCTURE_EGRUL = ({ cowmass }) => {
   mass = mass.slice(firstPageIndex, lastPageIndex)
   mass.unshift(head)
   currentPages = mass
-  isopen === true ? currentPages = mass : currentPages = []
   return (
     <Fragment>
-
-      {cowmass.length > 0 ?
-        <>
-          <div style={{ color: "white", fontSize: "14px", marginBottom: "8px" }}></div>
-
-          <div style={{ width: "100%", backgroundColor: "darkgreen", opacity: 0.9, padding: 0 }}>
-            <img style={{ ...styleimg }} src="..\..\icon\openLists.svg" height="15px" alt="иконка списка"
-              onClick={onClickHandler}></img>
-            <span style={{ color: "white", fontSize: "12px" }}>
-              {`Данные по дочерним компаниям ЕГРЮЛ (количество - ${cnt})`} </span>
-
-          </div>
+       
           <GETTABLE
             funcGetRows={[...getMassRows(currentPages)]}
             style={{
               tclass: ["mtbl tblcolorhead"],
-              captionStyle: { padding: "0" }
+              captionStyle: { padding: "5px" ,color: 'white' }
             }}
+            name={`Дочерние компании-сведения ЕГРЮЛ (количество - ${cnt})`} endtbl={true}
           />
-          {isopen === true && Math.ceil(cnt / perCountPages) > 1 ? <PAGINATION perCountPages={perCountPages} totalItems={cnt} setCurrentPage={setCurrentPage} /> : null}
-
-        </>
-        : null}
+         { Math.ceil(cnt / perCountPages) > 1 ? <PAGINATION perCountPages={perCountPages} totalItems={cnt} setCurrentPage={setCurrentPage} /> : null}
 
     </Fragment>
 
   )
-  function onClickHandler() {
-    isopen ? setStyleimg({ transform: "rotate(0deg)", backgroundColor: "white" }) : setStyleimg({ transform: "rotate(90deg)", backgroundColor: "white" })
-    setIsOpen(!isopen)
 
-  }
-  
   
 }
   

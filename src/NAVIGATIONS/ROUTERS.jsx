@@ -37,9 +37,9 @@ const ROUTERS = (props) =>{
                 <Route path="/changescompany/:inn" element={props.state &&props.status.S159 ? <CHANGES_COMP mainForm={props.mainForm} /> : ''} />
                 <Route path="/leaders/:inn" element={props.state &&props.status.S159 ? <LEADERS mainForm={props.mainForm} /> : ''} />
                 <Route path="/cowners/:inn" element={props.state &&props.status.S159 ? <COWNERS mainForm={props.mainForm} /> : ''} />
-                <Route path="/openstruct/:inn" element={props.state &&props.status.S159 ? <STRUCTURE_OPEN mainForm={props.mainForm} cowmass={props.cowmass}/> : ''} />
+                <Route path="/openstruct/:inn" element={props.state &&props.status.S159 ? <STRUCTURE_OPEN mainForm={props.mainForm} /> : ''} />
                 <Route path="/finstr/:inn" element={props.state &&props.status.S159 ? <FINSTR mainForm={props.mainForm}/> : ''} />
-                <Route path="/goszakupki/:inn" element={props.state &&props.status.S159 ? <GOSZAKUPKI mainForm={props.mainForm}/> : ''} />
+                <Route path="/goszakupki/:inn" element={props.state &&props.status.S159 ? <GOSZAKUPKI mainForm={props.mainForm}  fzObj= {props.fzObj} setFzObj= {props.setFzObj}/> : ''} />
                 
                 <Route path="*" element={<CARD_159 mainForm={props.mainForm} cardstate={props.cardstate}  />} />
             

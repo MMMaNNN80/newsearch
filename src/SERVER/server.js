@@ -23,7 +23,7 @@ console.log('159')
     `SELECT  ${sql.fields} FROM  ${sql.scheme}.${sql.table}  ${sql.dopSql} `;
 
   
-   // console.log(p);
+    console.log(sqlstr);
      const respResult = await p.query(sqlstr )
       res.json(respResult.rows); 
   } catch (error) {

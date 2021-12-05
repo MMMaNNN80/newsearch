@@ -1,6 +1,6 @@
 
 import './App.css';
-import {useState } from 'react'
+import {useEffect, useState } from 'react'
 import HEAD from './COMPONENTS/HEAD';
 import SEARCHSTRING from "./COMPONENTS/SEARCHSTRING";
 import CARD from "./COMPONENTS/CARD"
@@ -9,13 +9,11 @@ import CARD_151 from './COMPONENTS/CARD_151';
 import NAVLINKS from './NAVIGATIONS/NAVLINKS'
 import ROUTERS from './NAVIGATIONS/ROUTERS';
 import { getOBJpublic } from './JS/MAPPING_SQL';
-import { render,getResponsePg } from './JS/connection';
-import {getParamsObj} from './JS/properties'
+import { getDATAGoszakupki,result } from './JS/SQL';
 
 
 function App() {
   const [mainForm, setMainform] = useState(()=>getOBJpublic())
-  const [cowmass,setCowMass] = useState([])
   const [state, setState] = useState(null);
   const [cardstate, setCardstate] = useState(0);
   const [status, setStatus] = useState(
@@ -26,6 +24,7 @@ function App() {
     })
 
 
+    const [fzObj,setFzObj] = useState({loading:true})
 
   const objState = {
     update: function (state) {
@@ -40,47 +39,26 @@ function App() {
       CDI: false})
   }
 
-const inn = (state  &&  cardstate===2)? state[0].data.inn:null
-
-
-
-async function result (inn) {
-   if (inn){ 
-     
-    let obj =  getParamsObj()
-    obj.inn = inn
-    obj.fields = "*"
-    obj.table = `f_getforms('${inn}')`
-    obj.host = '/159'
-    await render(obj).then( data=>{
-      setMainform (
-      prev=> {return { ...prev, ...data}})})}
-    }
-
+const inn = state && state[0]? state[0].data.inn : null
       
-      if(state && cardstate===2 
-        && mainForm.inn.value!==inn)  
-      {
-         result(inn)
-        // debugger
-        getCowners(inn) 
-      }
+    
+    
+        useEffect( ()=> {
+     if (state && cardstate===2
+       && mainForm && mainForm.inn.value!==inn)  
+          {
+          result(inn).then( data=>{
+            setMainform (
+            prev=> {return { ...prev, ...data}})})
 
-      async function getCowners(inn) {
-        if (inn){ 
-          let obj =  getParamsObj()
-          obj.inn = inn
-          obj.fields = "*"
-          obj.table = `f_getRecursStruct('${inn}')`
-          obj.host = '/159'
-          await getResponsePg(obj).then(mass => {
-
-            setCowMass (mass)})
-          
-        } 
+            getDATAGoszakupki(inn)
         
-      }
-      
+            .then( mass=>{
+              setFzObj ({mass,loading:false})})
+
+        }      }
+        ,[inn,cardstate,mainForm,state])
+       
 
   return (
     <div className="App bg-dark border-danger h6 mr-5">
@@ -102,7 +80,7 @@ async function result (inn) {
 
         <div className={"result"}>
           {state && cardstate ?
-           <ROUTERS mainForm={mainForm} cowmass={cowmass} 
+           <ROUTERS mainForm={mainForm} fzObj={fzObj} setFzObj ={setFzObj}
           result={result} state={state} status={status} cardstate={cardstate} /> : null}
           {state && cardstate === 2 ? <NAVLINKS   state={state} cardstate={cardstate} /> : null}
           {state && status.CDI && cardstate === 2 ? <CDI_CARD objState={state} /> : ''}

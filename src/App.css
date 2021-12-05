@@ -25,7 +25,7 @@ position: fixed;
 width: 100%;
 height: 220px;
 background-color: rgb(37, 60, 94);
-z-index: 2;
+z-index: 3;
 align-content: flex-start;
 
 }
@@ -414,12 +414,18 @@ align-self: center;
  pre {color: rgb(238, 233, 240);}
 
 .mtbl {
-    background:radial-gradient(ellipse at top, #022418, rgb(10, 64, 146));
+background:radial-gradient(ellipse at top, #3a3b88, rgb(48, 53, 73));
    width: 100%;
-   
-  
-
 }
+
+.mtbl tbody td {
+    
+    font-size: 13px;
+    color:rgb(216, 218, 230)
+    
+  
+     
+  }
 
 .mtbl tbody  {
     width: 100%;   
@@ -432,20 +438,12 @@ align-self: center;
 }
 
 
-.mtbl tbody td {
-    
-  font-size: 10px;
-  color:rgb(149, 235, 241)
-  
-
-   
-}
 .mtbl a {
 text-decoration: none;
 }
 .tblcolorhead th {
     height: 30px;
-    background: rgb(21, 78, 105);
+    background: rgb(17, 66, 88);
 }
 
 
@@ -488,9 +486,10 @@ opacity: 0.9;
     
 }
 
-    
-.fz44 td{
+
+.fz44 td, .fz223 td{
     padding: 2px; 
+    background-color: #0c2a3d;
   }
   .fz44 th{
     padding: 2px; 
@@ -499,10 +498,88 @@ opacity: 0.9;
     white-space:normal;
   }
   .graf_44 {
-    background: radial-gradient(ellipse at top, #77215d, rgb(233, 143, 110));
+    background: radial-gradient(ellipse at top, #351442, rgb(91, 48, 160));
      
  }
+
+ .graf_44_sum {
+    background: radial-gradient(ellipse at top, #068bd8, rgb(60, 94, 66));
+ }
+ 
+ 
  .graf_223 {
-    background: radial-gradient(ellipse at top, #aea7ce, rgb(200, 200, 252));
+    background: radial-gradient(ellipse at top, #159c6f, rgb(86, 206, 30));
      
  }
+ .graf_223_sum {
+    background: radial-gradient(ellipse at top, #1a0880, rgb(103, 103, 212));
+ }
+
+ .FzCardsGrid {
+     display:grid;
+     grid-template-columns:10% auto 10%;
+
+     min-height:300px;
+     column-gap: 5px;
+ }
+
+ .FZCard{
+     grid-column: 2;
+     display:grid;
+     grid-template-columns:65% 35%;
+     grid-template-rows: 1;
+     background-color:rgb(210, 243, 220);
+     box-shadow: 1px 1px 1px 1px grey;
+     padding: 5px;
+    
+ }
+ .fzregData{
+     padding: 10px;
+     grid-column: 1;
+     grid-row: 1;
+     height: 100%;
+    
+     
+ }
+ .fzdateinfo{
+    padding: 10px; 
+    grid-column: 2;
+    grid-row: 1;
+    border-left: 1px solid grey;
+    height: 100%;
+ }
+ .fztxt{
+     font-weight: 700;
+   
+ }
+ .fzheads{
+     font-size: 12px;
+     padding: 2px;
+     opacity: 0.7;
+     margin-bottom: 5px;
+ }
+ .fztextblock{
+     padding:2px;
+ }
+ .fzintxt{
+     font-size: 12px;
+     
+ }
+
+ .contscroll_post {
+   padding: 5px;
+    max-height: 100px;
+    overflow-y: auto;
+border: 1px dotted rgb(43, 16, 163); 
+}
+
+ .contscroll_subj {
+
+    max-height: 40px;
+    overflow-y: auto;
+border: 1px dotted rgb(43, 16, 163); 
+}
+.btn_block:hover {
+
+border: 1px solid grey;
+}
