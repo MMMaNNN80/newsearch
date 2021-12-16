@@ -1,7 +1,7 @@
 
 const MAIN_CARD = (props) => {
 
-    const CHILDREN = props.CHILDREN
+    const CHILDREN = (props.CHILDREN) ? props.CHILDREN :  function GETARBITR (){return <div style={{color:'white'}}>Отсутствуют данные по данному разделу</div>}
    const mainForm = props.mainForm
     return (
         <div className="form" style={{ "background": "linear-gradient(55deg, rgb(25, 23, 100),rgb(1, 60, 26))" }} >
@@ -14,7 +14,7 @@ const MAIN_CARD = (props) => {
                 </div>
                 <div className="main_card">
                     <div className="cowners" style={{ "padding": "5px" }}>
-                            {<CHILDREN/>}
+                            <CHILDREN/>
                     </div>
                 </div>
             </div>

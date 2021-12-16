@@ -24,11 +24,9 @@ export async function getResponse(e){
 
  export function getRows(mass = []) {
   let masshttp = []
-  
-
+   
   for (let i = 0; i < mass.length; i++) {
-     
-      masshttp.push(
+       masshttp.push(
           
           <tr key={i} style={{}}>
               <th style={{}} scope="row">{mass[i][0]}</th>
@@ -199,7 +197,7 @@ return (
 )
 }
 
-export const getDetailzakupki_ejs = async (inn, year=2020,fz = 44,hbgColor ,htextcolor) => {
+export const getDetailzakupki_ejs = async (inn, year=2020,x,fz = 44,hbgColor ,htextcolor) => {
   //console.log(inn,year,44)
     const workSheetName = `${fz}-ФЗ_${inn}_${year}`;
     const filePath = `${fz}_${inn}_${year}.xlsx`
@@ -286,7 +284,7 @@ try {
     let obj =  getParamsObj()
     obj.inn = inn
     obj.fields = "*"
-    obj.table = `goszakupkiexcel_dinamic('${inn}','${year}','${fz}')`
+    obj.table = `goszakupkiexcel_dinamic('${inn}','${year}',${x},'${fz}')`
     obj.host = '/159'
     obj.dopSql=''
    await getResponsePg(obj)
@@ -318,6 +316,7 @@ let data = []
                   startexecutiondate:el.startexecutiondate,
                   endexecutiondate:el.endexecutiondate,
                   name:el.name,
+                  shortname:el.shortname,
                   inn:el.inn,
                   kpp:el.kpp,
                   okpo: el.okpo,
@@ -371,5 +370,112 @@ let data = []
 }
 
 
+export const getDetailArbitr_ejs = async (inn,obj,hbgColor ,htextcolor) => {
+
+
+ const year = (obj.val && obj.val!=='Все') ? obj.val:null
+ const part  = (obj.part && obj.part!=='Все') ? obj.part:null
+ const category = (obj.category && obj.category!=='Все') ? obj.category:null
+
+
+  const workSheetName =[ `Дела`,`Участники_${year}` ];
+  const filePath = `${inn}_${year}.xlsx`
+ let workSheetColumnNames=[]
+ let data2 = []
+ let data_all = []
+
+
+workSheetColumnNames.push(
+    [
+        {header:"Номер дела", key: 'case_numberl',width:10},
+        {header: "Дата начала дела", key: 'date_start',width:10},
+        {header: "Дата обновления по делу", key: 'date_update',width:10},
+        {header: "Категория", key: 'category_name',width:30},
+        {header: "Инстанция", key: 'instance',width:20},
+        {header: 'Сумма по делу', key: 'sum',width:20},
+        
+    ])
+
+    workSheetColumnNames.push(
+      [
+        {header:"X", key: 'is_',width:5},
+          {header:"Номер дела", key: 'case_numberl',width:10},
+          {header:"Тип дела", key: 'type_p',width:10},
+          {header: "Дата начала дела", key: 'date_start',width:10},
+          {header: "Дата обновления по делу", key: 'date_update',width:10},
+          {header: "Категория", key: 'category_name',width:20},
+          {header: "ИНН участника", key: 'inn',width:20},
+          {header: "ОГРН участника", key: 'ogrn',width:15},
+          {header: "Наименование участника", key: 'name_p',width:30},
+          {header: "Инстанция", key: 'instance',width:20}
+          
+      ])
+
+    try {
+      if(inn) {
+        let obj =  getParamsObj()
+        obj.inn = inn
+        obj.fields = "*"
+        obj.table = `f_getarbitrdetailExcel('${inn}',`  + (year? `'${year}'`: 'null') + ',' + (part? `'${part}'`: 'null') +','+ (category? `'${category}'`: 'null') +')'
+        obj.host = '/159'
+        obj.dopSql=''
+       await getResponsePg(obj)
+       .then(mass =>{
+       
+        mass = mass[0].f_getarbitrdetailexcel
+        let data = [] 
+       // console.log(mass)
+        mass.filter(el=>el.sort ===`CASES`).forEach(el=>{
+
+          data.push(
+            
+            {
+               case_numberl:{ text: el.case_numberl, hyperlink: el.case_href } 
+               ,date_start: el.date_start
+               ,date_update:el.date_update
+              ,category_name: el.category_name
+              ,instance:el.instance
+              ,sum:el.sum
+
+            })
+          })
+
+          
+
+            mass.filter(el=>el.sort ===`participants`).forEach(el=>{
+
+            data2.push(
+                
+                {
+                  is_: el.is_
+                  ,case_numberl:{ text: el.case_numberl, hyperlink: el.case_href } 
+                  ,type_p:el.type_p
+                  ,date_start: el.date_start
+                  ,date_update:el.date_update
+                  ,category_name: el.category_name
+                  ,inn: el.inn
+                  ,ogrn: el.ogrn
+                  ,name_p: el.name_p
+                  ,instance: el.instance
+
+                }
+              
+                )
+              })
+              data_all.push(data)
+              data_all.push(data2)
+              data = data_all
+              console.log(data)
+             
+             return data}).then( data =>{
+               //console.log(data,workSheetColumnNames,filePath)
+              
+              writeExcelJS(data,workSheetColumnNames,workSheetName,filePath, hbgColor,htextcolor)})
+            }}  
+        
+          catch (error) {
+    alert('Системные ошибки, обратитесь к разработчику (getDetailzakupki) ')
+     }
+    }
 
  

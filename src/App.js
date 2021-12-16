@@ -9,7 +9,7 @@ import CARD_151 from './COMPONENTS/CARD_151';
 import NAVLINKS from './NAVIGATIONS/NAVLINKS'
 import ROUTERS from './NAVIGATIONS/ROUTERS';
 import { getOBJpublic } from './JS/MAPPING_SQL';
-import { getDATAGoszakupki,result } from './JS/SQL';
+import { getDATAGoszakupki,result,getDATAArbitrAGG } from './JS/SQL';
 
 
 function App() {
@@ -25,6 +25,7 @@ function App() {
 
 
     const [fzObj,setFzObj] = useState({loading:true})
+    const [AObj,setAObj] = useState({loading:true})
 
   const objState = {
     update: function (state) {
@@ -50,14 +51,23 @@ const inn = state && state[0]? state[0].data.inn : null
           result(inn).then( data=>{
             setMainform (
             prev=> {return { ...prev, ...data}})})
+            setFzObj({loading:true})
 
-            getDATAGoszakupki(inn)
-        
+            getDATAGoszakupki(inn) 
             .then( mass=>{
               setFzObj ({mass,loading:false})})
-
-        }      }
-        ,[inn,cardstate,mainForm,state])
+              
+              getDATAArbitrAGG (inn) 
+              .then( mass=>{
+                console.log(mass);
+                setAObj ({mass,loading:false})})
+                
+              }
+        } ,[mainForm,inn,cardstate,state]    
+       
+        )
+      
+  
        
 
   return (
@@ -80,7 +90,8 @@ const inn = state && state[0]? state[0].data.inn : null
 
         <div className={"result"}>
           {state && cardstate ?
-           <ROUTERS mainForm={mainForm} fzObj={fzObj} setFzObj ={setFzObj}
+           <ROUTERS mainForm={mainForm} fzObj={fzObj} setFzObj ={setFzObj} 
+           setAObj={setAObj} AObj={AObj}
           result={result} state={state} status={status} cardstate={cardstate} /> : null}
           {state && cardstate === 2 ? <NAVLINKS   state={state} cardstate={cardstate} /> : null}
           {state && status.CDI && cardstate === 2 ? <CDI_CARD objState={state} /> : ''}

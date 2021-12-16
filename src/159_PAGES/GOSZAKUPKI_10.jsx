@@ -25,7 +25,7 @@ console.log(main);
        return (
         <>
         <div style={{"color":"lightblue", "padding":"5px", "margin":"0","textAlign":"center" }}>
-         Участие в Госконтрактах
+         Участие в Госконтрактах 
          </div>         
         {!fzObj.loading? <>
 

@@ -14,6 +14,7 @@ import {
     Routes,
     useNavigate
   } from "react-router-dom";
+import ARBITR from '../159_PAGES/ARBITR_11';
 
 
 
@@ -40,7 +41,7 @@ const ROUTERS = (props) =>{
                 <Route path="/openstruct/:inn" element={props.state &&props.status.S159 ? <STRUCTURE_OPEN mainForm={props.mainForm} /> : ''} />
                 <Route path="/finstr/:inn" element={props.state &&props.status.S159 ? <FINSTR mainForm={props.mainForm}/> : ''} />
                 <Route path="/goszakupki/:inn" element={props.state &&props.status.S159 ? <GOSZAKUPKI mainForm={props.mainForm}  fzObj= {props.fzObj} setFzObj= {props.setFzObj}/> : ''} />
-                
+                <Route path="/arbitr/:inn" element={props.state &&props.status.S159 ?    <ARBITR mainForm={props.mainForm}  AObj= {props.AObj} setAObj= {props.setAObj}/> : ''} />  
                 <Route path="*" element={<CARD_159 mainForm={props.mainForm} cardstate={props.cardstate}  />} />
             
             </Routes>

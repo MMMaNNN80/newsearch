@@ -274,6 +274,7 @@ padding-bottom: 5px;
    
 grid-column: 1/10; 
 grid-row: 2;
+overflow-y: visible;
 
 display:grid;
 grid-template-columns: auto auto auto auto  2fr ; 
@@ -498,17 +499,17 @@ opacity: 0.9;
     white-space:normal;
   }
   .graf_44 {
-    background: radial-gradient(ellipse at top, #351442, rgb(91, 48, 160));
+    background: radial-gradient(ellipse at top, #bb843d, rgb(241, 21, 94));
      
  }
 
  .graf_44_sum {
-    background: radial-gradient(ellipse at top, #068bd8, rgb(60, 94, 66));
+    background: radial-gradient(ellipse at top, #0d71ac, rgb(35, 83, 44));
  }
  
  
  .graf_223 {
-    background: radial-gradient(ellipse at top, #159c6f, rgb(86, 206, 30));
+    background: radial-gradient(ellipse at top, #565dbd, rgb(206, 94, 221));
      
  }
  .graf_223_sum {
@@ -559,7 +560,7 @@ opacity: 0.9;
      margin-bottom: 5px;
  }
  .fztextblock{
-     padding:2px;
+     padding:15px;
  }
  .fzintxt{
      font-size: 12px;
@@ -581,5 +582,35 @@ border: 1px dotted rgb(43, 16, 163);
 }
 .btn_block:hover {
 
-border: 1px solid grey;
+opacity:0.7;
+
 }
+
+
+.tblString {
+   width: auto;
+   opacity: 0.9;
+}
+  
+.tblString th{
+   font-size: 12px;
+   width: 55%;
+   padding: 10px;
+   border-top: 1px dotted rgb(42, 140, 170);
+   border-bottom: 1px dotted rgb(42, 140, 170);
+}
+  
+.tblString td{
+    font-size: 10px;
+    padding: 10px;
+    border-top: 1px dotted rgb(42, 140, 170);
+    border-left: 1px dotted rgb(42, 140, 170);
+    border-bottom: 1px dotted rgb(42, 140, 170);
+    border-right: none;
+ }
+.fixed-table td:nth-child(2) {text-align: left; font-size: 12px;}
+.fixed-table td:nth-child(3) {text-align: center;}
+.fixed-table td:nth-child(4) {text-align: right;}
+.fixed-table{ table-layout:fixed; word-break: break-all;}
+.fixed-tabletd { overflow: hidden; }
+.btnActive{border-bottom: 1px solid orange;}
