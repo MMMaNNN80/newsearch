@@ -5,11 +5,15 @@ import React, {Fragment} from "react";
 import { getEmpty } from "../../JS/properties";
 
 const BALANCE = ({mainForm}) => {
- 
+
+
+
+ debugger
 
 if(!mainForm.massFinReport || mainForm.massFinReport.length<1) 
 {return (getEmpty('Данные о наличии отчета "Бухгалтерский баланс" отсутствуют'))}
- 
+
+
     let mass=[]
     mass = mainForm.massFinReport.filter(el =>el.form.toLowerCase().includes('баланс'))
  // console.log(mass)

@@ -7,7 +7,7 @@ const CARD_159 = ({mainForm,cardstate}) => {
 
     let masshd = []
     let mass = []
-    if(mainForm.massFinReport && mainForm.massFinReport.length>1) 
+    if(mainForm.massFinReport && mainForm.massFinReport.length>1 && mainForm.massFinReport[0].fin_type==='rosstat_finreport') 
      {
        
         mass = mainForm.massFinReport.filter(el =>el.form.toLowerCase().includes('о прибылях и убытках') && el.curr ===1)
@@ -20,12 +20,23 @@ const CARD_159 = ({mainForm,cardstate}) => {
         if(el.code ==='2410') { masshd.push((['Налог на прибыль ', `${el.p_value} (актульно на 31.12.${el.period}) `, 'ХД', {}]))}
         if(el.code ==='2411') { masshd.push((['в т.ч. текущий налог на прибыль', `${el.p_value} (актульно на 31.12.${el.period}) `, 'ХД', {}]))}
         if(el.code ==='2412') { masshd.push((['отложенный налог на прибыль', `${el.p_value} (актульно на 31.12.${el.period}) `, 'ХД', {}]))}
+            
+    
     });
-         
-    mass =  getRows(masshd)
+}
 
-     }
-   
+    if (mainForm.massWorkersNumber && mainForm.massWorkersNumber.length) {
+        console.log( mainForm.massWorkersNumber)
+        
+        mainForm.massWorkersNumber.forEach((el,i)=>{
+           
+        
+         masshd.unshift ([`Средняя численность сотрудников`, `${el.value} чел  (данные за ${el.period}г)`, {}])
+        
+        }) }
+         
+         
+        masshd.length ? mass =  getRows(masshd) : mass = []
 
  if(cardstate===2) {
     return (

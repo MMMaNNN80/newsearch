@@ -18,7 +18,7 @@ app.post('/159',  async(req, res) => {
 console.log('159')
   try {
     const sql = await req.body;
-// console.log(sql)
+ console.log(sql)
     const sqlstr  = 
     `SELECT  ${sql.fields} FROM  ${sql.scheme}.${sql.table}  ${sql.dopSql} `;
 

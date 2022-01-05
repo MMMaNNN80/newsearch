@@ -40,7 +40,7 @@ console.log(main);
 }
 return(
 <Fragment>
-    <MAIN_CARD mainForm={mainForm} CHILDREN ={ZAKUPKI} />                   
+    <MAIN_CARD name={mainForm.short_name.value} CHILDREN ={ZAKUPKI} />                   
 </Fragment>
   )
 

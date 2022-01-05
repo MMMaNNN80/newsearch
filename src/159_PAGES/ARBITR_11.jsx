@@ -384,7 +384,7 @@ if(postYears.isActionYear===1) {
 
 return(
 <Fragment >
-    <MAIN_CARD mainForm={mainForm} CHILDREN ={GETARBITR} />                   
+    <MAIN_CARD mainForm={mainForm.short_name.value} CHILDREN ={GETARBITR} />                   
 </Fragment>
   )
 }

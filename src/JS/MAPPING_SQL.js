@@ -6,8 +6,9 @@ export const getMainform = async (obj) => {
 
     await getResponsePg(obj).then(mass => {
                 
+             console.log(mass)
              
-                let objX = mass[0].f_getforms; // такое название объекта по имени процедуры
+                let objX = mass[0].f_getformsx; // такое название объекта по имени процедуры
                  
                 //---ОСНОВНАЯ ИНФОРМАЦИЯ
                 
@@ -64,6 +65,10 @@ export const getMainform = async (obj) => {
                mainForm.massBranchesEgrul = objX.filter((el)=>el.src==='BRANCHES_EGRUL')
                mainForm.massBranchesRosstat = objX.filter((el)=>el.src==='BRANCHES_ROSSTAT')
                mainForm.massFinReport = objX.filter((el)=>el.src==='FIN_REPORT')
+               mainForm.massFoundersOthers = objX.filter((el)=>el.src==='FOUNDERS_OTHERS')
+               mainForm.massWorkersNumber = objX.filter((el)=>el.src==='WORKERS_NUMBER')
+               
+
                
                  
             
@@ -72,7 +77,8 @@ export const getMainform = async (obj) => {
     return mainForm 
 }
 
-export function getOBJpublic () {
+export function getOBJpublic (p='UL') {
+    if (p==='UL') {
     return  {
      dataport_id:{name:'dataport_id',value:''},
      sparkid: {name:'Sparkid (Идентификатор интерфакс)', value:''},
@@ -125,6 +131,54 @@ export function getOBJpublic () {
      branches_count: {name:  'Количество филиалов', value: ''},
      
 }
+    }
+    if (p==='IP') {
+        return {
+            dataport_id:{name:'dataport_id',value:''},
+            sparkid: {name:'Sparkid (Идентификатор интерфакс)', value:''},
+            okved_code:{name:'код ОКВЭД',value:''},
+            okved_name:{name:'ОКВЭД',value:''},
+            address: {name:  'Адрес', value: ''},
+            citizenship_name: {name:  'Страна', value: ''},
+            full_name: {name: 'ФИО', value: ''},
+            name:{name: 'Наименование', value: '' },
+            name_eng:{name:        'Наименование компании на английском языке',value: ''},
+            date_first_reg:{name:  'Дата первой регистрации', value: ''},
+            ogrn: {name:  'ОГРНИП', value: ''},
+            ogrn_date: {name:  'Дата ОГРНИП', value: ''},
+            inn: {name:  'ИНН', value:  ''},
+            okopf: {name:  'ОКОПФ', value:  ''},
+            okopf_code: {name:  'ОКОПФ код', value:  ''},
+            okato_code: {name:  'ОКАТО код', value:''},
+            okato_name:{name:  'ОКАТО', value:''},
+            okfs: {name:  'ОКФС', value: ''},
+            okfs_code: {name:  'ОКФС (код)', value: ''},
+            okpo: {name:  'ОКПО', value:  ''},
+            okogu_code: {name:  'ОКОГУ код', value:  ''},
+            okogu: {name:  'ОКОГУ', value: ''},
+            oktmo:{name:  'ОКТМО', value: ''},
+            type: {name:  'Тип', value: ''},
+            documents: {name: 'Документы', value: ''},
+            email: {name: 'email', value: ''},
+            phones:{name:"Телефон", value:''},
+            phone_parsed: {name:"Телефоны после парсинга", value:''},
+            web:{name:"Web",value:''},   
+            sex: {name:  'Пол', value: ''},       
+            status: {name:  'Статус', value: ''},
+            hid: {name:  'Гид ОРПОН', value:  ''},
+            leader_disq: {name:  'Дисквалификация', value:  ''},
+            leader: {name:  'Руководитель', value: ''},
+            leader_post: {name:  'Должность', value: ''},
+            count_sugg: {name:  'Количество подсказок', value: ''},
+            request: {name:  'Запрос', value: ''},
+            regauthorityFNS:{name:  'ФНС по месту регистрации', value: ''},
+            regauthorityaddress:{name:  'Адрес ФНС по месту регистрации', value: ''},
+            report_id: {name:  'Идентификатор отчета на 159 сервере', value: ''},
+            rosstat_report_id: {name:  'Идентификатор отчета в Росстат на 159 сервере', value: ''}
+            
+
+        }
+    }
 
 }
 

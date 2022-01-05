@@ -7,15 +7,15 @@ const NAVLINKS = (props) => {
         to: {opacity: 1,x:0,border: "1px dotted  orange"}
         ,from: {opacity:0,x: -500,border: "1px dotted  white"}
         ,loop: { reverse: false }
-        , config: { duration: 800,config:config.wobbly }
-        
+        , config: { duration: 800,config:config.wobbly
+        }        
     })
 
     //console.log(props.state,props.cardstate )
 const inn =(props.state && props.cardstate===2) ? props.state[0].data.inn  : 'empty'
  // const inn=''
 
- 
+ if (inn && inn.length===10) {
     return (
         <Fragment>
             <animated.div style={sMenu} className={"menu"} >
@@ -39,5 +39,21 @@ const inn =(props.state && props.cardstate===2) ? props.state[0].data.inn  : 'em
             </animated.div>
         </Fragment>
     )
+ }
+
+ if (inn && inn.length===12) {
+    return (
+        <Fragment>
+            <animated.div style={{...sMenu} } className={"menu"} >
+                <img src="..\icon\paper-plane.png" height="40px" alt="a" />
+                <h6>Навигация</h6>
+                <div className = "navdiv">Основная информация</div>
+                <NavLink  to={`/${inn}`}>Карточка компании ИП</NavLink> <br />
+            </animated.div>
+        </Fragment>
+        )
+
+ }
+
 }
 export default NAVLINKS;

@@ -2,10 +2,41 @@
 import React, { Fragment } from "react";
 import BALANCE from "./FINSTR_9/BALANCE_REPORT";
 import FINRESULT from "./FINSTR_9/FINRESULT";
+import BALANCE_CSV from "./FINSTR_9/BALANCE_CSV";
+
+
 
 const FINSTR = ({mainForm})=>{
 
+
+  console.log(mainForm)
+
+
+  
+  
+  function DATA (props) {
+
+   if (mainForm && mainForm.massFinReport.length  && mainForm.massFinReport[0].fin_type === 'rosstat_finreport')  
+    return ( <>    
+      <BALANCE mainForm={props.mainForm}/> <br/>
+        
+      <FINRESULT mainForm={props.mainForm}/>
+      </>
+    )
+     if (mainForm && mainForm.massFinReport.length && mainForm.massFinReport[0].fin_type === 'bfo_data_csv')  
+     return ( <>    
+       <BALANCE_CSV mainForm={props.mainForm}/> <br/>
+        
+      {/*<FINRESULT_CSV mainForm={props.mainForm}/> */}
+       </>
+     )
+
+return null
+
+  }
+
 return (
+
     <Fragment>
       <div className="form" style={{ "background": "linear-gradient(55deg, rgb(25, 23, 100),rgb(1, 60, 26))" }} >
         <div className="spcard">
@@ -21,12 +52,7 @@ return (
             Бухгалтерская финансовая отчетность
              </div>
              </div>
-            
-          <BALANCE mainForm={mainForm}/> <br/>
-            
-          <FINRESULT mainForm={mainForm}/>
-          
-
+            <DATA mainForm={mainForm} />
           </div>
         </div>
       </div>

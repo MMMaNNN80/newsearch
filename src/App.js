@@ -9,7 +9,8 @@ import CARD_151 from './COMPONENTS/CARD_151';
 import NAVLINKS from './NAVIGATIONS/NAVLINKS'
 import ROUTERS from './NAVIGATIONS/ROUTERS';
 import { getOBJpublic } from './JS/MAPPING_SQL';
-import { getDATAGoszakupki,result,getDATAArbitrAGG } from './JS/SQL';
+import { getDATAGoszakupki,result,getDATAArbitrAGG,getDATAinn } from './JS/SQL';
+import CARD159_IP from './159_IP/CARD159_IP';
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
       S159: false,
       CDI: false,
     })
+  const [massIP,setmassIP] = useState({loading:true, mass:[]})
 
 
     const [fzObj,setFzObj] = useState({loading:true})
@@ -43,10 +45,8 @@ function App() {
 const inn = state && state[0]? state[0].data.inn : null
       
     
-    
-        useEffect( ()=> {
-     if (state && cardstate===2
-       && mainForm && mainForm.inn.value!==inn)  
+     useEffect( ()=> {
+     if (state && cardstate===2 && mainForm && mainForm.inn.value!==inn && inn.length===10)  
           {
           result(inn).then( data=>{
             setMainform (
@@ -66,11 +66,24 @@ const inn = state && state[0]? state[0].data.inn : null
         } ,[mainForm,inn,cardstate,state]    
        
         )
-      
-  
-       
+        
+        useEffect( ()=> {
+          if (state && cardstate===2 && mainForm
+             && mainForm.inn.value!==inn && inn.length===12)  
+               {
+                 console.log(state)
+                   
+                   getDATAinn (inn) 
+                   .then( mass=>{
+            
+                    setmassIP({mass,loading:false})})  
+                   }
+             } ,[mainForm,inn,cardstate,state]    
+            
+             )
 
-  return (
+
+   return (
     <div className="App bg-dark border-danger h6 mr-5">
       <div className={'all'}>
         <div className={'fix'}>
@@ -80,23 +93,41 @@ const inn = state && state[0]? state[0].data.inn : null
         </div>
         <div className={"cards"}>
           <CARD
-            state={objState.state} 
+            state={objState.state}
             update={objState.update}
             setCardstate={objState.setCardstate} cardstate={cardstate}
             setStatus={setStatus}
-             status={status}
+            status={status}
           />
         </div>
-
+        {inn && inn.length===10 ? 
         <div className={"result"}>
-          {state && cardstate ?
-           <ROUTERS mainForm={mainForm} fzObj={fzObj} setFzObj ={setFzObj} 
-           setAObj={setAObj} AObj={AObj}
-          result={result} state={state} status={status} cardstate={cardstate} /> : null}
-          {state && cardstate === 2 ? <NAVLINKS   state={state} cardstate={cardstate} /> : null}
+
+          {state && cardstate  ?
+            <ROUTERS 
+              mainForm={mainForm} 
+              fzObj={fzObj} setFzObj={setFzObj}
+              setAObj={setAObj} AObj={AObj}
+              result={result} 
+              state={state} 
+              status={status} 
+              cardstate={cardstate}/> : null}
+          {state && cardstate === 2 ? 
+          <NAVLINKS state={state} cardstate={cardstate} /> : null}
           {state && status.CDI && cardstate === 2 ? <CDI_CARD objState={state} /> : ''}
           {state && status.S151 && cardstate === 2 ? <CARD_151 objState={state} /> : ''}
         </div>
+: null}
+
+{inn && inn.length===12 && state && cardstate === 2 ?
+<> 
+<div className={"result"}>
+<NAVLINKS state={state} cardstate={cardstate} />
+<CARD159_IP massIP={massIP} />
+</div>
+</> :null}
+
+
       </div>
     </div>
   )
