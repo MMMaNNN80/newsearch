@@ -34,13 +34,13 @@ let massOkveds = []
           <p className="c_source">&reg;источник {"Внешний контур 159 сервер"}</p>
         </div>
         <div className="main_card">
-
-           <GETTABLE funcGetRows={[...getMassRows(massOkvedsOsn)]}  //Регистрационные данные
+        <GETTABLE funcGetRows={[...getMassRows(massOkvedsOsn)]}  //Регистрационные данные
             style={{
                 tclass: ["mtbl okvosn"],
                 captionStyle: { "color": "lightblue", "alignText": "center","fontSize":"12px" }
               }}
             name={"Основная деятельность"} /> <br />
+           
 
             {massOkveds.length > 1 ? 
             <GETTABLE funcGetRows={[...getMassRows(massOkveds)]}  //Регистрационные данные
@@ -52,6 +52,7 @@ let massOkveds = []
             endtbl = {true}
             /> : 
             getEmpty("Отсутствуют сведения о дополнительных видах деятельности")}
+
 
         </div>
       </div>

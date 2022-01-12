@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 
 function STRUCTURE_ROSSTAT({cowmass}) {
 
-  cowmass = cowmass[0].f_getrecursstruct
+ 
 
     
       // paginations

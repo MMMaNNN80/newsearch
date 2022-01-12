@@ -46,7 +46,11 @@ const inn = state && state[0]? state[0].data.inn : null
       
     
      useEffect( ()=> {
-     if (state && cardstate===2 && mainForm && mainForm.inn.value!==inn && inn.length===10)  
+     if (
+       cardstate===2 
+      && mainForm 
+      && mainForm.inn.value!==inn 
+      && inn.length===10)  
           {
           result(inn).then( data=>{
             setMainform (
@@ -56,10 +60,12 @@ const inn = state && state[0]? state[0].data.inn : null
             getDATAGoszakupki(inn) 
             .then( mass=>{
               setFzObj ({mass,loading:false})})
+
+              setAObj ({loading:true})
               
               getDATAArbitrAGG (inn) 
               .then( mass=>{
-                console.log(mass);
+          
                 setAObj ({mass,loading:false})})
                 
               }

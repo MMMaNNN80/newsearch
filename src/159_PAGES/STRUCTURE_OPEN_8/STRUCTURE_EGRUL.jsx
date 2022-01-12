@@ -20,7 +20,7 @@ const STRUCTURE_EGRUL = ({ cowmass }) => {
   let currentPages = []
   if (cowmass.length === 0) { return null }
 
-  cowmass = cowmass[0].f_getrecursstruct
+ 
   let mass = []
   let massEGRULChild = []
 

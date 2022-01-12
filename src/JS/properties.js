@@ -35,14 +35,14 @@ export async function getResponse(e){
           )
   } return masshttp
 }
-export function getMassRows(mass = [] ,ishead = true) {
+export function getMassRows(mass = [] ,ishead = true, styles={}) {
   let m = []
 
     mass.forEach((el,i) => {
       //console.log(mass)
     m.push(
     <Fragment key={i}>
-    <tr key={i} style={{ }}>
+    <tr key={i} style={styles}>
       {
       [...el.map((el,x) => {
         
@@ -199,7 +199,7 @@ return (
 
 export const getDetailzakupki_ejs = async (inn, year=2020,x,fz = 44,hbgColor ,htextcolor) => {
   //console.log(inn,year,44)
-    const workSheetName = `${fz}-ФЗ_${inn}_${year}`;
+    const workSheetName = [`${fz}-ФЗ_${inn}_${year}`];
     const filePath = `${fz}_${inn}_${year}.xlsx`
     let workSheetColumnNames=[]
 
@@ -270,13 +270,13 @@ if(fz === 44) {
   }
 
 
-
-    workSheetColumnNames = workSheetColumnNames.map(el=>
+    workSheetColumnNames.map(el=>
      {return {...el, style : {font : {
       size: 10,
      }  
   }}}
       )
+      workSheetColumnNames =  [[...workSheetColumnNames]] 
 
       
 try {
@@ -292,7 +292,7 @@ try {
        {   
 let data = []
 
-          mass[0].goszakupkiexcel_dinamic.forEach(el => { 
+          mass.forEach(el => { 
             if (fz===223) { 
            data.push (
                   {src: el.src,
@@ -358,11 +358,11 @@ let data = []
             );
 
           }
+          
 
-} );   return data })
-   .then( mass =>{writeExcelJS(mass,workSheetColumnNames,workSheetName,filePath, hbgColor,htextcolor)})
+} ); data = [[...data]]; return data ;})
+   .then(data =>{writeExcelJS(data,workSheetColumnNames,workSheetName,filePath, hbgColor,htextcolor)})
 }
-
   
 } catch (error) {
   alert('Системные ошибки, обратитесь к разработчику (getDetailzakupki) ')
@@ -382,9 +382,6 @@ export const getDetailArbitr_ejs = async (inn,obj,hbgColor ,htextcolor) => {
   const filePath = `${inn}_${year}.xlsx`
  let workSheetColumnNames=[]
  let data2 = []
- let data_all = []
-
-
 workSheetColumnNames.push(
     [
         {header:"Номер дела", key: 'case_numberl',width:10},
@@ -398,7 +395,7 @@ workSheetColumnNames.push(
 
     workSheetColumnNames.push(
       [
-        {header:"X", key: 'is_',width:5},
+          {header:"X", key: 'is_',width:5},
           {header:"Номер дела", key: 'case_numberl',width:10},
           {header:"Тип дела", key: 'type_p',width:10},
           {header: "Дата начала дела", key: 'date_start',width:10},
@@ -422,7 +419,6 @@ workSheetColumnNames.push(
        await getResponsePg(obj)
        .then(mass =>{
        
-        mass = mass[0].f_getarbitrdetailexcel
         let data = [] 
        // console.log(mass)
         mass.filter(el=>el.sort ===`CASES`).forEach(el=>{
@@ -439,8 +435,6 @@ workSheetColumnNames.push(
 
             })
           })
-
-          
 
             mass.filter(el=>el.sort ===`participants`).forEach(el=>{
 
@@ -462,11 +456,7 @@ workSheetColumnNames.push(
               
                 )
               })
-              data_all.push(data)
-              data_all.push(data2)
-              data = data_all
-              console.log(data)
-             
+              data = [[...data], [...data2]] 
              return data}).then( data =>{
                //console.log(data,workSheetColumnNames,filePath)
               
@@ -477,5 +467,14 @@ workSheetColumnNames.push(
     alert('Системные ошибки, обратитесь к разработчику (getDetailzakupki) ')
      }
     }
-
+  
+    export function getQuadr (txt,class_='quadr')
+{    
+    return ( 
+    <span>
+    <div className={class_} style={{"display":"inline-flex"}}></div> 
+   <div style={{"display":"inline"}}>{txt}</div>
+   </span>
+    )
+    }
  

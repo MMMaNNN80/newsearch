@@ -8,7 +8,7 @@ import MAIN_CARD from "../JS/MAIN_CARD"
 const CARD159_IP = ({massIP}) => {
 
     if (!massIP.mass.length) {return null}
-    const obj = massIP.mass[0].f_getformsip[0]
+    const obj = massIP.mass
 
     console.log(obj)
 

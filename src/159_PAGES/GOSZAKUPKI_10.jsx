@@ -14,13 +14,12 @@ const GOSZAKUPKI = ({mainForm,fzObj})=>{
 
   let main ={}
 
-
 if (mainForm && mainForm.inn) {inn = mainForm.inn.value; } else {return null}
-if (fzObj.mass && fzObj.mass[0].f_getgoszakupkioptimal) {
-    main.mass223FZAGG = fzObj.mass[0].f_getgoszakupkioptimal.filter(el=>el.fz ==='223')
-    main.mass44FZAGG =  fzObj.mass[0].f_getgoszakupkioptimal.filter(el=>el.fz ==='44')
+if (fzObj.mass && fzObj.mass) {
+    main.mass223FZAGG = fzObj.mass.filter(el=>el.fz ==='223')
+    main.mass44FZAGG =  fzObj.mass.filter(el=>el.fz ==='44')
 }
-console.log(main);
+
   function ZAKUPKI () {
        return (
         <>

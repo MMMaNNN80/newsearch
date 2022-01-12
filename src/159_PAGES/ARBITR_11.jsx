@@ -26,7 +26,7 @@ const ARBITR = ({mainForm, AObj})=>{
 
 
 if (mainForm && mainForm.inn) {inn = mainForm.inn.value; } else {return null}
-if (!AObj.mass || !AObj.mass[0].f_getarbitrdata || !AObj.mass[0].f_getarbitrdata.length) {return ( 
+if (!AObj.mass || !AObj.mass || !AObj.mass.length) {return ( 
 
   <Fragment>
     <MAIN_CARD mainForm={mainForm} CHILDREN ={()=>{ return (
@@ -43,9 +43,9 @@ if (!AObj.mass || !AObj.mass[0].f_getarbitrdata || !AObj.mass[0].f_getarbitrdata
 /////////////////////////////////////////////////////////////////////////////////////////
   /// ЛОГИКА //////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
-  const massAgg = AObj.mass[0].f_getarbitrdata.filter(el=>el.src ==='ARBITR_AGG')
-  const Activity =  (AObj.mass[0].f_getarbitrdata.filter(el=>el.src ==='ARBITR_AGG_CURR')[0].is_activity===1) ? 'Присутствуют' : 'Отсутствуют'
-  const Filtersmass = AObj.mass[0].f_getarbitrdata.filter(el=>el.src ==='ARBITR_AGG_F')
+  const massAgg = AObj.mass.filter(el=>el.src ==='ARBITR_AGG')
+  const Activity =  (AObj.mass.filter(el=>el.src ==='ARBITR_AGG_CURR')[0].is_activity===1) ? 'Присутствуют' : 'Отсутствуют'
+  const Filtersmass = AObj.mass.filter(el=>el.src ==='ARBITR_AGG_F')
    const massCategory_all = massAgg.filter(el=>el.sort ==='ARBITR_CATEGORY')
    massCategory = massCategory_all
    massRole =  massAgg.filter(el=>el.sort ==='ARBITR_ROLE')
@@ -270,7 +270,6 @@ if(postYears.isActionYear===1) {
   }
 
 }
-
 
 
   const cnt_total =massCategory_all[0].cnt_total

@@ -26,7 +26,6 @@ const CARD_159 = ({mainForm,cardstate}) => {
 }
 
     if (mainForm.massWorkersNumber && mainForm.massWorkersNumber.length) {
-        console.log( mainForm.massWorkersNumber)
         
         mainForm.massWorkersNumber.forEach((el,i)=>{
            

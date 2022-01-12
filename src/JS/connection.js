@@ -29,12 +29,9 @@ export async function getConnection(request) {
 export const getResponsePg =  async ( obj
 
 ) => {
-  //'http://localhost:5000/post'
-  //'http://localhost:5000/151'
-  let host =obj.host // `${obj.end_point}`
   //console.log(host)
   const response =
-     await fetch(host,
+     await fetch(`http://10.42.78.166:38169/api/1.0${obj.host}`,
   {
   method: "POST",
   headers: {

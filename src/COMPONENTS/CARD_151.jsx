@@ -20,7 +20,8 @@ const CARD_151 = (props) => {
         obj.host = '/151'
         getResponsePg(obj)
             .then(mass => {
-                let objX = mass[0].f_getforms;
+                let objX = mass;
+                console.log(mass)
                 
                 //MAPPING с источника
                 //---ОСНОВНАЯ ИНФОРМАЦИЯ

@@ -4,11 +4,12 @@ import { getMassRows } from "../../JS/properties";
 import React, {Fragment} from "react";
 import { getEmpty } from "../../JS/properties";
 
+
 const BALANCE = ({mainForm}) => {
 
 
 
- debugger
+ 
 
 if(!mainForm.massFinReport || mainForm.massFinReport.length<1) 
 {return (getEmpty('Данные о наличии отчета "Бухгалтерский баланс" отсутствуют'))}

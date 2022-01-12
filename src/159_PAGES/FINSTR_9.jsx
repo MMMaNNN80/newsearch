@@ -3,6 +3,7 @@ import React, { Fragment } from "react";
 import BALANCE from "./FINSTR_9/BALANCE_REPORT";
 import FINRESULT from "./FINSTR_9/FINRESULT";
 import BALANCE_CSV from "./FINSTR_9/BALANCE_CSV";
+import FINRESULT_CSV from "./FINSTR_9/FINRESULT_CSV";
 
 
 
@@ -16,18 +17,18 @@ const FINSTR = ({mainForm})=>{
   
   function DATA (props) {
 
-   if (mainForm && mainForm.massFinReport.length  && mainForm.massFinReport[0].fin_type === 'rosstat_finreport')  
+   if (mainForm && mainForm.massFinReport.length )  
     return ( <>    
       <BALANCE mainForm={props.mainForm}/> <br/>
         
       <FINRESULT mainForm={props.mainForm}/>
       </>
     )
-     if (mainForm && mainForm.massFinReport.length && mainForm.massFinReport[0].fin_type === 'bfo_data_csv')  
+     if (mainForm && mainForm.massFinReportCSV.length )  
      return ( <>    
        <BALANCE_CSV mainForm={props.mainForm}/> <br/>
         
-      {/*<FINRESULT_CSV mainForm={props.mainForm}/> */}
+       <FINRESULT_CSV mainForm={props.mainForm}/>
        </>
      )
 

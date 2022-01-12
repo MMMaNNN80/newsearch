@@ -2,7 +2,7 @@
 import GETTABLE from "../../COMPONENTS/GETTABLE";
 import { getMassRows } from "../../JS/properties";
 import React, {Fragment} from "react";
-import { getEmpty } from "../../JS/properties";
+import { getEmpty ,getQuadr} from "../../JS/properties";
 
 const BALANCE_CSV = ({mainForm}) => {
 
@@ -10,13 +10,13 @@ const BALANCE_CSV = ({mainForm}) => {
 
 let massPeriod=[]
 
-if(!mainForm.massFinReport || mainForm.massFinReport.length<1) 
+if(!mainForm.massFinReportCSV || mainForm.massFinReportCSV.length<1) 
 {return (getEmpty('Данные о наличии отчета "Бухгалтерский баланс" отсутствуют'))}
 
 
 let mass=[]
 // Определяем БАЛАНСЫ ДЛЯ СТРАХОВЫХ КОМПАНИЙ И БАНКОВ
-    mass = mainForm.massFinReport.filter
+    mass = mainForm.massFinReportCSV.filter
              (el =>(el.okud.includes('0409806') && el.sort==='DATA') || 
              (el.okud.includes('0420125') && el.sort==='DATA'))
   
@@ -24,7 +24,7 @@ let mass=[]
     {return (getEmpty('Данные о наличии отчета "Бухгалтерский баланс" отсутствуют'))}
  
 
-massPeriod = mainForm.massFinReport
+massPeriod = mainForm.massFinReportCSV
 .filter(el=> el.sort==='PERIODS_OKUDS' && (el.okud.includes('0409806')|| el.okud.includes('0420125') ))
 
 const okud = massPeriod[0].okud
@@ -62,7 +62,7 @@ let massData=[]
 mass.forEach(el=>  massData.push(
      [
 el.code,
-el.name,
+el.who_is_str ===`headtxt`? getQuadr(el.name) :el.name,
 el.nom_p,
 el.p_value,
 el.p_prev_value
@@ -75,12 +75,12 @@ console.log(massData)
 
     return (
         <Fragment>
-            <GETTABLE funcGetRows={[...getMassRows(massData)]}  //Регистрационные данные
+            <GETTABLE funcGetRows={[...getMassRows(massData,true)]}  //Регистрационные данные
                 style={{
                     tclass: ["mtbl tblcolorhead"],
                     captionStyle: { "color": "lightblue", "alignText": "center", "fontSize": "12px" }
                 }}
-                name={"Бухгалтерский баланс"}
+                name={`Бухгалтерский баланс ${okud==='0420125'?'страховых организаций':'' }  (ОКУД: ${okud})`}
                 endtbl = {true}
                 />
         </Fragment>

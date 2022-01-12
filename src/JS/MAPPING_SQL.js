@@ -6,10 +6,14 @@ export const getMainform = async (obj) => {
 
     await getResponsePg(obj).then(mass => {
                 
-             console.log(mass)
+            
              
-                let objX = mass[0].f_getformsx; // такое название объекта по имени процедуры
-                 
+                let objX = mass // такое название объекта по имени процедуры
+             
+                
+                console.log(mass)
+                
+
                 //---ОСНОВНАЯ ИНФОРМАЦИЯ
                 
                 mainForm.report_id.value = objX[0].report_id
@@ -65,6 +69,7 @@ export const getMainform = async (obj) => {
                mainForm.massBranchesEgrul = objX.filter((el)=>el.src==='BRANCHES_EGRUL')
                mainForm.massBranchesRosstat = objX.filter((el)=>el.src==='BRANCHES_ROSSTAT')
                mainForm.massFinReport = objX.filter((el)=>el.src==='FIN_REPORT')
+               mainForm.massFinReportCSV = objX.filter((el)=>el.src==='FIN_REPORT_CSV')
                mainForm.massFoundersOthers = objX.filter((el)=>el.src==='FOUNDERS_OTHERS')
                mainForm.massWorkersNumber = objX.filter((el)=>el.src==='WORKERS_NUMBER')
                

@@ -7,7 +7,8 @@ import GETGOSZAKUPKIGOV from "../../JS/FUNC";
 const FZ223 = ({ main, inn}) => {
   
    
-    if (!main.mass223FZAGG || main.mass223FZAGG.length<1 ) { return getEmpty('Нет данных об участии в закупах в рамках 223ФЗ') }
+    if (!main.mass223FZAGG || main.mass223FZAGG.length===0 ) 
+    { return getEmpty('Нет данных об участии в закупах в рамках 223ФЗ') }
 
    const excHback =  '61543b'
    const excHtxt =  'f2f3f7'
