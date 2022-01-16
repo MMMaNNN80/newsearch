@@ -11,9 +11,11 @@ const MAIN_CARD = (props) => {
                     <p className="c_name" style={{}}> КАРТОЧКА КОМПАНИИ: </p>
                     <img src="/icon/rtk-logo-desktop.png" alt="." style={{}} />
                     <p className="sh_name">{name}</p>
+                  
                     <p className="c_source">&reg;источник {"Внешний контур 159 сервер"}</p>
-                </div>
+                </div>              
                 <div className="main_card">
+              
                     <div className="cowners" style={{ "padding": "5px" }}>
                             <CHILDREN/>
                     </div>

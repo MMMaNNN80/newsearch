@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import GETTABLE from "../COMPONENTS/GETTABLE";
 import { getRows, getMassRows } from "../JS/properties";
+import MAIN_CARD from "../JS/MAIN_CARD";
 
 
 
@@ -14,9 +15,9 @@ const REGDATA = (props) => {
   mainForm.okogu_code.name = "ОКОГУ"
   let mass = getmass([
     'dataport_id', 'short_name',
-    "inn", 'kpp', 'ogrn', 'okpo'
-    , 'okopf', 'okogu_code'
-    , 'okfs_ism', 'oktmo'
+    'ogrn', "inn", 'kpp', 
+     'okopf', 'okogu_code'
+    , 'okfs_ism','okpo', 'oktmo'
   ], 'REG_1', mainForm).filter(el => el[1])
 
   // сделали массив 1 таблицы
@@ -34,7 +35,6 @@ const REGDATA = (props) => {
     )
     return mass_
   }
-
   let massReg = []
   if (mainForm.massRegistr.length > 1) {
     massReg.push(["Дата первичной регистрации", mainForm.massRegistr[0].regdate, 'REGISTR', {}])
@@ -60,53 +60,38 @@ const REGDATA = (props) => {
   }
   if (!mainForm.massFonds) { massFonds = [] }
 
+  function DATA () {
+    return (
+      <Fragment>
+              <GETTABLE funcGetRows={[...getRows(mass)]}  //Регистрационные данные
+                style={{
+                  tclass: ["mtbl"],
+                  captionStyle: { "color": "lightblue", "alignText": "center", "fontSize": "12px" }
+                }}
+                name={"Регистрационные данные:"} /> <br />
+  
+              <GETTABLE funcGetRows={[...getRows(massReg)]}  //Регистрационные данные
+                style={{
+                  tclass: ["mtbl"],
+                  captionStyle: { "color": "lightblue", "alignText": "center", "fontSize": "12px" }
+                }}
+                name={"Сведения о государственной регистрации"} /> <br />
 
-  //let massFonds = []
-
-  //  массив из н   скольких столбцов с врехней строкой и без!
-
-  return (
-    <Fragment>
-      <div className="form" style={{ "background": "linear-gradient(55deg, rgb(25, 23, 100),rgb(1, 60, 26))" }} >
-        <div className="spcard">
-          <div className="lblCard">
-            <p className="c_name" style={{}}> КАРТОЧКА КОМПАНИИ: </p>
-            <img src="/icon/rtk-logo-desktop.png" alt="." style={{}} />
-            <p className="sh_name">{mainForm.short_name.value}</p>
-            <p className="c_source">&reg;источник {"Внешний контур 159 сервер"}</p>
-          </div>
-          <div className="main_card">
-
-            <GETTABLE funcGetRows={[...getRows(mass)]}  //Регистрационные данные
-              style={{
-                tclass: ["mtbl"],
-                captionStyle: { "color": "lightblue", "alignText": "center", "fontSize": "12px" }
-              }}
-              name={"Регистрационные данные:"} /> <br />
-
-            <GETTABLE funcGetRows={[...getRows(massReg)]}  //Регистрационные данные
-              style={{
-                tclass: ["mtbl"],
-                captionStyle: { "color": "lightblue", "alignText": "center", "fontSize": "12px" }
-              }}
-              name={"Сведения о государственной регистрации"} /> <br />
-
-
-            <GETTABLE funcGetRows={[...getMassRows(massFonds)]}  //Регистрационные данные
-              style={{
-                tclass: ["mtbl"],
-                captionStyle: { "paddingBottom": "10px", "color": "lightblue", "alignText": "center", "fontSize": "12px" }
-              }}
-              name={"Регистрация в ПФ, ФCC"} /> <br />
-
-
-
-          </div>
-        </div>
-      </div>
+              <GETTABLE funcGetRows={[...getMassRows(massFonds)]}  //Регистрационные данные
+                style={{
+                  tclass: ["mtbl"],
+                  captionStyle: { "paddingBottom": "10px", "color": "lightblue", "alignText": "center", "fontSize": "12px" }
+                }}
+                name={"Регистрация в ПФ, ФCC"} /> <br />
+      </Fragment>
+  
+    )
+  }
+  return(
+    <Fragment >
+        <MAIN_CARD mainForm={mainForm.short_name.value} CHILDREN ={DATA} />                   
     </Fragment>
-
-  )
+      )
 
 }
 

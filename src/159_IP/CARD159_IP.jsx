@@ -7,22 +7,16 @@ import MAIN_CARD from "../JS/MAIN_CARD"
 
 const CARD159_IP = ({massIP}) => {
 
-    if (!massIP.mass.length) {return null}
-    const obj = massIP.mass
+    if (massIP.mass && massIP.mass.length<1) {return null}
+    const obj = massIP.mass[0]
 
-    console.log(obj)
-
-    
+  
 
 return (
         <MAIN_CARD CHILDREN = {OSNCARD} name = {`ИП ${obj.fullnamerus}`}/>
     )
 
-    function OSNCARD (){
-        
-        // `${}`
-        
-        
+    function OSNCARD (){      
         return(
         <>   
          <ZAGOLOVOK text={'КАРТОЧКА ИНДИВИДУАЛЬНОГО ПРЕДПРИНИМАТЕЛЯ'}/>
@@ -44,14 +38,13 @@ return (
           [`Статус`,  obj.status],
 
          ]
-          ) } style={{tclass: ['tblString'],}} /> <br/>
+          ) } style={{tclass: ['tblString', 'mtbl'],}} /> <br/>
 
         </>)
     }
 
-
 }
 
 
-export default CARD159_IP
+export default CARD159_IP;
 

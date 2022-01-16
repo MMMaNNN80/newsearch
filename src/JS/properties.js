@@ -39,7 +39,7 @@ export function getMassRows(mass = [] ,ishead = true, styles={}) {
   let m = []
 
     mass.forEach((el,i) => {
-      //console.log(mass)
+     
     m.push(
     <Fragment key={i}>
     <tr key={i} style={styles}>
@@ -67,19 +67,23 @@ export function getMassRows(mass = [] ,ishead = true, styles={}) {
   //---Основное меню
 
   if(server==="159"){mass.push([mainForm.dataport_id.name, mainForm.dataport_id.value, 'OSN', {"color": "lightgreen"}])}
+ 
   if(server ==="151") {mass.push([mainForm.sparkid.name, mainForm.sparkid.value, 'OSN', {"color": "cyan"}])}
   if(server === "151"){mass.push([mainForm.full_name.name, mainForm.full_name.value, 'OSN',{"color":"lightgreen", "fontSize": "16px","fontWeight":"700" ,"padding":"10px"}])}
   if(server === "159"){mass.push([mainForm.full_name.name, mainForm.full_name.value, 'OSN',{"color":"gold", "fontSize": "16px","fontWeight":"700" ,"padding":"10px"}])}
    
   
-  mass.push([mainForm.name_eng.name, mainForm.name_eng.value, 'OSN',{}])
+  //mass.push([mainForm.name_eng.name, mainForm.name_eng.value, 'OSN',{}])
+ 
+
   mass.push([mainForm.date_first_reg.name,
-  mainForm.massRegistr && mainForm.massRegistr.regdate 
-  && !isNaN(Date.parse(mainForm.massRegistr[1].regdate))
-  ? new Date(mainForm.massRegistr[0].regdate).toLocaleDateString():'', 'OSN', {}])
-  mass.push([mainForm.ogrn.name, mainForm.ogrn.value, 'OSN', {}])
+  mainForm.massRegistr && mainForm.massRegistr[0].regdate 
+  ? mainForm.massRegistr[0].regdate  :'', 'OSN', {}])
   mass.push([mainForm.inn.name, mainForm.inn.value, 'OSN', {}])
   mass.push([mainForm.kpp.name, mainForm.kpp.value, 'OSN', {}])
+  mass.push([mainForm.ogrn.name, mainForm.ogrn.value, 'OSN', {}])
+
+ 
   mass.push([mainForm.okopf.name, mainForm.okopf.value, 'OSN', {}])
   mass.push([mainForm.okved_name.name,mainForm.okved_code.value +' '+ mainForm.okved_name.value, 'OSN', {}])
   mass.push([mainForm.capital.name, mainForm.capital.value, 'OSN', {}])

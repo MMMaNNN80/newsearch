@@ -66,12 +66,13 @@ if (!AObj.mass || !AObj.mass || !AObj.mass.length) {return (
 
     massRole.forEach(el=>el.pop())
     massRole.unshift (massheads)
-    massRole.push([<div style={{background:'rgb(17, 66, 88)',height:'auto',textAlign:'left',color:'orange'}}></div>, 
-    <div style={{background:'rgb(17, 66, 88)',color:'orange'}}>Всего</div>,
-    <div style={{background:'rgb(17, 66, 88)',height:'auto',textAlign:'center' ,color:'orange'}}> {sumCntAll} </div>
+    
+    massRole.push([
+    <div style={{background:'rgb(17, 66, 88)',height:'auto',textAlign:'left',color:'orange'}}></div>
+    ,<div style={{background:'rgb(17, 66, 88)',color:'orange'}}>Всего</div>
+    ,<div style={{background:'rgb(17, 66, 88)',height:'auto',textAlign:'center' ,color:'orange'}}> {sumCntAll} </div>
     ,<div style={{background:'rgb(17, 66, 88)',height:'100%',textAlign:'center',fontSize:'14px' ,color:'orange'
-    }}>
-      {new Intl.NumberFormat('ru-RU').format(sumRubAll)} </div>])
+    }}> {new Intl.NumberFormat('ru-RU').format(sumRubAll)}</div>])
 ///////////////////////////////////////////////////////////////////////
 
 massCategory = massCategory.filter(el=>(YeasCategory)?el.years === YeasCategory :el.years ===massCategory[0].years).map(el=> {
@@ -81,21 +82,29 @@ massCategory = massCategory.filter(el=>(YeasCategory)?el.years === YeasCategory 
 const  sumCntAll_cat = massCategory.reduce((acc,el)=> acc+el[2],0)
 const  sumRubAll_cat = massCategory.reduce((acc,el)=> acc+el[4],0)
 massCategory.forEach(el=>el.pop())
-massCategory.unshift(massheads)
-massCategory.push([<div style={{background:'rgb(17, 66, 88)',height:'auto',textAlign:'left',color:'orange'}}></div>, 
-<div style={{background:'rgb(17, 66, 88)',color:'orange'}}>Всего</div>
-,<div style={{background:'rgb(17, 66, 88)',height:'auto',textAlign:'center' ,color:'orange'}}> {sumCntAll_cat} </div>
 
+
+
+massCategory.unshift([ 
+  'Годы'
+,'Категории административных дел'
+,'Количество дел'
+,'Суммы'
+])
+
+massCategory.push([
+ <div style={{background:'rgb(17, 66, 88)',height:'auto',textAlign:'left',color:'orange'}}></div> 
+,<div style={{background:'rgb(17, 66, 88)',color:'orange'}}>Всего</div>
+,<div style={{background:'rgb(17, 66, 88)',height:'auto',textAlign:'center' ,color:'orange'}}> {sumCntAll_cat} </div>
 ,<div style={{background:'rgb(17, 66, 88)',height:'100%',textAlign:'center',fontSize:'14px' ,color:'orange'
-}}>
-  {new Intl.NumberFormat('ru-RU').format(sumRubAll_cat)} </div>])
-       
+}}>{new Intl.NumberFormat('ru-RU').format(sumRubAll_cat)} </div>])
+   
+console.log(massRole,massCategory)
 
 function clickYearsHandler (val){
 
 setActClass({val,r:'role'})
 setYearsRole(val)
-
 }
 function clickCategoryHandler (val){
   setActClass({val,r:'category'})
@@ -125,10 +134,6 @@ function postExportExcel (){
   massP = Array.from(new Set(massP ))
  if(massP.length){ massP.unshift('Все')}
  if(massC.length ){massC.unshift('Все')}
-
-
-                  
-              
 
   ///massC= massAgg.filter(el=>el.sort ==='ARBITR_CATEGORY' && el.years ===postYears.val)
   if(postYears.isActionYear===0) // выбор периодов
@@ -289,7 +294,7 @@ if(postYears.isActionYear===1) {
        
 
        
-        <ZAGOLOVOK text={'Выгрузка арбитражных дел'}/> <br/>
+        <ZAGOLOVOK key={1} text={'Выгрузка арбитражных дел'}/> <br/>
                        <>
                        <div 
                        style={{background:'transparent',color:'orange',fontSize:'12px'
@@ -316,7 +321,7 @@ if(postYears.isActionYear===1) {
 
 <ZAGOLOVOK text={'Статистика'}/>
 
-<GETTABLE  funcGetRows={getMassRows(...[massRole])}  //Регистрационные данные
+<GETTABLE key={2}   funcGetRows={getMassRows(...[massRole])}  //Регистрационные данные
             style={{
                 tclass: ["mtbl tblcolorhead fixed-table"],
                 captionStyle: {  "alignText": "left","fontSize":"12px" }
@@ -327,7 +332,7 @@ if(postYears.isActionYear===1) {
                 columnGap:'5px',
                  alignItems:'end',
                 padding:'5px',
-                gridTemplateColumns: 'max-content  min-content min-content min-content min-content  min-content min-content min-content'
+                gridTemplateColumns: 'max-content  min-content min-content min-content min-content min-content  min-content'
                 }}>
             <div style={{
               padding:'5px'
@@ -342,11 +347,11 @@ if(postYears.isActionYear===1) {
                 func ={clickYearsHandler} />
             </div> 
             } endtbl={false}
-            tStyle={{minHeight:'150px',width:'200px',textAlign:'center'}}
+            tStyle={{minHeight:'150px',maxWidth:'100%',minWidth:'auto',textAlign:'center'}}
             colmass = {[<col width='25px'/>, <col width='150px' align="left"/>, <col width='30px' />,<col width='30%' /> ]}
             /> <br />
 
-<GETTABLE funcGetRows={getMassRows(...[massCategory])}  //Регистрационные данные
+<GETTABLE key={3}  funcGetRows={getMassRows(...[massCategory])}  //Регистрационные данные
             style={{
                 tclass: ["mtbl tblcolorhead fixed-table"],
                 captionStyle: {  "alignText": "left","fontSize":"12px" }
@@ -376,7 +381,6 @@ if(postYears.isActionYear===1) {
             tStyle={{minHeight:'120px',textAlign:'center'}}
             colmass = {[<col width='25px'/>, <col width='150px' align="left"/>, <col width='30px' />,<col width='30%' /> ]}
             /> <br/>
-
          </Fragment>
        )
 }

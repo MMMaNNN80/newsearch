@@ -3,7 +3,7 @@ import React, { Fragment } from "react";
 import GETTABLE from "../COMPONENTS/GETTABLE";
 import {getMassRows} from "../JS/properties";
 import { getEmpty } from "../JS/properties";
-
+import MAIN_CARD from "../JS/MAIN_CARD";
 
 
 const CONTACTS_DATA = (props) => {
@@ -26,7 +26,6 @@ const mainForm = props.mainForm
       else {massAddrHis.push([el.address,el.grn,el.grn_date])}
     })
   }
-
 let massPhones = []
   if(mainForm.phone_parsed.value) 
   {
@@ -41,19 +40,9 @@ let massPhones = []
 
 //  массив из н   скольких столбцов с врехней строкой и без!
 
-
-  return (
+function DATA() {
+return (
 <Fragment>
-    <div className="form" style={{ "background": "linear-gradient(55deg, rgb(25, 23, 100),rgb(1, 60, 26))" }} >
-      <div className="spcard">
-        <div className="lblCard">
-          <p className="c_name" style={{}}> КАРТОЧКА КОМПАНИИ: </p>
-          <img src="/icon/rtk-logo-desktop.png" alt="." style={{}} />
-          <p className="sh_name">{mainForm.short_name.value}</p>
-          <p className="c_source">&reg;источник {"Внешний контур 159 сервер"}</p>
-        </div>
-        <div className="main_card">
-
        {massPhones.length>0 ? <GETTABLE funcGetRows={[...getMassRows(massPhones)]}  //Регистрационные данные
             style={{
                 tclass: ["mtbl"],
@@ -67,12 +56,10 @@ let massPhones = []
             name={"История смены юридического адреса"}
              /> : getEmpty('Сведения о юридических адресах отсутствуют')}
 
-        </div>
-      </div>
-    </div>
     </Fragment>
-
   )
+}
+  return(<Fragment><MAIN_CARD mainForm={mainForm.short_name.value} CHILDREN ={DATA} /> </Fragment>)
 
 }
 

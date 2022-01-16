@@ -10,7 +10,7 @@ import FINRESULT_CSV from "./FINSTR_9/FINRESULT_CSV";
 const FINSTR = ({mainForm})=>{
 
 
-  console.log(mainForm)
+  ///console.log(mainForm)
 
 
   

@@ -29,7 +29,7 @@ function CARD({ state, update, setCardstate, cardstate, status, setStatus }) {
                 color = { backgroundColor: "blue" }
             }
 
-            const closeCards = () => { update(null) }
+            const closeCards = () => { update(null);setCardstate(0) }
 
             function setDataReport(key, e) //onClick
             {
@@ -123,9 +123,9 @@ function CARD({ state, update, setCardstate, cardstate, status, setStatus }) {
                         <div className="orgleader">
                             {
                                 !data.management ?
-                                 '' : data.management.post
-                                  ? data.management.post.toLowerCase() + ' : ' + data.management.name ? data.management.name:''  :'' 
-                                  
+                                    '' : data.management.post
+                                        ? data.management.post.toLowerCase() + ' : ' + data.management.name ? data.management.name : '' : ''
+
                             }
                         </div>
 

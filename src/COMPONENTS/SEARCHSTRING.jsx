@@ -6,6 +6,7 @@ import { getResponse } from '../JS/properties'
 
 function SEARCHSTRING(props) {
     const [inputStyle, setinputStyle] = useState([]);
+  
     let navigate= useNavigate()
 
     //suggestions
@@ -36,8 +37,31 @@ function SEARCHSTRING(props) {
                     setSuggestions(e);
                 }
                 }
-            />
-            
+            /> 
+            <div className='services' style={{paddingTop:'8px',gridRow:2 , gridColumn:'2/3'}} >
+          <button   
+          
+          onClick={()=>{props.param.current = true ;props.setCommercial(!props.commercial);}}
+          
+          style={{margin:'2px 5px',height:'auto',border:'2px solid green'
+          ,padding:'5px'
+          ,width:'120px' 
+          ,color:'white'
+          ,fontSize:'12px'
+        }}
+          className="btn btnSrc">{props.commercial? 'Коммерческая версия': 'Бесплатная ограниченная'}</button>
+            <button   
+          
+          onClick={()=>{props.setServices({isOpen:!props.services.isOpen, service_id: !props.services? 1:0})}}
+          
+          style={{margin:'2px 5px' ,height:'auto',border:'2px solid green'
+          ,padding:'5px'
+          ,width:'120px' 
+          ,color:'white'
+          ,fontSize:'12px'
+        }}
+          className="btn btnSrc">Работа со списками</button>
+          </div>           
         </div>
     )
 }

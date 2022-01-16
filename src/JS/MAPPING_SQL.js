@@ -11,8 +11,6 @@ export const getMainform = async (obj) => {
                 let objX = mass // такое название объекта по имени процедуры
              
                 
-                console.log(mass)
-                
 
                 //---ОСНОВНАЯ ИНФОРМАЦИЯ
                 
@@ -72,6 +70,7 @@ export const getMainform = async (obj) => {
                mainForm.massFinReportCSV = objX.filter((el)=>el.src==='FIN_REPORT_CSV')
                mainForm.massFoundersOthers = objX.filter((el)=>el.src==='FOUNDERS_OTHERS')
                mainForm.massWorkersNumber = objX.filter((el)=>el.src==='WORKERS_NUMBER')
+               mainForm.massPledgesUK = objX.filter((el)=>el.src==='PLEDGES_UK')
                
 
                

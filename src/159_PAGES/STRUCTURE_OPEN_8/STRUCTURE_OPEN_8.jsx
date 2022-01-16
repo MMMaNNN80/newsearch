@@ -7,18 +7,14 @@ import STRUCTURE_ROSSTAT from "./STRUCTURE_ROSSTAT";
 import { getParamsObj } from "../../JS/properties";
 import { getResponsePg } from "../../JS/connection";
 import SPINER from "../../JS/SPINER";
+import MAIN_CARD from "../../JS/MAIN_CARD";
 const STRUCTURE_OPEN = (props) => {
   //let mainForm = JSON.parse(localStorage.getItem('159'))
   const [cowmass,setCowMass] = useState({loading:true}) 
 const mainForm = props.mainForm
- 
-
-  
 const inn = mainForm.inn.value
 
-
-
-  useEffect(() => {
+useEffect(() => {
   async function getCowners() { 
       let obj =  getParamsObj()
       obj.inn = inn
@@ -31,20 +27,12 @@ const inn = mainForm.inn.value
     getCowners()
     
   }, [inn])
+function DATA () {
+  
 
   return (
     <Fragment>
-      <div className="form" style={{ "background": "linear-gradient(55deg, rgb(25, 23, 100),rgb(1, 60, 26))" }} >
-        <div className="spcard">
-          <div className="lblCard">
-            <p className="c_name" style={{}}> КАРТОЧКА КОМПАНИИ: </p>
-            <img src="/icon/rtk-logo-desktop.png" alt="." style={{}} />
-            <p className="sh_name">{mainForm.short_name.value}</p>
-            <p className="c_source">&reg;источник {"Внешний контур 159 сервер"}</p>
-          </div>
-          <div className="main_card">
-            
-          <div className="" style={{"padding":"10px"}}>
+         <div className="" style={{"padding":"10px"}}>
              <div style={{"color":"lightblue",
               "padding":"0px", "marginBottom":"15px",
               "textAlign":"center", fontSize: "14px" }}>
@@ -59,10 +47,8 @@ const inn = mainForm.inn.value
               "textAlign":"center", fontSize: "14px" }}>
                 Данные о дочерних компаниях по сведениям РОССТАТ
              </div>
-             {!cowmass.loading?<STRUCTURE_ROSSTAT cowmass={cowmass.mass}/> :<SPINER/>} 
-        
+             {!cowmass.loading?<STRUCTURE_ROSSTAT cowmass={cowmass.mass}/> :<SPINER/>}         
           </div>
-            
             <div className="" style={{"padding":"10px"}}>
              <div style={{"color":"lightblue",
               "padding":"0px", "marginBottom":"15px",
@@ -80,15 +66,11 @@ const inn = mainForm.inn.value
              </div>
                   <BRANCHES_ROSST mainForm={mainForm}/> 
                   </div>
-
- 
-          </div>
-        </div>
-      </div>
     </Fragment>
 
   )
-
+}
+  return(<Fragment><MAIN_CARD mainForm={mainForm.short_name.value} CHILDREN ={DATA} /> </Fragment>)
 }
 
 export default STRUCTURE_OPEN;

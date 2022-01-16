@@ -2,6 +2,7 @@ import React, {Fragment } from "react";
 import GETTABLE from "../COMPONENTS/GETTABLE";
 import { getMassRows} from "../JS/properties";
 import { getEmpty } from "../JS/properties";
+import MAIN_CARD from "../JS/MAIN_CARD";
 
 const OKVEDS = (props) => {
 
@@ -9,8 +10,6 @@ const OKVEDS = (props) => {
 
   if(!mainForm.massOkveds || mainForm.massOkveds.length<1)
   {return getEmpty("Отсутствуют сведения о зарегистрированных ОКВЭД у компании ")}
-
-
 
 let massOkvedsOsn =[]
 let massOkveds = []
@@ -22,18 +21,9 @@ let massOkveds = []
       if(el.ismain ==="1"){massOkvedsOsn.push([el.code,el.name])}
       if(el.ismain !=="1") {massOkveds.push([el.code,el.name])}
     })
- 
+function DATA(){
   return (
 <Fragment>
-    <div className="form" style={{ "background": "linear-gradient(55deg, rgb(25, 23, 100),rgb(1, 60, 26))" }} >
-      <div className="spcard">
-        <div className="lblCard">
-          <p className="c_name" style={{}}> КАРТОЧКА КОМПАНИИ: </p>
-          <img src="/icon/rtk-logo-desktop.png" alt="." style={{}} />
-          <p className="sh_name">{mainForm.short_name.value}</p>
-          <p className="c_source">&reg;источник {"Внешний контур 159 сервер"}</p>
-        </div>
-        <div className="main_card">
         <GETTABLE funcGetRows={[...getMassRows(massOkvedsOsn)]}  //Регистрационные данные
             style={{
                 tclass: ["mtbl okvosn"],
@@ -52,14 +42,14 @@ let massOkveds = []
             endtbl = {true}
             /> : 
             getEmpty("Отсутствуют сведения о дополнительных видах деятельности")}
-
-
-        </div>
-      </div>
-    </div>
     </Fragment>
-
   )
+}
+  return(
+    <Fragment >
+        <MAIN_CARD mainForm={mainForm.short_name.value} CHILDREN ={DATA} />                   
+    </Fragment>
+      )
 
 }
 

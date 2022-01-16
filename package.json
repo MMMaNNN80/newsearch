@@ -47,9 +47,11 @@
       "last 1 safari version"
     ]
   },
+
   "devDependencies": {
     "nodemon": "^2.0.15"
-  },
+  }
+ ,
   "homepage": "./"
 }
 

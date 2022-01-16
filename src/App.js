@@ -1,6 +1,6 @@
 
 import './App.css';
-import {useEffect, useState } from 'react'
+import {useEffect, useState,useRef } from 'react'
 import HEAD from './COMPONENTS/HEAD';
 import SEARCHSTRING from "./COMPONENTS/SEARCHSTRING";
 import CARD from "./COMPONENTS/CARD"
@@ -11,6 +11,7 @@ import ROUTERS from './NAVIGATIONS/ROUTERS';
 import { getOBJpublic } from './JS/MAPPING_SQL';
 import { getDATAGoszakupki,result,getDATAArbitrAGG,getDATAinn } from './JS/SQL';
 import CARD159_IP from './159_IP/CARD159_IP';
+import SEVICES from './SERVISES/SERVICES';
 
 
 function App() {
@@ -23,7 +24,11 @@ function App() {
       S159: false,
       CDI: false,
     })
+  const [services, setServices] = useState({isOpen:false,service_id:0})
   const [massIP,setmassIP] = useState({loading:true, mass:[]})
+
+  const [commercial, setCommercial] = useState(false)
+
 
 
     const [fzObj,setFzObj] = useState({loading:true})
@@ -41,21 +46,30 @@ function App() {
       S159: false,
       CDI: false})
   }
+  const param = useRef(true)
 
 const inn = state && state[0]? state[0].data.inn : null
       
     
      useEffect( ()=> {
      if (
-       cardstate===2 
-      && mainForm 
+       (
+      cardstate===2 
+      && mainForm.inn
       && mainForm.inn.value!==inn 
-      && inn.length===10)  
+      && inn.length===10)
+      || param.current 
+
+      )  
           {
-          result(inn).then( data=>{
+          result(inn,commercial).then( data=>{
             setMainform (
             prev=> {return { ...prev, ...data}})})
-            setFzObj({loading:true})
+           
+            setFzObj({loading:true}
+            
+              )
+            
 
             getDATAGoszakupki(inn) 
             .then( mass=>{
@@ -67,17 +81,21 @@ const inn = state && state[0]? state[0].data.inn : null
               .then( mass=>{
           
                 setAObj ({mass,loading:false})})
+
+                param.current = false
                 
               }
-        } ,[mainForm,inn,cardstate,state]    
+        } ,[param,commercial,mainForm,inn,cardstate,state]    
        
         )
+
+       
         
         useEffect( ()=> {
           if (state && cardstate===2 && mainForm
              && mainForm.inn.value!==inn && inn.length===12)  
                {
-                 console.log(state)
+                 ///console.log(state)
                    
                    getDATAinn (inn) 
                    .then( mass=>{
@@ -92,12 +110,20 @@ const inn = state && state[0]? state[0].data.inn : null
    return (
     <div className="App bg-dark border-danger h6 mr-5">
       <div className={'all'}>
+     
         <div className={'fix'}>
 
           <HEAD />
-          <SEARCHSTRING objState={objState} />
+          <SEARCHSTRING 
+          objState={objState}
+          services={services} 
+          setServices ={setServices} commercial = {commercial}  setCommercial = {setCommercial} param={param}/>
+           
         </div>
-        <div className={"cards"}>
+    
+       {services.isOpen ? <SEVICES/> : null} 
+
+       { objState.state && !services.isOpen ?  <div className={"cards"}>
           <CARD
             state={objState.state}
             update={objState.update}
@@ -105,8 +131,9 @@ const inn = state && state[0]? state[0].data.inn : null
             setStatus={setStatus}
             status={status}
           />
-        </div>
-        {inn && inn.length===10 ? 
+        </div> :null}
+
+        {objState.state && inn && inn.length===10 && !services.isOpen ? 
         <div className={"result"}>
 
           {state && cardstate  ?
@@ -125,7 +152,7 @@ const inn = state && state[0]? state[0].data.inn : null
         </div>
 : null}
 
-{inn && inn.length===12 && state && cardstate === 2 ?
+{inn && inn.length===12 && state && cardstate === 2 && !services.isOpen ?
 <> 
 <div className={"result"}>
 <NAVLINKS state={state} cardstate={cardstate} />
@@ -135,6 +162,7 @@ const inn = state && state[0]? state[0].data.inn : null
 
 
       </div>
+      {/* <div style={{color:'white',fontSize:'30px'}}> {param.current?'Да':'Нет'}</div> */}
     </div>
   )
 

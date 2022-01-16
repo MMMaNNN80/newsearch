@@ -14,13 +14,14 @@ import {getResponsePg,render} from './connection'
 
 
        
-     export async function result (inn) {
+     export async function result (inn,commercial) {
         if (inn){  
          let obj =  getParamsObj()
          obj.inn = inn
          obj.fields = "*"
-         obj.table = `f_getformsX('${inn}')`
+         obj.table = commercial===true ?`f_getformsX('${inn}')`: `f_getforms_free('${inn}')`
          obj.host = '/159'
+         console.log(obj.table)
         return await render(obj)
          }}
 

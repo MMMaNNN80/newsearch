@@ -9,6 +9,7 @@ import STRUCTURE_OPEN from '../159_PAGES/STRUCTURE_OPEN_8/STRUCTURE_OPEN_8';
 import FINSTR from '../159_PAGES/FINSTR_9';
 import NOT_FOUND from '../COMPONENTS/NOT_FOUND';
 import GOSZAKUPKI from '../159_PAGES/GOSZAKUPKI_10';
+import PLEDGES_UK from '../159_PAGES/PLEDGES_UK_12';
 import { 
     Route,
     Routes,
@@ -22,7 +23,7 @@ const ROUTERS = (props) =>{
 
     
     //console.log(props)
-  useNavigate('/not_found')
+  useNavigate('/')
    
  return (
         <>
@@ -42,6 +43,7 @@ const ROUTERS = (props) =>{
                 <Route path="/finstr/:inn" element={props.state &&props.status.S159 ? <FINSTR mainForm={props.mainForm}/> : ''} />
                 <Route path="/goszakupki/:inn" element={props.state &&props.status.S159 ? <GOSZAKUPKI mainForm={props.mainForm}  fzObj= {props.fzObj} setFzObj= {props.setFzObj}/> : ''} />
                 <Route path="/arbitr/:inn" element={props.state &&props.status.S159 ?    <ARBITR mainForm={props.mainForm}  AObj= {props.AObj} setAObj= {props.setAObj}/> : ''} />  
+                <Route path="/pledges_uk/:inn" element={props.state &&props.status.S159 ? <PLEDGES_UK mainForm={props.mainForm} /> : ''} />
                 <Route path="*" element={<CARD_159 mainForm={props.mainForm} cardstate={props.cardstate}  />} />
             
             </Routes>
