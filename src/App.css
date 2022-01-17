@@ -358,7 +358,7 @@ padding: 10px;
  
     height: 60px;
     justify-self: left;
-    align-self: left;
+
     grid-column:1;
     grid-row: 1;
  }
@@ -466,7 +466,7 @@ text-decoration: none;
     color:rgb(207, 226, 137);
     padding: 10px;
     }
-.fondtb tbody th:nthchild(1) {width: 15%;} 
+.fondtb  th:nth-child(1) {width: 15%;} 
 .fondtb  th:nth-child(2) {width: 85%;}              
 .okvosn  th:nth-child(1) {width: 5%;} 
 .Empty {color:white ;font-size: 8px;opacity: 0.5;}
@@ -528,7 +528,7 @@ opacity: 0.9;
      grid-column: 2;
      display:grid;
      grid-template-columns:65% 35%;
-     grid-template-rows: 1;
+     grid-row: 1;
      background-color:rgb(210, 243, 220);
      box-shadow: 1px 1px 1px 1px grey;
      padding: 5px;

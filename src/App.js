@@ -27,7 +27,7 @@ function App() {
   const [services, setServices] = useState({isOpen:false,service_id:0})
   const [massIP,setmassIP] = useState({loading:true, mass:[]})
 
-  const [commercial, setCommercial] = useState(false)
+  const [commercial, setCommercial] = useState(1)
 
 
 
@@ -92,16 +92,21 @@ const inn = state && state[0]? state[0].data.inn : null
        
         
         useEffect( ()=> {
-          if (state && cardstate===2 && mainForm
-             && mainForm.inn.value!==inn && inn.length===12)  
+          if ((state 
+              && cardstate===2 
+              && mainForm
+              && mainForm.inn.value!==inn 
+              && inn.length===12)
+              || param.current 
+             )  
                {
-                 ///console.log(state)
-                   
+                 ///console.log(state)  
                    getDATAinn (inn) 
                    .then( mass=>{
             
                     setmassIP({mass,loading:false})})  
                    }
+                   param.current = false
              } ,[mainForm,inn,cardstate,state]    
             
              )
@@ -162,7 +167,7 @@ const inn = state && state[0]? state[0].data.inn : null
 
 
       </div>
-      {/* <div style={{color:'white',fontSize:'30px'}}> {param.current?'Да':'Нет'}</div> */}
+     {/* <div style={{color:'white',fontSize:'30px'}}> {param.current?'Да':'Нет'}</div>  */}
     </div>
   )
 

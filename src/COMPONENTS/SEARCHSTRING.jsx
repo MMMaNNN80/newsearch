@@ -9,6 +9,12 @@ function SEARCHSTRING(props) {
   
     let navigate= useNavigate()
 
+    let btn_name = ''
+    if(props.commercial===0) {btn_name='Коммерческая полная версия'}
+    if(props.commercial===1) {btn_name='Бесплатная (без авторизации)'}
+    if(props.commercial===2) {btn_name='Бесплатная (с авторизацией)'}
+
+
     //suggestions
     const setSuggestions = async (e) => {
         const mass = await getResponse(e)
@@ -41,7 +47,11 @@ function SEARCHSTRING(props) {
             <div className='services' style={{paddingTop:'8px',gridRow:2 , gridColumn:'2/3'}} >
           <button   
           
-          onClick={()=>{props.param.current = true ;props.setCommercial(!props.commercial);}}
+          onClick={()=>{props.param.current = true ;props.setCommercial(()=>{
+           if (props.commercial === 0) {return 1}
+           if (props.commercial === 1) {return 2}
+           if (props.commercial === 2) {return 0}
+          });}}
           
           style={{margin:'2px 5px',height:'auto',border:'2px solid green'
           ,padding:'5px'
@@ -49,7 +59,7 @@ function SEARCHSTRING(props) {
           ,color:'white'
           ,fontSize:'12px'
         }}
-          className="btn btnSrc">{props.commercial? 'Коммерческая версия': 'Бесплатная ограниченная'}</button>
+          className="btn btnSrc">{btn_name}</button>
             <button   
           
           onClick={()=>{props.setServices({isOpen:!props.services.isOpen, service_id: !props.services? 1:0})}}

@@ -15,11 +15,16 @@ import {getResponsePg,render} from './connection'
 
        
      export async function result (inn,commercial) {
+       let sql='';
+       if (commercial===0) {sql= `f_getformsX('${inn}')`}  
+       if (commercial===1) {sql= `f_getforms_free('${inn}',1)`}
+       if (commercial===2) {sql= `f_getforms_free('${inn}',2)`}
+
         if (inn){  
          let obj =  getParamsObj()
          obj.inn = inn
          obj.fields = "*"
-         obj.table = commercial===true ?`f_getformsX('${inn}')`: `f_getforms_free('${inn}')`
+         obj.table = sql
          obj.host = '/159'
          console.log(obj.table)
         return await render(obj)

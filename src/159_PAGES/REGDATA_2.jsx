@@ -36,11 +36,11 @@ const REGDATA = (props) => {
     return mass_
   }
   let massReg = []
-  if (mainForm.massRegistr.length > 1) {
+  if (mainForm.massRegistr.length > 0) {
     massReg.push(["Дата первичной регистрации", mainForm.massRegistr[0].regdate, 'REGISTR', {}])
-    if (mainForm.massRegistr.length > 1) {
+    if (mainForm.massRegistr.length > 0) {
       massReg.push(["Дата посл рег действий",
-        mainForm.massRegistr[1].regdate, 'REGISTR', {}])
+        mainForm.massRegistr[0].regdate, 'REGISTR', {}])
     }
     massReg.push(["Регистрирующий орган", mainForm.massRegistr[0].regauthoritycode + ' ' + mainForm.massRegistr[0].regauthority, 'REGISTR', {}])
     massReg.push(["Адрес регистрирующего органа", mainForm.massRegistr[0].regauthorityaddress, 'REGISTR', {}])
@@ -59,7 +59,6 @@ const REGDATA = (props) => {
     })
   }
   if (!mainForm.massFonds) { massFonds = [] }
-
   function DATA () {
     return (
       <Fragment>
