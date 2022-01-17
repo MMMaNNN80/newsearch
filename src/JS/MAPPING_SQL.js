@@ -72,12 +72,19 @@ export const getMainform = async (obj) => {
                mainForm.massWorkersNumber = objX.filter((el)=>el.src==='WORKERS_NUMBER')
                mainForm.massPledgesUK = objX.filter((el)=>el.src==='PLEDGES_UK')
                
-
-               
+               //-----------На бесплатные версии
+               mainForm.freeObj = 
+               { 
+                razdelName: '',
+                postHtml: '',
+                massList : [],
+                afterHtml:''
+                      }
+            
                  
             
     })
- 
+
     return mainForm 
 }
 

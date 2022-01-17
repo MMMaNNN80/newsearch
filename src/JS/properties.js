@@ -22,15 +22,17 @@ export async function getResponse(e){
      }
  }
 
- export function getRows(mass = []) {
+ export function getRows(mass = [],tdStyles={}) {
   let masshttp = []
+
+
    
   for (let i = 0; i < mass.length; i++) {
        masshttp.push(
           
           <tr key={i} style={{}}>
-              <th style={{}} scope="row">{mass[i][0]}</th>
-              <td style={{...mass[i][3]}}>{mass[i][1]}</td>
+              <th style={{}} scope="row"><span>{mass[i][0]}</span></th>
+              <td style={{...mass[i][3]}}><span style={{...tdStyles}}>{mass[i][1]}</span></td>
           </tr>
           )
   } return masshttp
@@ -45,12 +47,18 @@ export function getMassRows(mass = [] ,ishead = true, styles={}) {
     <tr key={i} style={styles}>
       {
       [...el.map((el,x) => {
-        
+
         return (
      <Fragment key={x}>
+      
             { i===0 && ishead?
-            <th  key={x} style={{alignText:"left"}}>{el}</th> :
-            <td key={x} style={{ }}>{el}</td>
+            <th  key={x} style={{alignText:"left"}}>{el}</th> :   	
+
+            <td key={x} >
+            <span>{el}</span>
+
+            
+            </td>
             }
       </Fragment>
         )})]}

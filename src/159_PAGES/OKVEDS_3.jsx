@@ -24,6 +24,7 @@ let massOkveds = []
 function DATA(){
   return (
 <Fragment>
+{massOkveds.length > 0 ? <>
         <GETTABLE funcGetRows={[...getMassRows(massOkvedsOsn)]}  //Регистрационные данные
             style={{
                 tclass: ["mtbl okvosn"],
@@ -31,8 +32,6 @@ function DATA(){
               }}
             name={"Основная деятельность"} /> <br />
            
-
-            {massOkveds.length > 1 ? 
             <GETTABLE funcGetRows={[...getMassRows(massOkveds)]}  //Регистрационные данные
             style={{
                 tclass: ["mtbl"],
@@ -40,7 +39,8 @@ function DATA(){
               }}
             name={"Побочная деятельность"}
             endtbl = {true}
-            /> : 
+            /> </>
+            : 
             getEmpty("Отсутствуют сведения о дополнительных видах деятельности")}
     </Fragment>
   )

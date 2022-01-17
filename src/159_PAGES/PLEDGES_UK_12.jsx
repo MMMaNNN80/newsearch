@@ -17,7 +17,7 @@ const PLEDGES_UK = ({mainForm})=>{
   let mass= []
   if (mainForm && mainForm.massPledgesUK &&  mainForm.massPledgesUK.length>0 )  
   mass.push([`Дата заключения договора`,`Дата регистрации`,`№ договора`, `Данные залогодержателя`,'Нотариус',`Сведения ГРН`])
-  console.log(mass)
+  // console.log(mass)
   mainForm.massPledgesUK.forEach(el => {
 
   mass.push([el.doc_date,el.date_reg,el.contract_number,

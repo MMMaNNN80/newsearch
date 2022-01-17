@@ -149,9 +149,11 @@ const inn = state && state[0]? state[0].data.inn : null
               result={result} 
               state={state} 
               status={status} 
-              cardstate={cardstate}/> : null}
+              cardstate={cardstate}
+              commercial={commercial}
+              /> : null}
           {state && cardstate === 2 ? 
-          <NAVLINKS state={state} cardstate={cardstate} /> : null}
+          <NAVLINKS state={state} cardstate={cardstate} commercial={commercial} /> : null}
           {state && status.CDI && cardstate === 2 ? <CDI_CARD objState={state} /> : ''}
           {state && status.S151 && cardstate === 2 ? <CARD_151 objState={state} /> : ''}
         </div>
