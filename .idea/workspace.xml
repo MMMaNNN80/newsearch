@@ -1,20 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0b03beb8-f141-44b1-80cc-4d3b29a0fd01" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/node_modules/.cache/.eslintcache" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/.cache/.eslintcache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/159_PAGES/ARBITR_11.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/159_PAGES/ARBITR_11.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/159_PAGES/CARD_159.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/159_PAGES/CARD_159.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/159_PAGES/COWNERS_7.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/159_PAGES/COWNERS_7.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/159_PAGES/FINSTR_9.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/159_PAGES/FINSTR_9.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/159_PAGES/FINSTR_9/BALANCE_REPORT.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/159_PAGES/FINSTR_9/BALANCE_REPORT.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/159_PAGES/GOSZAKUPKI_10.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/159_PAGES/GOSZAKUPKI_10.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/JS/MAIN_CARD.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/JS/MAIN_CARD.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/JS/MAPPING_SQL.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/JS/MAPPING_SQL.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/JS/SQL.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/JS/SQL.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/NAVIGATIONS/NAVLINKS.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/NAVIGATIONS/NAVLINKS.jsx" afterDir="false" />
-    </list>
+    <list default="true" id="0b03beb8-f141-44b1-80cc-4d3b29a0fd01" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -47,6 +34,7 @@
       <option name="presentableId" value="Default" />
       <updated>1641244661875</updated>
       <workItem from="1641244668146" duration="36000" />
+      <workItem from="1642489839011" duration="11000" />
     </task>
     <servers />
   </component>

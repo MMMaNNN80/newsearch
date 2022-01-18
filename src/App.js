@@ -28,6 +28,7 @@ function App() {
   const [massIP,setmassIP] = useState({loading:true, mass:[]})
 
   const [commercial, setCommercial] = useState(1)
+  const [isloading,setIsLoading] = useState(true)
 
 
 
@@ -62,10 +63,11 @@ const inn = state && state[0]? state[0].data.inn : null
 
       )  
           {
+            setIsLoading(true)
           result(inn,commercial).then( data=>{
             setMainform (
             prev=> {return { ...prev, ...data}})})
-           
+            setIsLoading(false)
             setFzObj({loading:true}
             
               )
@@ -73,18 +75,20 @@ const inn = state && state[0]? state[0].data.inn : null
 
             getDATAGoszakupki(inn) 
             .then( mass=>{
+              setIsLoading(false)
               setFzObj ({mass,loading:false})})
-
+               
               setAObj ({loading:true})
               
               getDATAArbitrAGG (inn) 
               .then( mass=>{
-          
+                setIsLoading(false)
                 setAObj ({mass,loading:false})})
 
                 param.current = false
                 
               }
+            
         } ,[param,commercial,mainForm,inn,cardstate,state]    
        
         )
@@ -122,7 +126,7 @@ const inn = state && state[0]? state[0].data.inn : null
           <SEARCHSTRING 
           objState={objState}
           services={services} 
-          setServices ={setServices} commercial = {commercial}  setCommercial = {setCommercial} param={param}/>
+          setServices ={setServices} commercial = {commercial} isloading={isloading}  setCommercial = {setCommercial} param={param}/>
            
         </div>
     
@@ -169,7 +173,7 @@ const inn = state && state[0]? state[0].data.inn : null
 
 
       </div>
-     {/* <div style={{color:'white',fontSize:'30px'}}> {param.current?'Да':'Нет'}</div>  */}
+     {/* <div style={{color:'white',fontSize:'30px'}}> {isloading?'Да':'Нет'}</div>  */}
     </div>
   )
 

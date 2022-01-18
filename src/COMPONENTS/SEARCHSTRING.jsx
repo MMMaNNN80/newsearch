@@ -45,7 +45,7 @@ function SEARCHSTRING(props) {
                 }
             /> 
             <div className='services' style={{paddingTop:'8px',gridRow:2 , gridColumn:'2/3'}} >
-          <button   
+          <button  
           
           onClick={()=>{props.param.current = true ;props.setCommercial(()=>{
            if (props.commercial === 0) {return 1}
@@ -60,7 +60,7 @@ function SEARCHSTRING(props) {
           ,fontSize:'12px'
         }}
           className="btn btnSrc">{btn_name}</button>
-            <button   
+            {/* <button   
           
           onClick={()=>{props.setServices({isOpen:!props.services.isOpen, service_id: !props.services? 1:0})}}
           
@@ -70,7 +70,7 @@ function SEARCHSTRING(props) {
           ,color:'white'
           ,fontSize:'12px'
         }}
-          className="btn btnSrc">Работа со списками</button>
+          className="btn btnSrc">Работа со списками</button> */}
           </div>           
         </div>
     )

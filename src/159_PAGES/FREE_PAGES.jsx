@@ -14,10 +14,15 @@ const FREE_PAGE = (props) => {
     if (!mainForm) { getEmpty('Нет данных') }
 
     function DATA() {
-        let razdelName = 'fdfffffffffffffff'
-        let postHtml = 'eeeeeeeeee'
-        const massList = [2,2,2,2,2,2,2,22,]
-        let afterHtml = <div>Текст</div> 
+        let razdelName = 'Административные дела'
+        let postHtml = 'Раскрыта инфрмация по арбитражным делам'
+        const massList = ['Количество арбитражных дел за период (5 лет)', 
+        'Суммы исковых требований'
+        , 'Аналитика по роли участия в административных делах'
+      , 'Аналитика по категориям административных дел'
+      , 'Экспорт арбитражных дел в Excel'
+      ]
+        let afterHtml = <div>******************************************</div> 
        
         
 
@@ -29,8 +34,8 @@ const FREE_PAGE = (props) => {
                 }}>
                    {razdelName}
                 </div>
-                <div style={{paddingTop:'10px',color:'lightcoral',fontSize:'10px'}}>
-                *Внимание данные доступны только по платной подписке на ресурс!</div>
+                <div style={{paddingTop:'10px',color:'lightcoral',fontSize:'14px'}}>
+                *** Внимание данные доступны только по платной подписке на ресурс!</div>
                 <div style={{padding:'20px',color:"lightgreen"}}>{postHtml}</div>   
                 <div className="full" style={{position:'relative'
                 , padding: '8px'
