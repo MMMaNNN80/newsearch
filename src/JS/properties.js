@@ -489,4 +489,32 @@ workSheetColumnNames.push(
    </span>
     )
     }
+
+    export function getNavMenuMass(type='UL',inn) {
+      let  mass =[]
+      if(type ==='UL'){
+        mass = [
+      {id:0,name: `Основная информация`, isCom:false,type:'div',path:null }
+           ,{id:1,name: `Карточка компании`, isCom:false,type:'nav',path:`/${inn}`}
+           ,{id:2,name: `Регистрационные данные`, isCom:false,type:'nav',path:`regdata/${inn}`}
+           ,{id:3,name: `Виды экономической деятельности`, isCom: false,type:'nav',path:`/okveds/${inn}`}
+           ,{id:4,name: `Телефоны и Адреса`, isCom: true,type:'nav',path:`/info/${inn}`}
+           , {id:5,name: `История изменений`, isCom:true,type:'nav',path:`/changescompany/${inn}`}
+    , {id:6,name: `Структура компании`, isCom:false,type:'div',path:null }
+           , {id:7,name: `Органы управления`, isCom:true,type:'nav',path: `/leaders/${inn}`}
+           , {id:8,name: `Совладельцы`, isCom:true,type:'nav',path: `/cowners/${inn}`}
+           , {id:9,name: `Структура (развернуто)`, isCom:true,type:'nav',path: `/openstruct/${inn}`}
+    , {id:10,name: `Деятельность компании`, isCom:false,type:'div',path: null}
+           , {id:11,name: `Баланс и отчет о финансовых результатах`, isCom:true,type:'nav',path:`/finstr/${inn}`}
+           , {id:12,name: `Участие в Госконтрактах`, isCom:true,type:'nav',path:`/goszakupki/${inn}`}
+           , {id:13,name: `Арбитражные дела`, isCom:true,type:'nav',path:`/arbitr/${inn}`}
+           , {id:14,name: `Залоги`, isCom:true,type:'nav',path:`/pledges_uk/${inn}`}
+]
+        return mass
+      }
+return null
+     
+
+
+    }
  

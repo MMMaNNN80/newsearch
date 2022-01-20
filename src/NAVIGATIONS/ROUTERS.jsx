@@ -16,6 +16,7 @@ import {
     Routes,
     useNavigate
 } from "react-router-dom";
+//import { getNavMenuMass } from '../JS/properties';
 import ARBITR from '../159_PAGES/ARBITR_11';
 
 
@@ -23,64 +24,61 @@ import ARBITR from '../159_PAGES/ARBITR_11';
 const ROUTERS = (props) => {
 
 
-    //console.log(props)
     useNavigate('/')
 
-    return (
-        <>
-            <Routes>
-            <Route path="/" element={
-                    props.state && props.status.S159 ? <CARD_159 mainForm={props.mainForm} cardstate={props.cardstate} /> : ''
-                } />
-                <Route path="/:inn" element={
-                    props.state && props.status.S159 ? <CARD_159 mainForm={props.mainForm} cardstate={props.cardstate} /> : ''
-                } />
 
-                <Route path="regdata/:inn" element={props.state && props.status.S159 ? <REGDATA mainForm={props.mainForm} /> : ''} />
-                <Route path="/okveds/:inn" element={props.state && props.status.S159 ? <OKVEDS mainForm={props.mainForm} /> : ''} />
-                <Route path="/info/:inn" element={props.state && props.status.S159 ?
-                    props.commercial === 0 ? <CONTACTS_DATA mainForm={props.mainForm} /> :
-                        <FREE_PAGE mainForm={props.mainForm} /> : ''} />
+    // const mass = getNavMenuMass('UL',':inn')
 
-                <Route path="/changescompany/:inn" element={props.state && props.status.S159 ?
-                    props.commercial === 0 ? <CHANGES_COMP mainForm={props.mainForm} /> :
-                        <FREE_PAGE mainForm={props.mainForm} /> : ''} />
-                <Route path="/leaders/:inn" element={props.state && props.status.S159 ?
-                    props.commercial === 0 ? <LEADERS mainForm={props.mainForm} /> :
-                        <FREE_PAGE mainForm={props.mainForm} /> : ''} />
-                <Route path="/cowners/:inn" element={props.state && props.status.S159 ?
-                    props.commercial === 0 ? <COWNERS mainForm={props.mainForm} /> :
-                        <FREE_PAGE mainForm={props.mainForm} /> : ''} />
+  
 
-                <Route path="/openstruct/:inn" element={props.state && props.status.S159 ?
-                    props.commercial === 0 ? <STRUCTURE_OPEN mainForm={props.mainForm} /> :
-                        <FREE_PAGE mainForm={props.mainForm} /> : ''} />
 
-                <Route path="/finstr/:inn" element={props.state && props.status.S159 ?
-                    props.commercial === 0 ? <FINSTR mainForm={props.mainForm} /> :
-                        <FREE_PAGE mainForm={props.mainForm} /> : ''} />
+    if (props.commercial === 0 && props.state && props.status.S159) {
+        return (
+            <>
+                <Routes>
+                    <Route path="/" element={<CARD_159 mainForm={props.mainForm} cardstate={props.cardstate} />} />
+                    <Route path="/:inn" element={<CARD_159 mainForm={props.mainForm} cardstate={props.cardstate} />} />
+                    <Route path="regdata/:inn" element={<REGDATA mainForm={props.mainForm} />} />
+                    <Route path="/okveds/:inn" element={<OKVEDS mainForm={props.mainForm} />} />
+                    <Route path="/info/:inn" element={<CONTACTS_DATA mainForm={props.mainForm} />} />
+                    <Route path="/changescompany/:inn" element={<CHANGES_COMP mainForm={props.mainForm} />} />
+                    <Route path="/leaders/:inn" element={<LEADERS mainForm={props.mainForm} />} />
+                    <Route path="/cowners/:inn" element={<COWNERS mainForm={props.mainForm} />} />
+                    <Route path="/openstruct/:inn" element={<STRUCTURE_OPEN mainForm={props.mainForm} />} />
+                    <Route path="/finstr/:inn" element={<FINSTR mainForm={props.mainForm} />} />
+                    <Route path="/goszakupki/:inn" element={<GOSZAKUPKI mainForm={props.mainForm} fzObj={props.fzObj} setFzObj={props.setFzObj} />} />
+                    <Route path="/arbitr/:inn" element={<ARBITR mainForm={props.mainForm} AObj={props.AObj} setAObj={props.setAObj} />} />
+                    <Route path="/pledges_uk/:inn" element={<PLEDGES_UK mainForm={props.mainForm} />} />
+                </Routes>
+            </>
 
-                <Route path="/finstr/:inn" element={props.state && props.status.S159 ?
-                    props.commercial === 0 ? <FINSTR mainForm={props.mainForm} /> :
-                        <FREE_PAGE mainForm={props.mainForm} /> : ''} />
+        )
+    }
+    if (props.commercial !== 0 && props.state && props.status.S159) {
+        return (
+            <>
+                <Routes>
+                    <Route path="/" element={<CARD_159 mainForm={props.mainForm} cardstate={props.cardstate} />} />
+                    <Route path="/:inn" element={<CARD_159 mainForm={props.mainForm} cardstate={props.cardstate} />} />
+                    <Route path="regdata/:inn" element={<REGDATA mainForm={props.mainForm} />} />
+                    <Route path="/okveds/:inn" element={<OKVEDS mainForm={props.mainForm} />} />
+                    <Route path="/info/:inn" element={<FREE_PAGE id={4} mainForm={props.mainForm} />} />
+                    <Route path="/changescompany/:inn" element={<FREE_PAGE id={5} mainForm={props.mainForm} />} />
+                    <Route path="/leaders/:inn" element={<FREE_PAGE id={7} mainForm={props.mainForm} />} />
+                    <Route path="/cowners/:inn" element={<FREE_PAGE id={8} mainForm={props.mainForm} />} />
+                    <Route path="/openstruct/:inn" element={<FREE_PAGE id={9} mainForm={props.mainForm} />} />
+                    <Route path="/finstr/:inn" element={<FREE_PAGE id={11} mainForm={props.mainForm} />} />
+                    <Route path="/goszakupki/:inn" element={<FREE_PAGE id={12}  mainForm={props.mainForm} />} />
+                    <Route path="/arbitr/:inn" element={<FREE_PAGE id={13} mainForm={props.mainForm} />} />
+                    <Route path="/pledges_uk/:inn" element={<FREE_PAGE id={14} mainForm={props.mainForm} />} />
 
-                <Route path="/goszakupki/:inn" element={props.state && props.status.S159 ?
-                    props.commercial === 0 ? <GOSZAKUPKI mainForm={props.mainForm} fzObj={props.fzObj} setFzObj={props.setFzObj} /> :
-                        <FREE_PAGE mainForm={props.mainForm} /> : ''} />
-                <Route path="/arbitr/:inn" element={props.state && props.status.S159 ?
-                    props.commercial === 0 ?
-                        <ARBITR mainForm={props.mainForm} AObj={props.AObj} setAObj={props.setAObj} /> :
-                        <FREE_PAGE mainForm={props.mainForm} /> : ''} />
+                </Routes>
+            </>
 
-                <Route path="/pledges_uk/:inn" element={props.state && props.status.S159 ?
-                    props.commercial === 0 ? <PLEDGES_UK mainForm={props.mainForm} /> :
-                        <FREE_PAGE mainForm={props.mainForm} /> : ''} />
+        )
 
-            </Routes>
-        </>
-
-    )
-
+    }
+return null
 
 }
 

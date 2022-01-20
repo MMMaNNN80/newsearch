@@ -1,0 +1,55 @@
+
+.wrapper {
+    margin: 20px;
+    background: radial-gradient(ellipse at top, #167a85, #264681);
+    padding: 0px;
+    font-weight: 600;
+    border: 1px dotted rgb(165, 172, 149);
+    opacity: 1;
+}
+.maintext {
+   color:rgb(220, 236, 238);
+   font-size: 32px;
+   font-family: Verdana, Geneva, Tahoma, sans-serif;
+   padding-right: 20px;
+
+}
+.c_maintext {
+display: flex;
+justify-content: space-around;
+padding: 20px;
+height: auto;
+
+min-height: 180px;
+}
+
+.postHtml {
+    padding: 20px;
+    color: rgb(199, 206, 233);
+    font-size: 14px;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+}
+.textList{
+
+color:rgb(148, 29, 61);
+font-size: 20px;
+font-weight: 700;
+}
+
+.ulclass{
+
+    color:black;
+    font-size: 16px;
+
+}
+
+.ulRel{
+    position: relative;
+    background:white;
+    min-height:auto ; 
+    padding: 20px 20px;
+    font-family: fantasy;
+   
+    box-shadow: 2px 1px black;
+    }

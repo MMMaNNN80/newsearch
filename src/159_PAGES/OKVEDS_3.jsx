@@ -7,9 +7,15 @@ import MAIN_CARD from "../JS/MAIN_CARD";
 const OKVEDS = (props) => {
 
   const mainForm = props.mainForm
-
+ 
   if(!mainForm.massOkveds || mainForm.massOkveds.length<1)
-  {return getEmpty("Отсутствуют сведения о зарегистрированных ОКВЭД у компании ")}
+    
+  {
+    return(
+      <Fragment >
+          <MAIN_CARD mainForm={mainForm.short_name.value} CHILDREN ={getE} />                   
+      </Fragment>)
+     }
 
 let massOkvedsOsn =[]
 let massOkveds = []
@@ -50,7 +56,7 @@ function DATA(){
         <MAIN_CARD mainForm={mainForm.short_name.value} CHILDREN ={DATA} />                   
     </Fragment>
       )
-
+      function getE() {return getEmpty("Отсутствуют сведения о зарегистрированных видах деятельности")}
 }
 
 export default OKVEDS;
