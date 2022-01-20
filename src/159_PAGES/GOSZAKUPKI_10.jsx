@@ -15,7 +15,7 @@ const GOSZAKUPKI = ({mainForm,fzObj})=>{
   let main ={}
 
 if (mainForm && mainForm.inn) {inn = mainForm.inn.value; } else {return null}
-if (fzObj.mass && fzObj.mass) {
+if (fzObj.mass && fzObj.mass.length>0) {
     main.mass223FZAGG = fzObj.mass.filter(el=>el.fz ==='223')
     main.mass44FZAGG =  fzObj.mass.filter(el=>el.fz ==='44')
 }

@@ -27,8 +27,7 @@ function App() {
   const [services, setServices] = useState({isOpen:false,service_id:0})
   const [massIP,setmassIP] = useState({loading:true, mass:[]})
 
-  const [commercial, setCommercial] = useState(1)
-  const [isloading,setIsLoading] = useState(true)
+  const [commercial, setCommercial] = useState(0)
 
 
 
@@ -63,33 +62,33 @@ const inn = state && state[0]? state[0].data.inn : null
 
       )  
           {
-            setIsLoading(true)
           result(inn,commercial).then( data=>{
             setMainform (
             prev=> {return { ...prev, ...data}})})
-            setIsLoading(false)
-            setFzObj({loading:true}
             
-              )
+            setFzObj({loading:true}      )
             
-
+            if(commercial===0){
             getDATAGoszakupki(inn) 
             .then( mass=>{
-              setIsLoading(false)
+             
               setFzObj ({mass,loading:false})})
                
               setAObj ({loading:true})
               
               getDATAArbitrAGG (inn) 
               .then( mass=>{
-                setIsLoading(false)
+     
                 setAObj ({mass,loading:false})})
 
                 param.current = false
                 
               }
+            }
             
-        } ,[param,commercial,mainForm,inn,cardstate,state]    
+        } ,[param,commercial,mainForm,inn,cardstate,state]   
+        
+        
        
         )
 
@@ -107,7 +106,6 @@ const inn = state && state[0]? state[0].data.inn : null
                  ///console.log(state)  
                    getDATAinn (inn) 
                    .then( mass=>{
-            
                     setmassIP({mass,loading:false})})  
                    }
                    param.current = false
@@ -126,7 +124,8 @@ const inn = state && state[0]? state[0].data.inn : null
           <SEARCHSTRING 
           objState={objState}
           services={services} 
-          setServices ={setServices} commercial = {commercial} isloading={isloading}  setCommercial = {setCommercial} param={param}/>
+          setServices ={setServices} commercial = {commercial} 
+          setCommercial = {setCommercial} param={param}/>
            
         </div>
     
@@ -163,7 +162,7 @@ const inn = state && state[0]? state[0].data.inn : null
         </div>
 : null}
 
-{inn && inn.length===12 && state && cardstate === 2 && !services.isOpen ?
+{inn && inn.length===12 && state && cardstate === 2 && !services.isOpen && massIP.mass?
 <> 
 <div className={"result"}>
 <NAVLINKS state={state} cardstate={cardstate} />
@@ -173,7 +172,7 @@ const inn = state && state[0]? state[0].data.inn : null
 
 
       </div>
-     {/* <div style={{color:'white',fontSize:'30px'}}> {isloading?'Да':'Нет'}</div>  */}
+     {/* <div style={{color:'white',fontSize:'30px'}}> {objState.state ?'Да':'Нет'}</div>  */}
     </div>
   )
 

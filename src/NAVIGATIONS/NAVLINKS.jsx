@@ -11,11 +11,11 @@ const NAVLINKS = (props) => {
         }        
     })
 
-    //console.log(props.state,props.cardstate )
-const inn =(props.state && props.cardstate===2) ? props.state[0].data.inn  : 'empty'
+    //console.log(props.comercial,props.cardstate )
+const inn =(props.state && props.cardstate===2 ) ? props.state[0].data.inn  : 'empty'
  // const inn=''
 
- if (inn && inn.length===10) {
+ if (inn && inn.length===10 && props.commercial===0 ) {
     return (
         <Fragment>
             <animated.div style={sMenu} className={"menu"} >
@@ -25,22 +25,50 @@ const inn =(props.state && props.cardstate===2) ? props.state[0].data.inn  : 'em
                 <NavLink  to={`/${inn}`}>Карточка компании</NavLink> <br />
                 <NavLink to={`regdata/${inn}`}>Регистрационные данные</NavLink> <br />
                 <NavLink to={`/okveds/${inn}`}>Виды экономической деятельности   </NavLink> <br />
-                <NavLink to={`/info/${inn}`}>{props.commercial>0? <span style={{margin:0,padding:0}}>&#129689; Телефоны и Адреса</span>:'Телефоны и Адреса'} </NavLink> <br />
-                <NavLink to={`/changescompany/${inn}`}>{props.commercial>0? <span style={{margin:0,padding:0}}>&#129689; История изменений</span>:'История изменений'}</NavLink> <br />
+                <NavLink to={`/info/${inn}`}>{'Телефоны и Адреса'} </NavLink> <br />
+                <NavLink to={`/changescompany/${inn}`}>{'История изменений'}</NavLink> <br />
                 <div className = "navdiv">Структура компании</div>
-                <NavLink to={`/leaders/${inn}`}>{props.commercial>0? <span style={{margin:0,padding:0}}>&#129689; Органы управления</span>:'Органы управления'}</NavLink> <br />
-                <NavLink to={`/cowners/${inn}`}>{props.commercial>0? <span style={{margin:0,padding:0}}>&#129689; Совладельцы</span>:'Совладельцы'}</NavLink> <br />
-                <NavLink to={`/openstruct/${inn}`}>{props.commercial>0? <span style={{margin:0,padding:0}}>&#129689; Структура (развернуто)</span>:'Структура (развернуто)'}</NavLink> <br />
+                <NavLink to={`/leaders/${inn}`}>{'Органы управления'}</NavLink> <br />
+                <NavLink to={`/cowners/${inn}`}>{'Совладельцы'}</NavLink> <br />
+                <NavLink to={`/openstruct/${inn}`}>{'Структура (развернуто)'}</NavLink> <br />
                 <div className = "navdiv">Деятельность компании</div>
-                <NavLink to={`/finstr/${inn}`}>{props.commercial>0? <span style={{margin:0,padding:0}}>&#129689; Баланс и отчет о финансовых результатах</span>:'Баланс и отчет о финансовых результатах'}</NavLink> <br />
-                <NavLink to={`/goszakupki/${inn}`}>{props.commercial>0? <span style={{margin:0,padding:0}}>&#129689; Участие в Госконтрактах</span>:'Участие в Госконтрактах'} </NavLink> <br />
-                <NavLink to={`/arbitr/${inn}`}>{props.commercial>0? <span style={{margin:0,padding:0}}>&#129689; Арбитражные дела</span>:'Арбитражные дела'} </NavLink> <br />
-                <NavLink to={`/pledges_uk/${inn}`}>{props.commercial>0? <span style={{margin:0,padding:0}}>&#129689; Залоги</span>:'Залоги'}</NavLink> <br />
+                <NavLink to={`/finstr/${inn}`}>{'Баланс и отчет о финансовых результатах'}</NavLink> <br />
+                <NavLink to={`/goszakupki/${inn}`}>{'Участие в Госконтрактах'} </NavLink> <br />
+                <NavLink to={`/arbitr/${inn}`}>{'Арбитражные дела'} </NavLink> <br />
+                <NavLink to={`/pledges_uk/${inn}`}>{'Залоги'}</NavLink> <br />
 
             </animated.div>
         </Fragment>
     )
  }
+
+ if (inn && inn.length===10 && props.commercial!==0){
+return (
+        <Fragment>
+            <animated.div style={sMenu} className={"menu"} >
+                <img src="..\icon\paper-plane.png" height="40px" alt="a" />
+                <h6>Навигация</h6>
+                <div className = "navdiv">Основная информация</div>
+                <NavLink  to={`/${inn}`}>Карточка компании</NavLink> <br />
+                <NavLink to={`regdata/${inn}`}>Регистрационные данные</NavLink> <br />
+                <NavLink to={`/okveds/${inn}`}>Виды экономической деятельности   </NavLink> <br />
+                <NavLink to={`/info/${inn}`}>{<span style={{margin:0,padding:0}}><img src="..\img\close.png" height="10px" alt="" /> Телефоны и Адреса</span>} </NavLink> <br />
+                <NavLink to={`/changescompany/${inn}`}>{<span style={{margin:0,padding:0}}><img src="..\img\close.png" height="10px" alt="" /> История изменений</span>}</NavLink> <br />
+                <div className = "navdiv">Структура компании</div>
+                <NavLink to={`/leaders/${inn}`}>{<span style={{margin:0,padding:0}}><img src="..\img\close.png" height="10px" alt="" /> Органы управления</span>}</NavLink> <br />
+                <NavLink to={`/cowners/${inn}`}>{<span style={{margin:0,padding:0}}><img src="..\img\close.png" height="10px" alt="" /> Совладельцы</span>}</NavLink> <br />
+                <NavLink to={`/openstruct/${inn}`}>{props.commercial>0? <span style={{margin:0,padding:0}}><img src="..\img\close.png" height="10px" alt="" /> Структура (развернуто)</span>:'Структура (развернуто)'}</NavLink> <br />
+                <div className = "navdiv">Деятельность компании</div>
+                <NavLink to={`/finstr/${inn}`}>{ <span style={{margin:0,padding:0}}><img src="..\img\close.png" height="10px" alt="" /> Баланс и отчет о финансовых результатах</span>}</NavLink> <br />
+                <NavLink to={`/goszakupki/${inn}`}>{ <span style={{margin:0,padding:0}}><img src="..\img\close.png" height="10px" alt="" /> Участие в Госконтрактах</span>} </NavLink> <br />
+                <NavLink to={`/arbitr/${inn}`}>{<span style={{margin:0,padding:0}}><img src="..\img\close.png" height="10px" alt="" /> Арбитражные дела</span>} </NavLink> <br />
+                <NavLink to={`/pledges_uk/${inn}`}>{ <span style={{margin:0,padding:0}}><img src="..\img\close.png" height="10px" alt="" /> Залоги</span>}</NavLink> <br />
+
+            </animated.div>
+        </Fragment>
+    )
+
+ } 
 
 
  if (inn && inn.length===12) {
@@ -56,6 +84,9 @@ const inn =(props.state && props.cardstate===2) ? props.state[0].data.inn  : 'em
         )
 
  }
-
+ 
+ return null;
 }
+
+
 export default NAVLINKS;
