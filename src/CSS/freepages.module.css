@@ -1,7 +1,7 @@
 
 .wrapper {
     margin: 20px;
-    background: radial-gradient(ellipse at top, #167a85, #264681);
+    background: radial-gradient(ellipse at top, #0e2325, #0b275a);
     padding: 0px;
     font-weight: 600;
     border: 1px dotted rgb(165, 172, 149);
@@ -33,23 +33,26 @@ min-height: 180px;
 .textList{
 
 color:rgb(148, 29, 61);
-font-size: 20px;
-font-weight: 700;
+font-size: 18px;
+font-family: Arial, Helvetica, sans-serif;
 }
 
 .ulclass{
 
-    color:black;
-    font-size: 16px;
+    color:rgb(10, 9, 9);
+    font-size: 13px;
+    list-style-type: square;
+    font-family: Arial, Helvetica, sans-serif;
+
 
 }
 
 .ulRel{
     position: relative;
-    background:white;
+    background:rgb(248, 244, 244);
     min-height:auto ; 
     padding: 20px 20px;
-    font-family: fantasy;
+    font-family:  Arial, Helvetica, sans-serif;
    
     box-shadow: 2px 1px black;
     }

@@ -6,11 +6,11 @@ export const getMainform = async (obj) => {
 
     await getResponsePg(obj).then(mass => {
                 
-            
+       
              
                 let objX = mass // такое название объекта по имени процедуры
              
-                
+           
 
                 //---ОСНОВНАЯ ИНФОРМАЦИЯ
                 
@@ -72,6 +72,7 @@ export const getMainform = async (obj) => {
                mainForm.massWorkersNumber = objX.filter((el)=>el.src==='WORKERS_NUMBER')
                mainForm.massPledgesUK = objX.filter((el)=>el.src==='PLEDGES_UK')
                
+               mainForm.massPAOcows = objX.filter(el=>el.src==='COWS_PAO')
                //-----------На бесплатные версии
                mainForm.freeMass = 
                [
@@ -81,7 +82,7 @@ export const getMainform = async (obj) => {
                ,postHtml:'В данном разделе раскрыта информация о контактных данных компании' 
                , massList : ['Телефоны', 'Адресные данные']
                , afterHtml:''
-               , lblcolor: 'rgba(159, 152, 170, 0.474)'
+               , lblcolor: 'rgb(93 12 221 / 48%)'
             }
             ,      {
                 id:5 
@@ -89,7 +90,7 @@ export const getMainform = async (obj) => {
                ,postHtml:'Информация о изменениях в компании с течением времени' 
                , massList : ['Предшественники', 'Преемники']
                , afterHtml:''
-               , lblcolor: 'rgba(33, 129, 185, 0.474)'
+               , lblcolor: 'rgb(169 59 29)'
             }
             ,
                  {
@@ -102,7 +103,7 @@ export const getMainform = async (obj) => {
             ,                'Информация о предоставлении некорректных данных, по данным ФНС'
             ]
                , afterHtml:''
-               , lblcolor: 'rgba(117, 35, 138, 0.474)'
+               , lblcolor: 'rgb(61 13 60)'
             },
             {
             id:8
@@ -110,7 +111,7 @@ export const getMainform = async (obj) => {
             ,postHtml:'Информация о совладельцах компании' 
             , massList : ['Информация о совладении по данным ФНС', 'Информация о совладении по данным Росстат']
             , afterHtml:'Совладельцы могут быть представлены юридическими , физическими и иностранными лицами'
-            , lblcolor: 'rgba(124, 18, 29, 0.474)'
+            , lblcolor: 'rgb(51 52 74)'
          },
          {
             id:9
@@ -119,12 +120,12 @@ export const getMainform = async (obj) => {
             , massList : ['Информация о дочерних компаниях по данным ФНС и Росстат', 
             'Информация о филиалах и представительствах компании по данным Росстат и ФНС']
             , afterHtml:''
-            , lblcolor: 'rgba(56, 136, 16, 0.474)'
+            , lblcolor: 'rgb(74 51 51)'
          },
          {
             id:11
             ,razdelName: 'Баланс и отчет о финансовых результатах'
-            ,postHtml:'Присутствуют финансовые отчеты' 
+            ,postHtml:'Представлены финансовые отчеты' 
             , massList : ['Баланс', 
             'Отчет о прибылях и убытках',
             'Отчетность банков и страховых организаций',
@@ -132,7 +133,7 @@ export const getMainform = async (obj) => {
             'Перечень предоставляемых отчетов увеличивается'
         ]
             , afterHtml:'Имеется возможность просматривать отчеты без скачивания'
-            , lblcolor: 'rgba(39, 92, 190, 0.474)'
+            , lblcolor: 'rgb(14 84 34)'
          }
          ,
 
@@ -149,7 +150,7 @@ export const getMainform = async (obj) => {
             'Экспорт в Excel детального отчета по тендерам'
         ]
             , afterHtml:'Подготовлена аналитика за 5 лет'
-            , lblcolor: 'rgba(23, 181, 36, 0.474)'
+            , lblcolor: '#c02e23'
          }
          ,       
          {
@@ -163,7 +164,7 @@ export const getMainform = async (obj) => {
                 'Экспорт в Excel детального отчета по тендерам',
         ]
             , afterHtml:'Подготовлена аналитика за 5 лет'
-            , lblcolor: 'rgba(15, 119, 189, 0.474)'
+            , lblcolor: '#4710d7'
          }
          ,       
          {
@@ -174,7 +175,7 @@ export const getMainform = async (obj) => {
                 'Информация о залогах под уставной капитал (даты, номера докуметов, залогодержатели)',      
         ]
             , afterHtml:''
-            , lblcolor: 'rgba(4, 4, 15, 0.474)'
+            , lblcolor: '#183f12'
          }
                ]
                

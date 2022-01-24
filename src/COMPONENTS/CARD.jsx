@@ -41,20 +41,19 @@ function CARD({ state, update, setCardstate, cardstate, status, setStatus }) {
                     mass = mass.filter(el => el.key === key)
                     setCardstate(1) // ставим состояние карты 1 - для работы с ней
                     update(mass)
-
                     return
                 }
 
             }
 
             function BTNSRC() {
-                if (cardstate < 1) { return null }
+                if (cardstate ===0) { return null }
                 const classes_151 = status.S151 ? ["btn-secondary btn btnSrc"] :["btn btnSrc btn-outline-success"] 
-                const classes_159 = status.S159 ?["btn-secondary btn btnSrc"] :["btn btnSrc btn-outline-success"] 
-                const classesCDI =  status.CDI ? ["btn-secondary btn btnSrc"] :["btn btnSrc btn-outline-success"] 
+                const classes_159 = status.S159 ? ["btn-secondary btn btnSrc"] :["btn btnSrc btn-outline-success"] 
+                const classesCDI =  status.CDI  ? ["btn-secondary btn btnSrc"] :["btn btnSrc btn-outline-success"] 
                 return (
                     <div className="btnBlock" style={{ "color": "orange" }}>
-                        <button id={"CDI"} className={[...classesCDI]} onClick={(e) => clickHanhler(e)}> CDI</button>
+                        <button id={"CDI"} className={[...classesCDI]}   onClick={(e) => clickHanhler(e)}> CDI</button>
                         <button id={"159"} className={[...classes_159]}  onClick={(e) => clickHanhler(e)}>Внешний контур</button>
                         <button id={"151"} className={[...classes_151]}  onClick={(e) => clickHanhler(e)}>Продуктив</button>
                     </div>
@@ -65,10 +64,7 @@ function CARD({ state, update, setCardstate, cardstate, status, setStatus }) {
 
                 if (e.target.id === "159") {
                     cardstate >0 ? setCardstate(2): setCardstate(0) ;
-                   setStatus(prev => {
-                        return {
-                            ...prev,
-                            S159: !status.S159}} )}; 
+                   setStatus(prev => {return {...prev, S159: !status.S159}} )}; 
                   
                 
                 if (e.target.id === "151") {
@@ -99,16 +95,12 @@ function CARD({ state, update, setCardstate, cardstate, status, setStatus }) {
 
                 <div className="card" key={obj.key}
                     onClick={(e) => {
-                        setDataReport(obj.key, e.target.name)
-
-
-                    }}>
+                        setDataReport(obj.key, e.target.name) }}>
                     <div className="status " style={color}></div>
 
 
                     <div className="reqv  lead">
-
-                        &#9885;  {' ИНН: ' + data.inn + ' КПП: ' + (data.kpp ? data.kpp : '-') + ' ОГРН: ' + (data.ogrn ? data.ogrn : '-')} &#9885;
+                    &#9885;  {' ИНН: ' + data.inn + ' КПП: ' + (data.kpp ? data.kpp : '-') + ' ОГРН: ' + (data.ogrn ? data.ogrn : '-')} &#9885;
                     </div>
                     <div className="orginfo">
                         <div className="orgname lead">

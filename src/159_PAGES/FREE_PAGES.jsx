@@ -48,7 +48,7 @@ const FREE_PAGE = (props) => {
           <div className="full" style={{
             position: 'relative'
             , padding: '8px'
-            , minHeight: '600px'
+            , minHeight: '450px'
           }}>
 
           
@@ -58,12 +58,12 @@ const FREE_PAGE = (props) => {
             На условиях платной подписки предоставляются  сведения:</p>
 
             {massList.length > 0 ? <ul className= {s.ulclass}>
-              {massList.map((el, i) => <li key={i}><p>{el}</p></li>)}
+              {massList.map((el, i) => <li style={{margin:'5px'}} key={i}><p>{el}</p></li>)}
             </ul> : null
             }
             </div>
                
-            <div style={{ padding: '20px', color: "lightgreen" }}>{afterHtml}</div>
+            <div style={{ padding: '20px', color: "lightblue" }}>{afterHtml}</div>
 
             <div style={{
               position: 'absolute'

@@ -14,6 +14,9 @@ import CARD159_IP from './159_IP/CARD159_IP';
 import SEVICES from './SERVISES/SERVICES';
 
 
+
+
+
 function App() {
   const [mainForm, setMainform] = useState(()=>getOBJpublic())
   const [state, setState] = useState(null);
@@ -46,6 +49,10 @@ function App() {
       S159: false,
       CDI: false})
   }
+const [statusAll, setStatusAll] = useState(false)
+if ((status.CDI || status.S151 || status.S159) && !statusAll) {setStatusAll(true)} 
+if (!(status.CDI || status.S151 || status.S159) &&  statusAll) {setStatusAll(false)} 
+
   const param = useRef(true)
 
 const inn = state && state[0]? state[0].data.inn : null
@@ -156,9 +163,9 @@ const inn = state && state[0]? state[0].data.inn : null
               commercial={commercial}
               /> : null}
           {state && cardstate === 2 ? 
-          <NAVLINKS state={state} cardstate={cardstate} commercial={commercial} /> : null}
-          {state && status.CDI && cardstate === 2 ? <CDI_CARD objState={state} /> : ''}
-          {state && status.S151 && cardstate === 2 ? <CARD_151 objState={state} /> : ''}
+          <NAVLINKS state={state} statusAll={statusAll} commercial={commercial} /> : null}
+          {state && status.CDI && cardstate === 2 && commercial===0? <CDI_CARD objState={state} /> : ''}
+          {state && status.S151 && cardstate === 2 && commercial===0 ? <CARD_151 objState={state} /> : ''}
         </div>
 : null}
 
@@ -172,7 +179,7 @@ const inn = state && state[0]? state[0].data.inn : null
 
 
       </div>
-     {/* <div style={{color:'white',fontSize:'30px'}}> {objState.state ?'Да':'Нет'}</div>  */}
+     {/* <div style={{color:'white',fontSize:'30px'}}> {statusAll ?'Да':'Нет'}</div>  */}
     </div>
   )
 

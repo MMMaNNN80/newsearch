@@ -1,7 +1,8 @@
 import React, { Fragment } from "react";
-import {NavLink } from 'react-router-dom'
+import {NavLink,useNavigate } from 'react-router-dom'
 import {useSpring, animated,config} from 'react-spring'
 import { getNavMenuMass } from "../JS/properties";
+
 
 const NAVLINKS = (props) => {
     const sMenu = useSpring({
@@ -12,8 +13,12 @@ const NAVLINKS = (props) => {
         }        
     })
 
+const navigate = useNavigate()
+
     //console.log(props.comercial,props.cardstate )
-const inn =(props.state && props.cardstate===2 ) ? props.state[0].data.inn  : 'empty'
+const inn =(props.state && props.statusAll ) ? props.state[0].data.inn  : null
+
+if(!inn){navigate('/')}
 
 const mass =getNavMenuMass('UL',inn)
 
@@ -21,7 +26,7 @@ if (props.commercial ===0) {mass.map(el=> el.isCom=false)}
 
 const img = <img src="..\img\close.png" height="10px" alt=""/>
 
-if (inn && inn.length===10){
+if (inn && inn.length===10 && props.statusAll){
 return (
     <Fragment>
         <animated.div style={sMenu} className={"menu"} >
@@ -37,7 +42,7 @@ return (
     </Fragment>
 )} 
 
-if (inn && inn.length===12) {
+if (inn && inn.length===12 && props.statusAll ) {
     return (
         <Fragment>
             <animated.div style={{...sMenu} } className={"menu"} >
