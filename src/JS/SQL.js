@@ -26,7 +26,6 @@ import {getResponsePg,render} from './connection'
          obj.fields = "*"
          obj.table = sql
          obj.host = '/159'
-         console.log(obj.table)
         return await render(obj)
          }}
 

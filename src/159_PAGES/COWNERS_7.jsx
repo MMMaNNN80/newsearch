@@ -36,7 +36,6 @@ let massRosstatPAO = []
 
   function DATA () {
 
-    console.log(massRosstatPAO)
     return (
       <Fragment>              
                <div style={{"color":"lightblue", "padding":"5px", "margin":"0","textAlign":"center" }}>
