@@ -18,7 +18,7 @@ const navigate = useNavigate()
     //console.log(props.comercial,props.cardstate )
 const inn =(props.state && props.statusAll ) ? props.state[0].data.inn  : null
 
-if(!inn){navigate('/')}
+if(!inn && props.commercial ===0){navigate('/')}
 
 const mass =getNavMenuMass('UL',inn)
 

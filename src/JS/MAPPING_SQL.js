@@ -73,6 +73,7 @@ export const getMainform = async (obj) => {
                mainForm.massPledgesUK = objX.filter((el)=>el.src==='PLEDGES_UK')
                
                mainForm.massPAOcows = objX.filter(el=>el.src==='COWS_PAO')
+               mainForm.massBancrupt = objX.filter(el=>el.src==='BANCRUPT')
                //-----------На бесплатные версии
                mainForm.freeMass = 
                [
@@ -90,7 +91,7 @@ export const getMainform = async (obj) => {
                ,postHtml:'Информация о изменениях в компании с течением времени' 
                , massList : ['Предшественники', 'Преемники']
                , afterHtml:''
-               , lblcolor: 'rgb(169 59 29)'
+               , lblcolor: '#1a2745'
             }
             ,
                  {
@@ -133,7 +134,7 @@ export const getMainform = async (obj) => {
             'Перечень предоставляемых отчетов увеличивается'
         ]
             , afterHtml:'Имеется возможность просматривать отчеты без скачивания'
-            , lblcolor: 'rgb(14 84 34)'
+            , lblcolor: '#002d0d'
          }
          ,
 
@@ -150,11 +151,26 @@ export const getMainform = async (obj) => {
             'Экспорт в Excel детального отчета по тендерам'
         ]
             , afterHtml:'Подготовлена аналитика за 5 лет'
-            , lblcolor: '#c02e23'
+            , lblcolor: '#5d302c'
          }
-         ,       
+         ,   
          {
             id:13
+            ,razdelName: 'Сведения о банкротстве'
+            ,postHtml:'Собрана информация о банкротных сообщениях' 
+            , massList : [
+                'Информация о банкроте (дата последнего сообщения, категория, регион должника)' ,
+                'Административные банкротные дела (номер, суд, обеспеч залогом и т.д.)',
+                'Информация о банкротных сообщениях',
+                'Информация о судебных решениях, постановлениях, так же о несудебных решений в хронологическом порядке',
+                
+        ]
+            , afterHtml:'Информация может быть представлена о юр лицах, физ лицах и индивидуальных предпринимателях'
+            , lblcolor: '#452a8d'
+         }
+         ,    
+         {
+            id:14
             ,razdelName: 'Арбитражные дела'
             ,postHtml:'Собрана информация о участии в арбитражных процессах' 
             , massList : [
@@ -164,11 +180,11 @@ export const getMainform = async (obj) => {
                 'Экспорт в Excel детального отчета по тендерам',
         ]
             , afterHtml:'Подготовлена аналитика за 5 лет'
-            , lblcolor: '#4710d7'
+            , lblcolor: '#3b3737'
          }
          ,       
          {
-            id:14
+            id:15
             ,razdelName: 'Залоги'
             ,postHtml:'Информация о залоговых договорах' 
             , massList : [

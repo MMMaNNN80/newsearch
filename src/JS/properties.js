@@ -507,8 +507,9 @@ workSheetColumnNames.push(
     , {id:10,name: `Деятельность компании`, isCom:false,type:'div',path: null}
            , {id:11,name: `Баланс и отчет о финансовых результатах`, isCom:true,type:'nav',path:`/finstr/${inn}`}
            , {id:12,name: `Участие в Госконтрактах`, isCom:true,type:'nav',path:`/goszakupki/${inn}`}
-           , {id:13,name: `Арбитражные дела`, isCom:true,type:'nav',path:`/arbitr/${inn}`}
-           , {id:14,name: `Залоги`, isCom:true,type:'nav',path:`/pledges_uk/${inn}`}
+           , {id:13,name: `Сведения о банкротстве`, isCom:true,type:'nav',path:`/bancrupt/${inn}`}
+           , {id:14,name: `Арбитражные дела`, isCom:true,type:'nav',path:`/arbitr/${inn}`}
+           , {id:15,name: `Залоги`, isCom:true,type:'nav',path:`/pledges_uk/${inn}`}
 ]
         return mass
       }
