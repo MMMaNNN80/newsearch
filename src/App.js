@@ -17,7 +17,10 @@ import SEVICES from './SERVISES/SERVICES';
 
 
 
+
 function App() {
+
+
   const [mainForm, setMainform] = useState(()=>getOBJpublic())
   const [state, setState] = useState(null);
   const [cardstate, setCardstate] = useState(0);
@@ -32,7 +35,7 @@ function App() {
 
   const [commercial, setCommercial] = useState(0)
 
-
+ const [activeModal,setActiveModal] = useState(false) 
 
     const [fzObj,setFzObj] = useState({loading:true})
     const [AObj,setAObj] = useState({loading:true})
@@ -119,12 +122,14 @@ const inn = state && state[0]? state[0].data.inn : null
              } ,[mainForm,inn,cardstate,state]    
             
              )
-
+//
 
    return (
     <div className="App bg-dark border-danger h6 mr-5">
+      
       <div className={'all'}>
      
+    
         <div className={'fix'}>
 
           <HEAD />
@@ -161,6 +166,7 @@ const inn = state && state[0]? state[0].data.inn : null
               status={status} 
               cardstate={cardstate}
               commercial={commercial}
+              setActiveModal ={setActiveModal} activeModal={activeModal}
               /> : null}
           {state && cardstate === 2 ? 
           <NAVLINKS state={state} statusAll={statusAll} commercial={commercial} /> : null}

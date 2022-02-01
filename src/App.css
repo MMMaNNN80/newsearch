@@ -1,13 +1,13 @@
 
 .App
 {
-  position:absolute;
+  position:fixed;
 
-  min-width: 100%;
-  min-height: 100%;
+  width: 100vw;
+  height: 100vh;
   background-color: #282c34;
   background-size: cover;
-  overflow: visible;
+  overflow: auto;
 
  
 }
@@ -25,7 +25,7 @@ position: fixed;
 width: 100%;
 height: auto;
 background-color: rgb(37, 60, 94);
-z-index: 3;
+z-index: 1;
 align-content: flex-start;
 
 }
