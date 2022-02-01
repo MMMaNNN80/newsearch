@@ -47,7 +47,9 @@ const ROUTERS = (props) => {
                     <Route path="/openstruct/:inn" element={<STRUCTURE_OPEN mainForm={props.mainForm} />} />
                     <Route path="/finstr/:inn" element={<FINSTR mainForm={props.mainForm} />} />
                     <Route path="/goszakupki/:inn" element={<GOSZAKUPKI mainForm={props.mainForm} fzObj={props.fzObj} setFzObj={props.setFzObj} />} />
-                    <Route path="/bancrupt/:inn" element={<BANCRUPT mainForm={props.mainForm} />} />
+                   {props.mainForm.massBancrupt && props.mainForm.massBancrupt.length>0 ? <Route path="/bancrupt/:inn" element={<BANCRUPT mainForm={props.mainForm} />} />:
+                     <Route path="/bancrupt/:inn" element={<FREE_PAGE id={13}  mainForm={props.mainForm} />} /> 
+                   }
                     <Route path="/arbitr/:inn" element={<ARBITR mainForm={props.mainForm} AObj={props.AObj} setAObj={props.setAObj} />} />
                     <Route path="/pledges_uk/:inn" element={<PLEDGES_UK mainForm={props.mainForm} />} />
                 </Routes>

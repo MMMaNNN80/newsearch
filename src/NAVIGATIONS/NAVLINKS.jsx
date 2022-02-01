@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import {NavLink,useNavigate } from 'react-router-dom'
+import {NavLink } from 'react-router-dom'
 import {useSpring, animated,config} from 'react-spring'
 import { getNavMenuMass } from "../JS/properties";
 
@@ -13,12 +13,12 @@ const NAVLINKS = (props) => {
         }        
     })
 
-const navigate = useNavigate()
+//const navigate = useNavigate()
 
     //console.log(props.comercial,props.cardstate )
 const inn =(props.state && props.statusAll ) ? props.state[0].data.inn  : null
 
-if(!inn && props.commercial ===0){navigate('/')}
+//if(!inn && props.cardstate ===2 && inn.length===10){navigate('/')}
 
 const mass =getNavMenuMass('UL',inn)
 
