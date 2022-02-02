@@ -115,7 +115,7 @@ const SEVICES = () => {
                             background: '#e8e8e8',
                             width: '200px'
                         }} />
-                    </div>
+                   <div>
                     <div style={{ gridColumn: 2, gridRow: 1 }}>
                         <input type="checkbox" />
                         <input type="text" placeholder="Адрес" style={{
@@ -125,6 +125,7 @@ const SEVICES = () => {
                             background: '#e8e8e8',
                             width: '200px'
                         }} />
+                        </div>
                     </div>
                     <div style={{ gridColumn: 2, gridRow: 2 }}>
                         <input type="checkbox" />
@@ -138,14 +139,16 @@ const SEVICES = () => {
                     </div>
 
                 </div>
+</div>
+</div>
+</div>
+  </>
 
 
-
-            </div>
-
-
-        </div>
-    </>)
+       
+       
+  
+    )
 
 }
 export default SEVICES;

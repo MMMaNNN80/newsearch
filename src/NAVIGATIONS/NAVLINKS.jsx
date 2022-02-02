@@ -28,7 +28,7 @@ const img = <img src="..\img\close.png" height="10px" alt=""/>
 
 if (inn && inn.length===10 && props.statusAll){
 return (
-    <Fragment>
+    <Fragment key={0}>
         <animated.div style={sMenu} className={"menu"} >
             <img src="..\icon\paper-plane.png" height="40px" alt="a" />
             <h6>Навигация</h6>
@@ -44,7 +44,7 @@ return (
 
 if (inn && inn.length===12 && props.statusAll ) {
     return (
-        <Fragment>
+        <Fragment key={1}>
             <animated.div style={{...sMenu} } className={"menu"} >
                 <img src="..\icon\paper-plane.png" height="40px" alt="a" />
                 <h6>Навигация</h6>

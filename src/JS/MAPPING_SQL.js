@@ -38,6 +38,7 @@ export const getMainform = async (obj) => {
                 mainForm.capital.value = objX[0].chartercapital
                 mainForm.leader.value = objX[0].fio
                 mainForm.leader_post.value = objX[0].position
+                mainForm.isacting = objX[0].isacting
                 
             //
                 mainForm.regauthorityFNS.value = objX[0].regauthority

@@ -1,26 +1,22 @@
-
-import React, { Fragment,useState } from "react";
+import React, { useRef,Fragment,useState } from "react";
 import GETTABLE from "../COMPONENTS/GETTABLE";
 import MAIN_CARD from "../JS/MAIN_CARD";
 import { getRows } from "../JS/properties";
-import { getMassRows } from "../JS/properties";
+import { getMassRows,getMainText } from "../JS/properties";
 import ZAGOLOVOK from "../COMPONENTS/ZAGOLOVOK";
 import GET_MODAL from "../JS/GET_MODAL";
 
-
-
-
-
-
-
-
-const BANCRUPT= ({mainForm})=>{
-
-// ДАННЫЕ
+const BANCRUPT= ({mainForm,activeModal,setActiveModal})=>{
 let massBancrot= []
 let massCases = []
 let massMainINFO=[]
 let massMessage=[]
+
+const txt = useRef('');
+
+
+// ДАННЫЕ
+
 
 const [court,setCourt] = useState(true)
 
@@ -83,7 +79,13 @@ mainForm.massBancrupt.filter(el=>el.sort === 'CASE_INFO').forEach
              ,el.publish_date
             ,el.decisiontype_name
             ,el.decision_date
-            ,<button key={el.msg_id} className="btn btn-secondary">Приложения</button>
+            ,<button key={el.msg_id} value= {el.msg_id}
+            onClick={  (e)=>{     
+             txt.current = e.target.value;
+            
+              setActiveModal(true)
+             }}
+            className="btn btn-secondary">Приложения</button>
             ,<><span key={el.msg_id}  style={{color:'#60eed1'}} onClick={()=>{alert(el.publisher_inn)}}>{el.publisher_inn}</span> <span>{el.publisher_name}</span> </>
           ])
   })
@@ -102,6 +104,8 @@ mainForm.massBancrupt.filter(el=>el.sort === 'CASE_INFO').forEach
 
 
 
+
+
 let  captionStyle = { display: 'grid', gridTemplateColumns: 'auto 1fr', columnGap: '5px' }
 
 //props.name
@@ -111,21 +115,19 @@ let  captionStyle = { display: 'grid', gridTemplateColumns: 'auto 1fr', columnGa
 function DATA () { 
  return ( <> 
        <ZAGOLOVOK text = {'Сведения о банкротных делах'}/>  <br/>
-      <div style={{fontSize:'12px',"color":"gold", "padding":"5px", "margin":"0","textAlign":"left" , fontWeight:"500"}}>
-  Общая информация о банкроте
-    </div>
-
+     
+      {getMainText ('Общая информация о банкроте')}
+  
         <GETTABLE key={0} funcGetRows={  getRows(massMainINFO
          
           ) } style={{tclass: ['tblString'],}} /> <br/>
 
-<div style={{fontSize:'12px',"color":"gold", "padding":"5px", "margin":"0","textAlign":"left" , fontWeight:"500"}}>
-  Информация о делах
-    </div>
+      {getMainText(`Информация о делах`)}
+  
 
         <GETTABLE key={1} funcGetRows={[...getMassRows(massCases)]}  //
             style={{
-                tclass: ["mtbl"]
+                tclass: ["mtbl tblcolorhead"]
               }}
         
             endtbl = {true}
@@ -133,30 +135,10 @@ function DATA () {
 
          <GETTABLE key={2} funcGetRows={[...getMassRows(massMessage)]}  //
             style={{
-                tclass: ["mtbl"] 
+                tclass: ["mtbl tblcolorhead"] 
               }} 
               captionStyle  = {captionStyle}
-              name ={  
-                <div>
-              <div style={{ display: 'flex' , marginBottom:'8px'}}>
-                  <p style={{ 
-                    fontSize:'12px',"color":"gold", "padding":0
-                    , "margin":"0px","textAlign":"left" , fontWeight:"500"
-                     }}>{`Банкротные сообщения (дела:  ${massBancrot[0].casenumber})`} </p>
-              
-                     <button className={`btn btn-outline-info`}
-                     onClick={()=>  setCourt(!court)}
-               
-                      style={{
-                        border: '1px solid violet', maxWidth: 'auto', minWidth:'70px',
-                        padding: '5px', opacity: '0.8', marginLeft:'15px'
-                        
-                      }}
-                    >{court?'Cудебные решения':'Все'}</button>                            
-                </div> 
-
-                 </div> 
-              }             
+              name ={get_name()}             
         cut={4}
             endtbl = {true}
             />
@@ -165,13 +147,113 @@ function DATA () {
     )
   }
 
-return(
+
+
+if (mainForm.massBancrupt && mainForm.massBancrupt.length!==0)
+{
+return (
+  
     <Fragment >
         <MAIN_CARD mainForm={mainForm.short_name.value} CHILDREN ={DATA} />   
-                     
+        <GET_MODAL 
+         activeModal={activeModal} 
+         setActiveModal={setActiveModal}  
+         CHILDREN = {getMessage(txt.current)}
+         text ={'ПРИЛОЖЕНИЯ К БАНКРОТНЫМ СООБЩЕНИЯМ'}
+         styleHead={{
+             fontSize:'25px'
+           , fontWeight:'700'
+           , color: '#4263cd'
+           ,textShadow:'1px 1px black'
+           ,fontFamily: 'fangsong'
+        
+        }}
+        
+         />          
     </Fragment>
       )
-}
+}  
+  } else return null;
+
+
+
+
+function getMessage (id){
+
+  
+  
+  const mass=mainForm.massBancrupt.filter(el=>el.sort === 'MESSAGE' && el.msg_id===id)
+
+
+
+
+
+  if (mass.length>0){
+  return(
+      <>
+      <div style={{padding:'50px'}}>
+       <div style={{display:'flex', justifyContent: 'space-between'}}>
+       <div> {`Номер дела:`}</div>
+       <div style={{color: '#e54540', fontSize:'20px', fontWeight:'700'}}> {`A20-30-4545433`}</div>
+         </div>   
+         <div style={{display:'flex', justifyContent: 'space-between'}}>
+       <div> {`Тип сообщения:  `}</div>
+        <div style={{ fontSize:'18px', fontWeight:'700'}}>    {mass[0].message_type}          </div>
+         </div>   
+     
+     
+<div>
+<hr/>
+
+
+
+      <div style={{padding:'10px'}}> 
+
+        <p style={{fontSize:'18px', lineHeight: '1.7',textIndent:'30px'}}>
+        {mass[0].text} 
+  </p> 
+      
+      
+      
+      </div>
+
+
+</div>
+      </div>
+
+  
+
+      </>
+  
+  )
+  } 
+   
+    }
+function get_name() {
+  return (
+    <div>
+    <div style={{ display: 'flex' , marginBottom:'8px'}}>
+        <div style={{ 
+          fontSize:'12px',"color":"gold", "padding":0
+          , "margin":"0px","textAlign":"left" , fontWeight:"500"
+           }}>{getMainText(`Банкротные сообщения (дела:  ${massBancrot[0].casenumber})`)} </div>
+    
+           <button className={`btn btn-outline-info`}
+           onClick={()=>  setCourt(!court)}
+     
+            style={{
+              border: '1px solid violet', maxWidth: 'auto', minWidth:'70px',
+              padding: '5px', opacity: '0.8', marginLeft:'15px'
+              
+            }}
+          >{court?'Cудебные решения':'Все'}</button>                            
+      </div> 
+  
+       </div> 
+  )
+  
+  }
+
 } 
 
 export default BANCRUPT;

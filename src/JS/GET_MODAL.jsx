@@ -5,8 +5,6 @@ import  css_ from "../CSS/modal.module.css"
 
  const GET_MODAL = ({activeModal,setActiveModal, CHILDREN,styleHead,text}) => {
      
- 
-
   
     return (
       <div className={activeModal ? css_.modal_active +' ' + css_.modal  : css_.modal   }>
