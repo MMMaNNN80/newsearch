@@ -11,25 +11,27 @@ import BANCRUPT from '../159_PAGES/BANCRUPT';
 import GOSZAKUPKI from '../159_PAGES/GOSZAKUPKI_10';
 import PLEDGES_UK from '../159_PAGES/PLEDGES_UK_12';
 import FREE_PAGE from '../159_PAGES/FREE_PAGES';
+import ARBITR from '../159_PAGES/ARBITR_11';
 import {
     Route,
     Routes,
     useNavigate
 } from "react-router-dom";
 //import { getNavMenuMass } from '../JS/properties';
-import ARBITR from '../159_PAGES/ARBITR_11';
+
 
 
 
 const ROUTERS = (props) => {
 
+    console.log(2222)
 
     useNavigate('/')
 
 
     // const mass = getNavMenuMass('UL',':inn')
 
-  
+
 
 
     if (props.commercial === 0 && props.state && props.status.S159) {
@@ -47,8 +49,7 @@ const ROUTERS = (props) => {
                     <Route path="/openstruct/:inn" element={<STRUCTURE_OPEN mainForm={props.mainForm} />} />
                     <Route path="/finstr/:inn" element={<FINSTR mainForm={props.mainForm} />} />
                     <Route path="/goszakupki/:inn" element={<GOSZAKUPKI mainForm={props.mainForm} fzObj={props.fzObj} setFzObj={props.setFzObj} />} />
-                    <Route path="/bancrupt/:inn" element={<BANCRUPT mainForm={props.mainForm}  setActiveModal = {props.setActiveModal} activeModal={props.activeModal}/>} />:
-            
+                    <Route path="/bancrupt/:inn" element={<BANCRUPT mainForm={props.mainForm}  setActiveModal = {props.setActiveModal} activeModal={props.activeModal}/>} />
                     <Route path="/arbitr/:inn" element={<ARBITR mainForm={props.mainForm} AObj={props.AObj} setAObj={props.setAObj} />} />
                     <Route path="/pledges_uk/:inn" element={<PLEDGES_UK mainForm={props.mainForm} />} />
                 </Routes>
@@ -74,7 +75,7 @@ const ROUTERS = (props) => {
                     <Route path="/bancrupt/:inn" element={<FREE_PAGE id={13}  mainForm={props.mainForm} />} />
                     <Route path="/arbitr/:inn" element={<FREE_PAGE id={14} mainForm={props.mainForm} />} />
                     <Route path="/pledges_uk/:inn" element={<FREE_PAGE id={15} mainForm={props.mainForm} />} />
-
+                
                 </Routes>
             </>
 

@@ -6,7 +6,7 @@ import GETTABLE from "../COMPONENTS/GETTABLE";
 import GETBTNLIST from "../COMPONENTS/GETBTNLIST";
 import { getEmpty } from "../JS/properties";
 import ZAGOLOVOK from "../COMPONENTS/ZAGOLOVOK";
-import { getDetailArbitr_ejs } from "../JS/properties";
+import { getDetailArbitr_ejs } from "../JS/preExportExcel";
 
 //import SPINER from "../JS/SPINER";
 

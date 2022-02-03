@@ -10,8 +10,10 @@ import NAVLINKS from './NAVIGATIONS/NAVLINKS'
 import ROUTERS from './NAVIGATIONS/ROUTERS';
 import { getOBJpublic } from './JS/MAPPING_SQL';
 import { getDATAGoszakupki,result,getDATAArbitrAGG,getDATAinn } from './JS/SQL';
-import CARD159_IP from './159_IP/CARD159_IP';
+
 import SEVICES from './SERVISES/SERVICES';
+import ROUTERS_IP from './NAVIGATIONS/ROUTERS_IP';
+
 
 
 
@@ -39,6 +41,8 @@ function App() {
 
     const [fzObj,setFzObj] = useState({loading:true})
     const [AObj,setAObj] = useState({loading:true})
+
+    
 
   const objState = {
     update: function (state) {
@@ -125,8 +129,7 @@ const inn = state && state[0]? state[0].data.inn : null
 //
 
    return (
-    <div className="App bg-dark border-danger h6 mr-5">
-      
+    <div className="App bg-dark border-danger h6 mr-5">   
       <div className={'all'}>
      
     
@@ -153,11 +156,12 @@ const inn = state && state[0]? state[0].data.inn : null
           />
         </div> :null}
 
-        {objState.state && inn && inn.length===10 && !services.isOpen ? 
+        { inn && inn.length===10 && !services.isOpen ? 
         <div className={"result"}>
-
-          {state && cardstate  ?
+          
+          {state && cardstate===2 ?
             <ROUTERS 
+            massIP={massIP} 
               mainForm={mainForm} 
               fzObj={fzObj} setFzObj={setFzObj}
               setAObj={setAObj} AObj={AObj}
@@ -175,11 +179,26 @@ const inn = state && state[0]? state[0].data.inn : null
         </div>
 : null}
 
-{inn && inn.length===12 && state && cardstate === 2 && !services.isOpen && massIP.mass?
+
+
+{inn && inn.length===12 && cardstate===2  && massIP.mass.length>0 && !services.isOpen  ?
 <> 
+
 <div className={"result"}>
-<NAVLINKS state={state} cardstate={cardstate} />
-<CARD159_IP massIP={massIP} />
+<ROUTERS_IP 
+              massIP={massIP} 
+              status={status} 
+              commercial={commercial}
+              setActiveModal ={setActiveModal} activeModal={activeModal}
+          />
+
+<NAVLINKS state={state} cardstate={cardstate} commercial={commercial}/>
+
+  
+
+
+
+
 </div>
 </> :null}
 

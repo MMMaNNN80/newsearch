@@ -1,13 +1,13 @@
 import React, { useRef,Fragment,useState } from "react";
 import GETTABLE from "../COMPONENTS/GETTABLE";
 import MAIN_CARD from "../JS/MAIN_CARD";
-import { getRows } from "../JS/properties";
+import {  getRows } from "../JS/properties";
 import { getMassRows,getMainText } from "../JS/properties";
 import ZAGOLOVOK from "../COMPONENTS/ZAGOLOVOK";
 import GET_MODAL from "../JS/GET_MODAL";
 import { getBancruptMessages_ejs } from "../JS/preExportExcel";
 
-const BANCRUPT= ({mainForm,activeModal,setActiveModal})=>{
+const BANCRUPT_IP= ({activeModal,setActiveModal, massIP})=>{
 let massBancrot= []
 let massCases = []
 let massMainINFO=[]
@@ -15,13 +15,47 @@ let massMessage=[]
 
 const txt = useRef('');
 const sort_ = useRef(true)
+const [court,setCourt] = useState(true)
+const [sort,setSort] =  useState(true)
+
+///---352815106764
+
+
+let mainForm = {}
+
+ mainForm.massBancrupt =  massIP.mass.filter(el=>el.src === 'BANCRUPT')
+
+
+ if (mainForm.massBancrupt.length===0)
+{
+return (
+  
+    <Fragment >
+        <MAIN_CARD name = {`ИП ${massIP.mass[0].fullnamerus}` } CHILDREN =
+        {
+         ()=> 
+         <div style={{display:'block' ,padding:'8rem'}}>
+           <ZAGOLOVOK text = {'Отсутствуют сведения о банкротных делах'} /> 
+           
+           </div>
+            
+
+
+
+        } />   
+            
+    </Fragment>
+      )
+}
+ 
+
+
 
 
 // ДАННЫЕ
 
 
-const [court,setCourt] = useState(true)
-const [sort,setSort] =  useState(true)
+
 
   if (mainForm && mainForm.massBancrupt &&  mainForm.massBancrupt.length>0 )  
   {
@@ -99,9 +133,6 @@ mainForm.massBancrupt.filter(el=>el.sort === 'CASE_INFO').forEach
   })
 
 
-  
-
-
   massMessage.unshift([
     'Тип сообщений'
     , <div style={{display:'flex'}}> <div>Дата публикации</div>
@@ -119,10 +150,6 @@ mainForm.massBancrupt.filter(el=>el.sort === 'CASE_INFO').forEach
     , 'Данные о публикующем'
   
   ])
-
-
-
-
 
 
 let  captionStyle = { display: 'grid', gridTemplateColumns: 'auto 1fr', columnGap: '5px' }
@@ -172,7 +199,7 @@ if (mainForm.massBancrupt && mainForm.massBancrupt.length!==0)
 return (
   
     <Fragment >
-        <MAIN_CARD mainForm={mainForm.short_name.value} CHILDREN ={DATA} />   
+        <MAIN_CARD name = {`ИП ${massIP.mass[0].fullnamerus}` } CHILDREN ={DATA} />   
         <GET_MODAL 
          activeModal={activeModal} 
          setActiveModal={setActiveModal}  
@@ -268,7 +295,7 @@ function get_name() {
 
 } 
 
-export default BANCRUPT;
+export default BANCRUPT_IP;
 
 
 

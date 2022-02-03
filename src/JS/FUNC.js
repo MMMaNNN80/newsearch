@@ -1,5 +1,5 @@
 import React, { useState, Fragment } from "react"
-import { getDetailzakupki_ejs } from "./properties"
+import { getDetailzakupki_ejs } from "./preExportExcel"
 import GETTABLE from "../COMPONENTS/GETTABLE"
 import { getMassRows } from "./properties"
 import SPINER from './SPINER'
