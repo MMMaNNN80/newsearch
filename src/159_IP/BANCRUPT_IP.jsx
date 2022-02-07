@@ -67,6 +67,8 @@ return (
   massMainINFO =  [
   [`Категория банкрота`,`${massBancrot[0].category}`] , 
   [`Регион  должника `,`${massBancrot[0].region}`],
+  [`СНИЛС`,`${massBancrot[0].snils}`],
+  [`Адрес`,`${massBancrot[0].address}`],
   [`Активность банкротства (по полученным сообщениям) `,`${massBancrot[0].first_publish_date} - ${massBancrot[0].lastmessagedate}`],
   [`Статус должника`,
   
@@ -77,6 +79,7 @@ return (
   </span> 
   ]
 ]
+if(massBancrot[0].namehistory.length >0 ) {massMainINFO.push([`Смена фамилии`,`${massBancrot[0].namehistory}`])}
 mainForm.massBancrupt.filter(el=>el.sort === 'CASE_INFO').forEach
   (el => {
     
@@ -103,7 +106,7 @@ mainForm.massBancrupt.filter(el=>el.sort === 'CASE_INFO').forEach
     ])  
   });
   
-  massCases.unshift(['Номер дела','Дата создания дела','Суд', 'Тип','Доп. информация'])
+  massCases.unshift(['Номер дела','Дата создания дела','Суд', 'Тип заявителя','Доп. информация'])
 
 
   ///----Cообщения
@@ -123,7 +126,7 @@ mainForm.massBancrupt.filter(el=>el.sort === 'CASE_INFO').forEach
                <button key={el.msg_id} value= {el.msg_id}
                        onClick={  (e)=>{     
                        txt.current = e.target.value;
-                       setActiveModal(true)
+                       setActiveModal({active:true, id:0})
              }}
             className="btn btn-secondary">Приложения</button>
             : '' 
@@ -194,13 +197,13 @@ function DATA () {
 
 
 
-if (mainForm.massBancrupt && mainForm.massBancrupt.length!==0)
+if (mainForm.massBancrupt && mainForm.massBancrupt.length!==0 && activeModal.id===0)
 {
 return (
   
     <Fragment >
         <MAIN_CARD name = {`ИП ${massIP.mass[0].fullnamerus}` } CHILDREN ={DATA} />   
-        <GET_MODAL 
+        {activeModal.id===0 ?  <GET_MODAL 
          activeModal={activeModal} 
          setActiveModal={setActiveModal}  
          CHILDREN = {getMessage(txt.current)}
@@ -214,7 +217,7 @@ return (
         
         }}
         
-         />          
+         />   : null}       
     </Fragment>
       )
 }  
@@ -227,7 +230,7 @@ function getMessage (id){
 
   
   
-  const mass=mainForm.massBancrupt.filter(el=>el.sort === 'MESSAGE' && el.msg_id===id)
+  const mass=mainForm.massBancrupt.filter(el=>el.sort === 'MESSAGE' && el.msg_id.toString()===id.toString())
 
 
   if (mass.length>0){

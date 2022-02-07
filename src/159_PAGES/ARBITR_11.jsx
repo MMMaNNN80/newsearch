@@ -284,7 +284,7 @@ if(postYears.isActionYear===1) {
        return (
         <Fragment key={1}> 
            <ZAGOLOVOK text={'Сводная информация об участии в арбитражных делах'}/>
-         <GETTABLE funcGetRows={  getRows(
+         <GETTABLE key={1} funcGetRows={  getRows(
            [[`Общее количество известных арбитражных дел (за период не более 5 лет)  `,`${cnt_total}`] ,
            [`Общая сумма исковых 
            требований по известным арбитражных делам (за период  не более 5 лет)  `,`${sum_total}`],

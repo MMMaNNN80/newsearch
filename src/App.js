@@ -37,7 +37,10 @@ function App() {
 
   const [commercial, setCommercial] = useState(0)
 
- const [activeModal,setActiveModal] = useState(false) 
+
+  
+
+ const [activeModal,setActiveModal] = useState({active: false, id:0}) 
 
     const [fzObj,setFzObj] = useState({loading:true})
     const [AObj,setAObj] = useState({loading:true})
@@ -129,9 +132,10 @@ const inn = state && state[0]? state[0].data.inn : null
 //
 
    return (
-    <div className="App bg-dark border-danger h6 mr-5">   
-      <div className={'all'}>
+    <div className="App bg-dark border-danger h6 mr-5">  
      
+      <div className={'all'}>
+      
     
         <div className={'fix'}>
 
@@ -140,13 +144,20 @@ const inn = state && state[0]? state[0].data.inn : null
           objState={objState}
           services={services} 
           setServices ={setServices} commercial = {commercial} 
-          setCommercial = {setCommercial} param={param}/>
+          setCommercial = {setCommercial} param={param}
+          activeModal={activeModal}
+          setActiveModal={setActiveModal}
+          
+          />
+       
            
         </div>
     
-       {services.isOpen ? <SEVICES/> : null} 
+       { activeModal.id !==0 ? <SEVICES 
+       activeModal={activeModal} 
+         setActiveModal={setActiveModal}  /> : null} 
 
-       { objState.state && !services.isOpen ?  <div className={"cards"}>
+       { objState.state ?  <div className={"cards"}>
           <CARD
             state={objState.state}
             update={objState.update}
@@ -156,7 +167,9 @@ const inn = state && state[0]? state[0].data.inn : null
           />
         </div> :null}
 
-        { inn && inn.length===10 && !services.isOpen ? 
+       
+
+        { inn && inn.length===10 ? 
         <div className={"result"}>
           
           {state && cardstate===2 ?
@@ -181,7 +194,7 @@ const inn = state && state[0]? state[0].data.inn : null
 
 
 
-{inn && inn.length===12 && cardstate===2  && massIP.mass.length>0 && !services.isOpen  ?
+{inn && inn.length===12 && cardstate===2  && massIP.mass.length>0 ?
 <> 
 
 <div className={"result"}>
@@ -204,7 +217,7 @@ const inn = state && state[0]? state[0].data.inn : null
 
 
       </div>
-     {/* <div style={{color:'white',fontSize:'30px'}}> {statusAll ?'Да':'Нет'}</div>  */}
+      {/* <div style={{color:'white',fontSize:'80px',zIndex:7}}> {activeModal ?'Да':'Нет'}</div>   */}
     </div>
   )
 

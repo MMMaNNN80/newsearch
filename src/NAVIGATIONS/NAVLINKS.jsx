@@ -27,14 +27,14 @@ if (props.commercial ===0  ) {mass.map(el=> el.isCom=false)}
 
 
 return (
-    <Fragment key={0}>
-        <animated.div style={sMenu} className={"menu"} >
+    <Fragment key={1}>
+        <animated.div key={1}  style={sMenu} className={"menu"} >
             <img src="..\icon\paper-plane.png" height="40px" alt="a" />
             <h6>Навигация</h6>
         {mass.map((el,i)=>{
           
           if(el.type==='div') { return <div key={i} className = "navdiv">{el.name}</div>}
-          if(el.type==='nav') { return <><NavLink key={i} to={el.path}>{<span style={{margin:0,padding:0}}>{el.isCom ? img:''} {el.name}</span>}</NavLink> <br /></>}
+          if(el.type==='nav') { return <><NavLink key={i+1} to={el.path}>{<span style={{margin:0,padding:0}}>{el.isCom ? img:''} {el.name}</span>}</NavLink> <br /></>}
           return null
         })}
         </animated.div>
@@ -52,13 +52,13 @@ if (inn && inn.length===12 && props.cardstate>1 ) {
 
     return (
         <Fragment key={1}>
-            <animated.div style={{...sMenu} } className={"menu"} >
+            <animated.div key={1} style={{...sMenu} } className={"menu"} >
                 <img src="..\icon\paper-plane.png" height="40px" alt="a" />
                 <h6>Навигация</h6>
                 {massNavIP.map((el,i)=>{
           
           if(el.type==='div') { return <div key={i} className = "navdiv">{el.name}</div>}
-          if(el.type==='nav') { return <><NavLink key={i} to={el.path}>{<span style={{margin:0,padding:0}}>{el.isCom ? img:''} {el.name}</span>}</NavLink> <br /></>}
+          if(el.type==='nav') { return <><NavLink key={i+1} to={el.path}>{<span style={{margin:0,padding:0}}>{el.isCom ? img:''} {el.name}</span>}</NavLink> <br /></>}
           return null
         })}
             </animated.div>

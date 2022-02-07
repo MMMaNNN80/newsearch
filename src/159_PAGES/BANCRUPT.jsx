@@ -23,6 +23,25 @@ const sort_ = useRef(true)
 const [court,setCourt] = useState(true)
 const [sort,setSort] =  useState(true)
 
+if (mainForm && mainForm.massBancrupt && mainForm.massBancrupt.length===0)
+{
+return (
+  
+    <Fragment >
+        <MAIN_CARD name = {mainForm.short_name.value} CHILDREN =
+        {
+         ()=> 
+         <div style={{display:'block' ,padding:'8rem'}}>
+           <ZAGOLOVOK text = {'Отсутствуют сведения о банкротных делах'} /> 
+           
+           </div>
+          
+        } />   
+            
+    </Fragment>
+      )
+}
+
   if (mainForm && mainForm.massBancrupt &&  mainForm.massBancrupt.length>0 )  
   {
 
@@ -69,7 +88,7 @@ mainForm.massBancrupt.filter(el=>el.sort === 'CASE_INFO').forEach
     ])  
   });
   
-  massCases.unshift(['Номер дела','Дата создания дела','Суд', 'Тип','Доп. информация'])
+  massCases.unshift(['Номер дела','Дата создания дела','Суд', 'Тип заявителя','Доп. информация'])
 
 
   ///----Cообщения
@@ -87,9 +106,11 @@ mainForm.massBancrupt.filter(el=>el.sort === 'CASE_INFO').forEach
             ,el.decision_date
             ,el.text.length> 1 ?
                <button key={el.msg_id} value= {el.msg_id}
-                       onClick={  (e)=>{     
+                       onClick={  (e)=>{    
+                       
                        txt.current = e.target.value;
-                       setActiveModal(true)
+                       setActiveModal({active:true, id:0})
+                        
              }}
             className="btn btn-secondary">Приложения</button>
             : '' 
@@ -100,8 +121,6 @@ mainForm.massBancrupt.filter(el=>el.sort === 'CASE_INFO').forEach
 
 
   
-
-
   massMessage.unshift([
     'Тип сообщений'
     , <div style={{display:'flex'}}> <div>Дата публикации</div>
@@ -167,13 +186,13 @@ function DATA () {
 
 
 
-if (mainForm.massBancrupt && mainForm.massBancrupt.length!==0)
+if (mainForm.massBancrupt && mainForm.massBancrupt.length!==0 )
 {
 return (
   
     <Fragment >
         <MAIN_CARD mainForm={mainForm.short_name.value} CHILDREN ={DATA} />   
-        <GET_MODAL 
+       {activeModal.id===0 ? <GET_MODAL 
          activeModal={activeModal} 
          setActiveModal={setActiveModal}  
          CHILDREN = {getMessage(txt.current)}
@@ -185,9 +204,9 @@ return (
            ,textShadow:'1px 1px black'
            ,fontFamily: 'fangsong'
         
-        }}
+        }}  
         
-         />          
+         /> :null}          
     </Fragment>
       )
 }  
@@ -200,11 +219,12 @@ function getMessage (id){
 
   
   
-  const mass=mainForm.massBancrupt.filter(el=>el.sort === 'MESSAGE' && el.msg_id===id)
+  const mass=mainForm.massBancrupt.filter(el=>el.sort === 'MESSAGE' && el.msg_id.toString()===id.toString())
+
 
 
   if (mass.length>0){
-  return(
+ return(
       <>
       <div style={{padding:'50px'}}>
        <div style={{display:'flex', justifyContent: 'space-between'}}>
@@ -238,6 +258,7 @@ function getMessage (id){
 function get_name() {
 
   const mass = mainForm.massBancrupt.filter(el=>el.sort === 'MESSAGE')
+
   return (
     <div>
     <div style={{ display: 'flex',alignItems:'center',alignContent: 'stretch',justifyContent:'stretch'}}>

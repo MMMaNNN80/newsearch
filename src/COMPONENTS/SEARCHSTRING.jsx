@@ -4,7 +4,11 @@ import '../App.css';
 
 import { getResponse } from '../JS/properties'
 
-function SEARCHSTRING(props) {
+function SEARCHSTRING(props) 
+
+{
+
+
     const [inputStyle, setinputStyle] = useState([]);
   
     let navigate= useNavigate()
@@ -60,9 +64,16 @@ function SEARCHSTRING(props) {
           ,fontSize:'12px'
         }}
           className="btn btnSrc">{btn_name}</button>
-            {/* <button   
+            <button   
           
-          onClick={()=>{props.setServices({isOpen:!props.services.isOpen, service_id: !props.services? 1:0})}}
+          onClick={()=>{
+
+            if(props){
+            ///props.setServices({isOpen:!props.services.isOpen, service_id:  1})
+            props.setActiveModal({active:!props.activeModal.active, id:1})
+            }
+            
+          }}
           
           style={{margin:'2px 5px' ,height:'auto',border:'2px solid green'
           ,padding:'5px'
@@ -70,7 +81,7 @@ function SEARCHSTRING(props) {
           ,color:'white'
           ,fontSize:'12px'
         }}
-          className="btn btnSrc">Работа со списками</button> */}
+          className="btn btnSrc">Работа со списками</button>
           </div>           
         </div>
     )
