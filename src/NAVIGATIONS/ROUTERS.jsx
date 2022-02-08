@@ -24,7 +24,6 @@ import {
 
 const ROUTERS = (props) => {
 
-    console.log(2222)
 
     useNavigate('/')
 

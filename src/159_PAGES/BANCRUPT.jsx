@@ -1,7 +1,7 @@
 import React, { useRef,Fragment,useState } from "react";
 import GETTABLE from "../COMPONENTS/GETTABLE";
 import MAIN_CARD from "../JS/MAIN_CARD";
-import { getRows } from "../JS/properties";
+import { getEmpty, getRows } from "../JS/properties";
 import { getMassRows,getMainText } from "../JS/properties";
 import ZAGOLOVOK from "../COMPONENTS/ZAGOLOVOK";
 import GET_MODAL from "../JS/GET_MODAL";
@@ -30,11 +30,11 @@ return (
     <Fragment >
         <MAIN_CARD name = {mainForm.short_name.value} CHILDREN =
         {
-         ()=> 
-         <div style={{display:'block' ,padding:'8rem'}}>
-           <ZAGOLOVOK text = {'Отсутствуют сведения о банкротных делах'} /> 
-           
-           </div>
+         ()=> <>
+         <ZAGOLOVOK text = {'Сведения о банкротных делах'}/>  
+         {getEmpty('Отсутствуют сведения о банкротных делах')}  
+           </> 
+         
           
         } />   
             
@@ -50,10 +50,10 @@ return (
 
   const style =  massBancrot[0].isacting ===1 ? { width:'10px',height:'10px',background: 'orange' } : {width:'10px', height:'10px',background: 'red' } 
   massMainINFO =  [
-  [`Категория банкрота`,`${massBancrot[0].category}`] , 
-  [`Регион  должника `,`${massBancrot[0].region}`],
-  [`Активность банкротства (по полученным сообщениям) `,`${massBancrot[0].first_publish_date} - ${massBancrot[0].lastmessagedate}`],
-  [`Статус должника`,
+  [`Категория`,`${massBancrot[0].category}`] , 
+  [`Регион `,`${massBancrot[0].region}`],
+  [`Период банкротства (по полученным сообщениям) `,`${massBancrot[0].first_publish_date} - ${massBancrot[0].lastmessagedate}`],
+  [`Статус`,
   
   <span style={{display:'flex'}}>
           <div className="quadr" style={style}></div>
@@ -153,7 +153,7 @@ function DATA () {
  return ( <> 
        <ZAGOLOVOK text = {'Сведения о банкротных делах'}/>  <br/>
      
-      {getMainText ('Общая информация о банкроте')}
+      {getMainText ('Общая информация')}
   
         <GETTABLE key={0} funcGetRows={  getRows(massMainINFO
          

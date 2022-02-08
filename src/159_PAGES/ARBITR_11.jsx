@@ -28,16 +28,16 @@ const ARBITR = ({mainForm, AObj})=>{
 if (mainForm && mainForm.inn) {inn = mainForm.inn.value; } else {return null}
 if (!AObj.mass || !AObj.mass || !AObj.mass.length) {return ( 
 
-  <Fragment>
-    <MAIN_CARD mainForm={mainForm} CHILDREN ={()=>{ return (
+  <>
+    <MAIN_CARD key={888} mainForm={mainForm} CHILDREN ={()=>{ return (
       <>
-      <ZAGOLOVOK text={'Информация о участии в арбитражных делах'}/>
+      <ZAGOLOVOK  text={'Информация о участии в арбитражных делах'}/>
         
       {getEmpty('Отсутствуют данные в базе данных по арбитражным делам')} 
    
       </>
     )}}   />                   
-    </Fragment> 
+    </> 
   
  )}
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -99,7 +99,7 @@ massCategory.push([
 ,<div style={{background:'rgb(17, 66, 88)',height:'100%',textAlign:'center',fontSize:'14px' ,color:'orange'
 }}>{new Intl.NumberFormat('ru-RU').format(sumRubAll_cat)} </div>])
    
-console.log(massRole,massCategory)
+//console.log(massRole,massCategory)
 
 function clickYearsHandler (val){
 
@@ -147,11 +147,11 @@ function postExportExcel (){
     
     <div style={{width:'auto',paddingBottom:'10px' ,fontSize:'20px'}}>Выберете доступный период</div>
     <ul style= {{pading:'0',margin:'0',listStyle: 'none' ,textAlign:'left'}} >
-      { massYears.map((el,i)=>{
+      { massYears.map((el,x)=>{
         return (
-    <li key={i} onClick={()=>clickYearPostExport(el)} 
+    <li key={x} onClick={()=>clickYearPostExport(el)} 
     style={{display: 'inline-block',}}>
-      <div key={i}
+      <div 
     style = {{ 
     fontSize:'18px'
     ,color:'white'
@@ -182,7 +182,7 @@ if(postYears.isActionYear===1) {
       return (
   <li key={i} onClick={()=>clickYearPostExport(el)} // категорию отдали
   style={{display: 'inline-flex',}}>
-    <div key={i}
+    <div 
   style = {{ fontSize:'10px',color:'white', padding:'5px',margin:'5px',borderBottom:'1px solid grey'}}>
     {el}</div> 
     </li>
@@ -197,10 +197,7 @@ if(postYears.isActionYear===1) {
    <div style={{color:'white', width:'auto',paddingBottom:'10px', paddingLeft:'20px'}}>{`Выбран период: - ${postYears.val} год `}</div>
   
   </div>
-{/* <div style={{gridColumn:'2',gridRow:2}}> <button style={{minWidth: '70px', color:'white',}} className="btn btn-primary p-1 "
-  onClick={()=>getDetailArbitr_ejs(inn,postYears.val,postYears..part)}
-  > СКАЧАТЬ </button>
-  </div>  */}
+
   <div  style={{gridColumn:'3',gridRow:2}}>
       <button style={{color:'white',minWidth: '70px'}} className="btn btn-secondary p-1 "
   onClick={()=>setPostYear({val:null, isActionYear: 0, val2:null})}
@@ -220,7 +217,7 @@ if(postYears.isActionYear===1) {
         return (
     <li key={i} onClick={()=>clickYearPostExport(el)} //отдали тип участия
     style={{display: 'inline-flex',}}>
-      <div key={i}
+      <div 
     style = {{ fontSize:'10px',color:'white', padding:'5px',margin:'5px',borderBottom:'1px solid grey'}}>
       {el}</div> 
       </li>
@@ -235,10 +232,8 @@ if(postYears.isActionYear===1) {
      <div style={{color:'white', width:'auto',paddingBottom:'10px', paddingLeft:'20px'}}>{`Выбран период - ${postYears.val} год `}</div>
      <div style={{color:'white', width:'auto',paddingBottom:'10px', paddingLeft:'20px'}}>{`Выбрана категория: - ${postYears.category}  `}</div>
     </div>
-  {/* <div style={{gridColumn:'2',gridRow:2}}> <button style={{minWidth: '70px', color:'white',}} className="btn btn-primary p-1 "
-    onClick={()=>getDetailArbitr_ejs(inn,postYears.val,postYears..part)}
-    > СКАЧАТЬ </button>
-    </div>  */}
+
+
     <div  style={{gridColumn:'3',gridRow:2}}>
         <button style={{color:'white',minWidth: '70px'}} className="btn btn-secondary p-1 "
     onClick={()=>setPostYear({val:null, isActionYear: 0, category:null,part:null})}
@@ -282,9 +277,9 @@ if(postYears.isActionYear===1) {
 
   function GETARBITR () {
        return (
-        <Fragment key={1}> 
-           <ZAGOLOVOK text={'Сводная информация об участии в арбитражных делах'}/>
-         <GETTABLE key={1} funcGetRows={  getRows(
+        <>
+           <ZAGOLOVOK key={1} text={'Сводная информация об участии в арбитражных делах'}/>
+         <GETTABLE key={2}   funcGetRows={ getRows(
            [[`Общее количество известных арбитражных дел (за период не более 5 лет)  `,`${cnt_total}`] ,
            [`Общая сумма исковых 
            требований по известным арбитражных делам (за период  не более 5 лет)  `,`${sum_total}`],
@@ -294,7 +289,7 @@ if(postYears.isActionYear===1) {
        
 
        
-        <ZAGOLOVOK key={1} text={'Выгрузка арбитражных дел'}/> <br/>
+        <ZAGOLOVOK  key={3} text={'Выгрузка арбитражных дел'}/> <br/>
                        <>
                        <div 
                        style={{background:'transparent',color:'orange',fontSize:'12px'
@@ -319,9 +314,9 @@ if(postYears.isActionYear===1) {
      <br/>
                        
 
-<ZAGOLOVOK text={'Статистика'}/>
+<ZAGOLOVOK  key={4}  text={'Статистика'}/>
 
-<GETTABLE key={2}   funcGetRows={getMassRows(...[massRole])}  //Регистрационные данные
+<GETTABLE  key={5}  funcGetRows={getMassRows(...[massRole])}  //Регистрационные данные
             style={{
                 tclass: ["mtbl tblcolorhead fixed-table"],
                 captionStyle: {  "alignText": "left","fontSize":"12px" }
@@ -340,7 +335,7 @@ if(postYears.isActionYear===1) {
               ,gridColumn:'1',
               }}>Статистика  роли участия в административных делах
             </div>
-               <GETBTNLIST 
+<GETBTNLIST  key={6}
                who = {'role'} 
                 actClass={actClass} 
                 mass={massYears} 
@@ -350,8 +345,7 @@ if(postYears.isActionYear===1) {
             tStyle={{minHeight:'150px',maxWidth:'100%',minWidth:'auto',textAlign:'center'}}
             colmass = {[<col width='25px'/>, <col width='150px' align="left"/>, <col width='30px' />,<col width='30%' /> ]}
             /> <br />
-
-<GETTABLE key={3}  funcGetRows={getMassRows(...[massCategory])}  //Регистрационные данные
+<GETTABLE key={7} funcGetRows={getMassRows(...[massCategory])}  //Регистрационные данные
             style={{
                 tclass: ["mtbl tblcolorhead fixed-table"],
                 captionStyle: {  "alignText": "left","fontSize":"12px" }
@@ -371,7 +365,7 @@ if(postYears.isActionYear===1) {
               ,gridColumn:'1',
               }}>Статистика категорий административных дел 
             </div>
-          <GETBTNLIST  
+  <GETBTNLIST  key={8}
           who = {'category'}  
           actClass={actClass} 
           mass={massYears} 
@@ -379,16 +373,18 @@ if(postYears.isActionYear===1) {
             </div>
             } endtbl={false}
             tStyle={{minHeight:'120px',textAlign:'center'}}
-            colmass = {[<col width='25px'/>, <col width='150px' align="left"/>, <col width='30px' />,<col width='30%' /> ]}
+            colmass = {[<col width='25px'/>, <col width='150px' align="left"/>, <col width='30px' />,<col width='30%' 
+            /> ]
+          }
             /> <br/>
-         </Fragment>
+         </>
        )
 }
 
 return(
-<Fragment >
-    <MAIN_CARD mainForm={mainForm.short_name.value} CHILDREN ={GETARBITR} />                   
-</Fragment>
+<>
+    <MAIN_CARD key={777}  mainForm={mainForm.short_name.value} CHILDREN ={GETARBITR} />                   
+</>
   )
 }
 export default ARBITR;

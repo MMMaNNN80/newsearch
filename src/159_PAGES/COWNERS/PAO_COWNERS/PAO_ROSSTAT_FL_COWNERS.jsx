@@ -9,7 +9,7 @@ import { getEmpty } from "../../../JS/properties";
 
 const PAO_ROSSTAT_FL_COWNERS = ({massRosstatPAO}) => {
 
-   console.log(massRosstatPAO)
+   //console.log(massRosstatPAO)
    let massRosstat = []
    const  head = ["Наименование", "Доля,%", "Доля,руб", "Актуально на дату"]
 

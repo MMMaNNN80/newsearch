@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, {  useState } from "react";
 
 function GETTABLE(props) {
     const [isOpen, setIsOpen] = useState(false)
@@ -12,7 +12,7 @@ function GETTABLE(props) {
     if (funcGetRows_all.length >= cut 
         && props.endtbl) { funcGetRows = funcGetRows_all.slice(0, cut) }
     return (
-        <Fragment>
+        <>
             <table style={{...tStyle}} className={[...props.style.tclass]} onClick={props.onClick}>
                 <caption align="top" style={props.style.captionStyle}> {props.name}</caption>
                 {[...colmass]}
@@ -26,7 +26,7 @@ function GETTABLE(props) {
                     onClick={() => setIsOpen(!isOpen)} >&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;
                 </div> : ''
             }
-        </Fragment>
+        </>
     )
 
 

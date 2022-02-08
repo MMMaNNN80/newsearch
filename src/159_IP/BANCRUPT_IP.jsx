@@ -2,7 +2,7 @@ import React, { useRef,Fragment,useState } from "react";
 import GETTABLE from "../COMPONENTS/GETTABLE";
 import MAIN_CARD from "../JS/MAIN_CARD";
 import {  getRows } from "../JS/properties";
-import { getMassRows,getMainText } from "../JS/properties";
+import { getMassRows,getMainText,getEmpty } from "../JS/properties";
 import ZAGOLOVOK from "../COMPONENTS/ZAGOLOVOK";
 import GET_MODAL from "../JS/GET_MODAL";
 import { getBancruptMessages_ejs } from "../JS/preExportExcel";
@@ -33,19 +33,15 @@ return (
     <Fragment >
         <MAIN_CARD name = {`ИП ${massIP.mass[0].fullnamerus}` } CHILDREN =
         {
-         ()=> 
-         <div style={{display:'block' ,padding:'8rem'}}>
-           <ZAGOLOVOK text = {'Отсутствуют сведения о банкротных делах'} /> 
-           
-           </div>
-            
-
-
-
-        } />   
-            
-    </Fragment>
-      )
+               ()=> <>
+               <ZAGOLOVOK text = {'Сведения о банкротных делах'}/>  
+               {getEmpty('Отсутствуют сведения о банкротных делах')}  
+                 </>     
+              } />   
+                  
+          </Fragment>
+            )
+          
 }
  
 
@@ -54,10 +50,7 @@ return (
 
 // ДАННЫЕ
 
-
-
-
-  if (mainForm && mainForm.massBancrupt &&  mainForm.massBancrupt.length>0 )  
+if (mainForm && mainForm.massBancrupt &&  mainForm.massBancrupt.length>0 )  
   {
 
   massBancrot = mainForm.massBancrupt.filter(el=>el.sort === 'BANCRUPT_INFO')
@@ -65,12 +58,12 @@ return (
 
   const style =  massBancrot[0].isacting ===1 ? { width:'10px',height:'10px',background: 'orange' } : {width:'10px', height:'10px',background: 'red' } 
   massMainINFO =  [
-  [`Категория банкрота`,`${massBancrot[0].category}`] , 
-  [`Регион  должника `,`${massBancrot[0].region}`],
+  [`Категория `,`${massBancrot[0].category}`] , 
+  [`Регион  `,`${massBancrot[0].region}`],
   [`СНИЛС`,`${massBancrot[0].snils}`],
   [`Адрес`,`${massBancrot[0].address}`],
-  [`Активность банкротства (по полученным сообщениям) `,`${massBancrot[0].first_publish_date} - ${massBancrot[0].lastmessagedate}`],
-  [`Статус должника`,
+  [`Период банкротства (по полученным сообщениям) `,`${massBancrot[0].first_publish_date} - ${massBancrot[0].lastmessagedate}`],
+  [`Статус`,
   
   <span style={{display:'flex'}}>
           <div className="quadr" style={style}></div>
@@ -164,7 +157,7 @@ function DATA () {
  return ( <> 
        <ZAGOLOVOK text = {'Сведения о банкротных делах'}/>  <br/>
      
-      {getMainText ('Общая информация о банкроте')}
+      {getMainText ('Общая информация')}
   
         <GETTABLE key={0} funcGetRows={  getRows(massMainINFO
          

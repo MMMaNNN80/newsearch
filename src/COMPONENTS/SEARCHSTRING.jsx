@@ -64,6 +64,9 @@ function SEARCHSTRING(props)
           ,fontSize:'12px'
         }}
           className="btn btnSrc">{btn_name}</button>
+            
+            
+            
             <button   
           
           onClick={()=>{
