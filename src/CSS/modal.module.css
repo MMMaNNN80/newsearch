@@ -12,6 +12,7 @@
     opacity:  0;
     transition: 0.6s;
     pointer-events: none;
+    
 
 }
 
@@ -25,8 +26,9 @@
 min-height: 200px;
 min-width: 400px;
 max-width: 1000px;
-background: white;
+background: rgb(242, 240, 247);
 padding: 20px;
+min-height: auto;
 
 
 }

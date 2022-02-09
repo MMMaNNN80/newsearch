@@ -33,6 +33,23 @@ font-weight: bold;
 border: none;
 text-align: center;
 
-
-
 } 
+
+.menuItem:hover {
+
+background: orange;
+cursor: pointer;
+font-weight: 700;
+font-size: 16px;
+
+}
+
+.menuItem{
+     border-bottom: '1px solid darkgrey';
+      padding: 8px;
+      width: 100%;
+      color: black;
+      font-size: 11px;
+
+
+}

@@ -1,8 +1,11 @@
 import { getMainform } from './MAPPING_SQL';
 
+
 const href = 'http://10.42.108.144:8080/suggestions/api/4_1/rs/suggest/party';
 
 export async function getConnection(request) {
+
+  if(request && request.length>0) {request=request.replace(/[^a-zа-яё0-9\s]/gi, ' s')}
   try {
     const response = await fetch(href, {
       method: 'POST',
@@ -12,17 +15,15 @@ export async function getConnection(request) {
       body: `{
             "query": "${request}",
             "count":10              
-    }`
+             }`
     })
 
-    if (response.status === 200) {
 
-      return response.json();
-    }
-    return '';
+    if (response.status === 200) { return response.json();}
+    
   } catch (e) {
-    console.log('Проблемы с подключением', e)
-    return null;
+    console.log('getConnection', e)
+    return '';
   }
 }
 
