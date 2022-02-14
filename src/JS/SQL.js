@@ -53,3 +53,23 @@ import {getResponsePg,render} from './connection'
            obj.host = '/159'
            return await getResponsePg(obj)
            }}
+
+                    
+         export async function f_getDictionary( num =0) {
+          let obj =  getParamsObj()
+           obj.fields = "*"
+           obj.table = `f_getDictionary(${num})`
+           obj.host = '/159'
+           return await getResponsePg(obj)
+           
+          }
+
+          export async function f_getResult( json_ = '',dopSql = '') {
+            let obj =  getParamsObj()
+             obj.fields = "*"
+             obj.table = `f_getlistsresult_do('${json_}')`
+             obj.host = '/159/get_report_entity'
+             obj.dopSql = dopSql
+             return await getResponsePg(obj)
+             
+            }

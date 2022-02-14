@@ -56,6 +56,7 @@ export const getResponsePg =  async ( obj
 return await jsonData;
 }
 
+
 export async function  render (obj) {
 
 

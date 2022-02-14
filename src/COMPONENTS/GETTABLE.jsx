@@ -13,11 +13,11 @@ function GETTABLE(props) {
         && props.endtbl) { funcGetRows = funcGetRows_all.slice(0, cut) }
     return (
         <>
-            <table style={{...tStyle}} className={[...props.style.tclass]} onClick={props.onClick}>
+            <table style={{...tStyle,lineBreak:'auto' }} className={[...props.style.tclass]} onClick={props.onClick}>
                 <caption align="top" style={props.style.captionStyle}> {props.name}</caption>
                 {[...colmass]}
 
-                <tbody>
+                <tbody style={{maxHeight:'min-content'}}>
                     {(!isOpen && props.endtbl && funcGetRows_all.length >= cut) ? [...funcGetRows] : [...funcGetRows_all]}
                 </tbody>
             </table>

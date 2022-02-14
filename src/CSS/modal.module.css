@@ -12,6 +12,7 @@
     opacity:  0;
     transition: 0.6s;
     pointer-events: none;
+    overflow:auto;
     
 
 }
@@ -23,12 +24,15 @@
 }
 
 .modal_body {
-min-height: 200px;
-min-width: 400px;
-max-width: 1000px;
+min-height: 400px;
+min-width: 600px;
+max-width: 85%;
 background: rgb(242, 240, 247);
 padding: 20px;
-min-height: auto;
+max-height: auto;
+overflow:auto;
+
+/* overflow-y: auto; */
 
 
 }
