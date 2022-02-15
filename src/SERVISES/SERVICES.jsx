@@ -7,7 +7,7 @@ const SEVICES = ({activeModal,setActiveModal }) => {
    
 
 const ListService = 
-[{id:1, func: <LIST_WORKS name = {`РАБОТА СО СПИСКАМИ`} activeModal={activeModal} setActiveModal={setActiveModal}  /> }]
+[{id:1, func: <LIST_WORKS name = {`СЕРВИС "РАБОТА СО СПИСКАМИ"`} activeModal={activeModal} setActiveModal={setActiveModal}  /> }]
 
 
 return (

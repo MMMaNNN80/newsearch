@@ -67,9 +67,9 @@ import {getResponsePg,render} from './connection'
           export async function f_getResult( json_ = '',dopSql = '') {
             let obj =  getParamsObj()
              obj.fields = "*"
-             obj.table = `f_getlistsresult_do('${json_}')`
+             obj.table = `f_getlistsresult_do('${json_}','${dopSql}')`
              obj.host = '/159/get_report_entity'
-             obj.dopSql = dopSql
+             obj.dopSql = ''
              return await getResponsePg(obj)
              
             }
