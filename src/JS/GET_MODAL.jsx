@@ -7,7 +7,7 @@ import  css_ from "../CSS/modal.module.css"
      const styleB = styleBody?styleBody:{}
    
     return (
-      <div className={activeModal.active ? css_.modal_active +' ' + css_.modal  : css_.modal   }
+      <div className={activeModal.active ? css_.modal_active +' ' + css_.over  : css_.over   }
    
       >
       <div className = {css_.modal_body}    style={styleB}>

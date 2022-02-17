@@ -12,6 +12,7 @@
     "express": "^4.17.1",
     "file-saver": "^2.0.5",
     "pg": "^8.7.1",
+    "rc-slider": "^9.7.5",
     "react": "^17.0.2",
     "react-bootstrap": "^2.1.2",
     "react-datepicker": "^4.6.0",

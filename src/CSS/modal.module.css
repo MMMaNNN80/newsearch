@@ -1,4 +1,4 @@
-.modal{
+.over{
     display:flex;
     align-items: center;
     justify-content: center;
@@ -25,12 +25,11 @@
 
 .modal_body {
 min-height: 400px;
-
 max-width: 90%;
 background: rgb(242, 240, 247);
 padding: 20px;
-max-height: auto;
-overflow:auto;
+max-height: 80%;
+
 
 /* overflow-y: auto; */
 
@@ -40,7 +39,7 @@ overflow:auto;
 {
 display: flex;
 justify-content: space-between;
-background:rgb(42 62 103)   
+background:rgb(255, 255, 255)   
 }
 .header{
 height: auto;

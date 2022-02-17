@@ -10,7 +10,18 @@ import { getMassRows } from "../JS/properties";
 import DatePicker, { registerLocale } from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import ru from "date-fns/locale/ru";
+import Slider from 'rc-slider';
+import 'rc-slider/assets/index.css';
+
+
+const { createSliderWithTooltip } = Slider;
+const Range = createSliderWithTooltip(Slider.Range);
+
 registerLocale("ru", ru);
+
+
+
+
 
 
 
@@ -19,9 +30,9 @@ registerLocale("ru", ru);
 
 const LIST_WORKS = ({ activeModal, setActiveModal, name }) => {
 
-
     const [massDic, setMassDic] = useState([])
     const load = useRef(false)
+
 
 
     if (!load.current) {
@@ -47,10 +58,10 @@ const LIST_WORKS = ({ activeModal, setActiveModal, name }) => {
                     , padding: '20px'
                     , fontFamily: 'ui-monospace'
                     , fontWeight: '700'
-                    , color: 'rgb(192 207 223)'
+                    , color: '#006f90'
                 }}
                 styleBody={{
-                    minWidth: '1000px', maxWidth: '1000px'
+                    minWidth: '950px', maxWidth: '30%',height:'auto'
                     , background: '#fff'
                     ,
                 }}
@@ -61,20 +72,18 @@ const LIST_WORKS = ({ activeModal, setActiveModal, name }) => {
 
 
     function CHILDREN() {
-
+        
         const [result, setResult] = useState({ load: false, massData: [] })
-        const [startDate, setStartDate] = useState(null)
-        const [endDate, setEndDate] = useState(null);
+        const startDate = useRef(null)
+        const endDate = useRef(null)
+        const [isCollapse,setCollapse] = useState(false)
+ 
 
 
-
-
-
-        //console.log(massDic)
 
         let mass = [
             { id: 0, name: 'Юридические лица', checked: true, type: 'OPF', code: '0' },
-            { id: 1, name: 'Индивидуальные предприниматели', checked: false, type: 'OPF', code: '1' },
+            { id: 1, name: 'ИП', checked: false, type: 'OPF', code: '1' },
             //кнопки Юр лица \ ИП
             { id: 2, name: 'ТОП-50 по выручке', checked: false, type: 'check', code: '*' },
             { id: 3, name: 'Подгруппы ОКВЭД', checked: true, type: 'check', code: '*' },
@@ -86,12 +95,17 @@ const LIST_WORKS = ({ activeModal, setActiveModal, name }) => {
 
         massNames.forEach((el, i) => {
 
-            mass.push({ id: 7 + i, name: el, text: '', checked: false, type: 'txtBox', disabled: true, clear: true, code: '' })
+            mass.push({ id:mass.length , name: el, text: '', checked: false, type: 'txtBox', disabled: true, clear: true, code: '' })
         })
+        mass.push({ id: mass.length , name: 'Капитал', checked: false, type: 'Range', code: ''})
+        mass.push({ id: mass.length , name: 'Дата регистрации', checked: false, type: 'Range', code: ''})
+
+     
 
 
-
+      
         const [massStatus, setMassStatus] = useState(mass) //Главный массив
+         
 
 
         const [view, setView] = useState([]) // меню - готовая разметка
@@ -119,10 +133,96 @@ const LIST_WORKS = ({ activeModal, setActiveModal, name }) => {
             {<div style={{ color: 'white', fontSize: '90px', zIndex: 7 }}> {''}</div>}
 
             <hr />
-            <span className={s.dName} > НАСТРОЙКИ: </span>
-            <div style={{ padding: '15px' }}>
+            <div style={{display:'inline-flex'}}>
+            <span  className={s.dName}> НАСТРОЙКИ </span>
+            <img alt='' src= "..\img\GreyTools.svg"  width={'35px'} />
+           
+           <div>
+           <button  onClick={() => {setCollapse(!isCollapse)}}className="btn btn-warning">{isCollapse?'Развернуть': 'Свернуть' }</button>
+           <button onClick={()=>{setMassStatus(mass)}}className="btn btn-danger">Очистить</button>
+           </div>
+           
+           
+            </div>
+            
+            
+            
+            <div style={{ padding: '5px' }}>
 
-                <form onSubmit={HandleSubmit}>
+                <form  onSubmit={HandleSubmit}>
+
+<div style = {{display: isCollapse?'none':'block'}}>
+
+                    <div style={{
+
+                        textAlign: 'center'
+                        , width: 'auto'
+                        , display: 'grid'
+                        ,gridTemplateColumns: 'auto 2fr 1fr'
+                        ,rowGap:'15px'
+                        , fontSize: '10px'
+                        , alignItems: 'center'
+
+                    }}>
+                        {/* БЛОК ФОРМЫ СОБСТВЕНННОСТИ */}
+                       
+
+                            
+
+                        {/* {Кнопки форм собственности} */}
+                        <div  style={{gridColumn: '1' }}    className={s.module_header}>Выберите форму собственности:</div>
+            <div style={{display:'inline-flex'}}>   
+                        {massStatus.filter(el => el.type === 'OPF')
+                            .map((el, i) => {
+                                return (<>
+                                <div style={{gridColumn:'2/3',gridRow:1,display:"flex"}}>
+                                    <span key={i} onClick={() => { groupHandler(el) }}
+                                        className={s.dBtn + (el.checked ? ' ' + s.active : '')}
+                                        style={{ marginRight: '1rem' }}>{el.name}</span> 
+                                        </div>
+                                        </>)
+                            })}
+                            </div>
+                          
+                        {/* {Кнопки} */}                                                
+<div style={{gridColumn:4,gridRow:'1/2',display:'inline-flex'}}>      
+<div className={s.module_header}>Выберите статус:</div>                                     
+                    
+                                
+{massStatus.filter(el => el.type === 'status')
+    .map((el) => {
+        let quadrColor = ''
+        if(el.name.includes('Все')) {quadrColor = 'blue'}
+        if(el.name.includes('Действ')) {quadrColor = 'green'}
+        if(el.name.includes('Ликвидиров')) {quadrColor = 'red'}
+        return (<>
+         
+                         <div style={{display: 'flex',cursor:'pointer'}}>
+           {el.checked ? <div style={{height:'15px',width:'15px', background: quadrColor, borderRadius:'5px'}} className="quadr"></div> :null}
+            <span key={el.id} onClick={() => { groupHandler(el) }}
+                className={  (el.checked ? ' ' + s.active_btn : '')}
+                style={{ 
+                 
+                  
+                    marginRight: '1rem',
+                    fontSize:'12px',
+                    color:'#026f90'
+
+            
+
+            
+            }}>{el.name}</span> 
+            </div>
+          
+
+            </>)
+    })}
+         
+              
+
+
+                    </div>
+
 
 
 
@@ -132,41 +232,24 @@ const LIST_WORKS = ({ activeModal, setActiveModal, name }) => {
                         , width: 'auto'
                         , display: 'flex'
                         , fontSize: '10px'
+                        ,gridColumn:'1/4'
+                        ,gridRow:2
                         , alignItems: 'center'
 
 
                     }}>
-                        {/* БЛОК ФОРМЫ СОБСТВЕНННОСТИ */}
 
-                        <div className={s.module_header}>Выберите форму собственности:</div>
-
-                        {/* {Кнопки форм собственности} */}
-
-                        {massStatus.filter(el => el.type === 'OPF')
-                            .map((el, i) => {
-                                return (<>
-                                    <span key={i} onClick={() => { groupHandler(el) }}
-                                        className={s.dBtn + (el.checked ? ' ' + s.active : '')}
-                                        style={{ marginRight: '1rem' }}>{el.name}</span> </>)
-                            })}
-
-
-
-                    </div>
-
-                    <br />
-
-
-                    {/* {Чек боксы} */}
-                    <div className={s.module_header} style={{}}>Дополнительные опции:</div>
+              {/* {Чек боксы} */}
+<div className={s.module_header} style={{}}>Дополнительные опции:</div>
                     <div style={{
                         textAlign: 'left'
-                        , width: 'auto'
-                        , display: 'inline-flex'
+                        , display:'flex'
                         , fontSize: '14px'
-                        , padding: '10px 10px'
+                        , padding: '5px 10px'
+                        ,whiteSpace:'nowrap'
 
                     }}>
+                        
 
                         {massStatus.filter(el => el.type === 'check')
                             .map((el) => {
@@ -182,43 +265,23 @@ const LIST_WORKS = ({ activeModal, setActiveModal, name }) => {
                             })}
 
                     </div>
+                    </div>
 
-
-
-
-                    <div style={{
-
-                        textAlign: 'center'
-                        , width: 'auto'
-                        , display: 'flex'
-                        , fontSize: '10px'
-
-                        , alignItems: 'center'
-
-
-                    }}>
-
-                        <div className={s.module_header}>Выберите статус:</div>
-
-
-                        {/* {Кнопки} */}
-                        {massStatus.filter(el => el.type === 'status')
-                            .map((el) => {
-                                return (<>
-                                    <span key={el.id} onClick={() => { groupHandler(el) }}
-                                        className={s.dBtn + (el.checked ? ' ' + s.active : '')}
-                                        style={{ marginRight: '1rem' }}>{el.name}</span> </>)
-                            })}
 
 
                     </div>
+
+                
                     <hr />
 
                     {/* {ТЕКСТБОКСЫ} */}
                     {/* ******************************************************************************************************************** */}
 
-                    <div className={s.module_header}>Детальные настройки. Выберите/введите значения для уточнения условий поиска информации:</div>
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr  1fr 1fr', marginTop: '20px', padding: '20px' }}>
+                   
+                    <div style={{ display: 'grid', gridTemplateColumns: '2fr  2fr 1fr', padding: '5px' }}>
+                    <div className={s.module_header}
+                   style={{paddingBottom:'25px', gridColumn:'1/3'}}
+                    >Детальные настройки:</div>
                         {
 
                             massStatus.filter(el => el.type === 'txtBox').map((el, i) => {
@@ -229,12 +292,14 @@ const LIST_WORKS = ({ activeModal, setActiveModal, name }) => {
                                     }}>
 
                                         <div style={{
-                                            fontSize: '11px',
+                                            fontSize: '12px',
                                             position: 'absolute',
-                                            zIndex: '3',
-                                            left: 30,
-                                            top: -15
-                                            ,color:'magenta'
+                                            fontWeight:700,
+                                            zIndex: '6',
+                                            left: 20,
+                                            top: -13
+                                            ,color:'#026f90'
+                                           
 
                                         }}>{' ' + el.name} </div>
 
@@ -248,27 +313,33 @@ const LIST_WORKS = ({ activeModal, setActiveModal, name }) => {
                                             , alignItems: 'center'
 
                                         }}>
+                                      
                                             <input
                                                 type="checkbox"
-                                                style={{ verticalAlign: 'center' }}
+                                                style={{ 
+                                                    marginBottom: '15px'
+                               
+                                                 }}
                                                 onChange={() => setMassStatus(
-                                                    massStatus.map((el_) => el_.id === el.id ? { ...el, checked: !el.checked } : el_))}
-                                                name={el.id} disabled={el.disabled} checked={el.checked} />
+                                                    massStatus.map((el_) => el_.id === el.id ? 
+                                                    { ...el, checked: !el.checked } : el_))}
+                                                name={el.id} 
+                                                disabled={el.disabled}
+                                                checked={el.checked} 
+                                                 />
                                             <textarea
                                                 // placeholder={' ' + el.name}
                                                 style={{
-                                                    fontSize: '14px',
+                                                    marginBottom: '15px',
+                                                    paddingLeft: '15px',
+                                                    fontSize: '12px',
                                                     marginLeft: '8px',
-                                                    height: '60px',
-                                                    marginBottom: '2px',
-                                                    width: '90%',
-                                                    paddingLeft: '10px',
+                                                    height: '50px',
+                                                    width: '95%',
+                                   
                                                     overflow: 'auto',
                                                     resize: 'none',
                                                     outline: 'none'
-                                                    ,borderRadius:'1px'
-
-
                                                 }}
                                                 id={el.id}
                                                 value={el.text}
@@ -284,6 +355,7 @@ const LIST_WORKS = ({ activeModal, setActiveModal, name }) => {
 
                                                 }}
                                             />
+                                            
                                             {!el.clear ? <span onClick={
                                                 () => setMassStatus(massStatus.map((el_) => el_.id === el.id ?
                                                     {
@@ -295,57 +367,129 @@ const LIST_WORKS = ({ activeModal, setActiveModal, name }) => {
                                                     } : el_))}
                                                 style={{ fontSize: '18px', marginLeft: '5px', color: 'red', cursor: 'pointer' }}>Х</span> : null}
                                         </div>
+                                      
                                         {act.current.id === el.id && act.current.act === false && view ? view : null}
-                                        <br />
-
-
-                                     
 
                                     </div>
                                 )
                             })
                         }
 
+        {/* ПО ДАТЕ РЕГИСТРАЦИИ */}
+
+<div style={{gridColumn:3, gridRow:'1/5',borderLeft:'3px dotted black'}}>
+<div className={s.module_header}
+                   style={{paddingLeft:'1rem'}}
+                    >Выберите диапазон даты первичной регистрации </div>
+                         
+                         <div style={{ alignSelf:'center', padding:'10px',
+                          display: 'inline-flex', 
+                           alignItems: 'center' }}>
+               
+<input type='checkbox' style={{ marginRight: '2px' }} onChange={(e) => {
+  setMassStatus(massStatus.map(
+    el=>el.name.includes("регистрац")? 
+    {...el, checked: !el.checked} : el))}}  />
+
+<DatePicker
+    selected={startDate.current}
+    onChange={(date) => {startDate.current = date;         
+        setMassStatus(massStatus.map(
+        el=>el.name.includes("регистрац")? 
+        {...el,
+            code:((startDate.current ?startDate.current.toLocaleDateString("ru"):'') +','+ (endDate.current ? endDate.current.toLocaleDateString("ru"):'') )
+            } : el
+    
+    )) }}
+    endDate={endDate.current}
+    dateFormat="MM/yyyy"
+    locale={"ru"}
+    showMonthYearPicker
+/>
+
+<p style={{ margin: '5px 5px' }}>по</p>
+
+<DatePicker
+    selected={endDate.current}
+    onChange={(date) => {endDate.current = date;
+        setMassStatus(massStatus.map(
+            el=>el.name.includes("регистрац")? 
+            {...el,
+                code:((startDate.current ?startDate.current.toLocaleDateString("ru"):'') +','+ (endDate.current ? endDate.current.toLocaleDateString("ru"):'') )
+                } : el
+        
+        ))
+            }
+    }
+    selectsEnd
+    startDate={startDate.current}
+    endDate={endDate.current}
+    locale={"ru"}
+    dateFormat="MM/yyyy"
+    showMonthYearPicker
+/>
+
+</div>
+<div className={s.module_header}
+                   style={{paddingLeft:'1rem',paddingTop:'1rem'}}
+                    >Настройте фильтрацию по уставному капиталу </div>
+
+               
+
+            
+                    <div  style={{paddingTop:'2rem',paddingLeft:'1rem',position:'relative' ,display:'flex'}}>
+                    <input type='checkbox' style={{ marginRight: '20px' }} 
+                    
+                    onChange={() => {setMassStatus(massStatus.map(
+                        el=>el.name.includes("Капитал")? 
+                        {...el, checked: !el.checked} : el
+                    
+                    )) }} />
+
+
+        {/* ПО УСТАВНОМУ КАПИТАЛУ */}
+                    <Range marks={{
+                        0: `0`,
+                        1000000: `1млн`
+          }}
+          onChange={value=>{setStateDualRange(value); }}
+            
+           
+          step={10000}
+          min={0}
+          max={1000000}
+          defaultValue={[10000, 500000]}
+          tipFormatter={value =>{
+           if(value>=10000 && value<1000000) {return `${value/1000} тыс руб`}   
+           if(value>=1000000 ) {return `${value/1000000} млн руб`}  
+        }
+          }
+        
+          tipProps={{
+            placement: "bottom",
+            visible: true,
+        
+          }}
+        />
+
                     </div>
+                  
+</div>
+              
+ </div>
 
-
-
-                    <div style={{ display: 'inline-flex', alignItems: 'center', padding: '5px' }}>
-
-                        <input type='checkbox' style={{ marginRight: '2px' }} onChange={() => { }} />
-
-                        <DatePicker
-                            selected={startDate}
-                            onChange={(date) => setStartDate(date)}
-                            selectsStart
-                            startDate={startDate}
-                            endDate={endDate}
-                            dateFormat="MM/yyyy"
-                            locale={"ru"}
-                            showMonthYearPicker
-                        />
-
-                        <p style={{ margin: '5px 5px' }}>ПО</p>
-
-                        <DatePicker
-                            selected={endDate}
-                            onChange={(date) => setEndDate(date)}
-                            selectsEnd
-                            startDate={startDate}
-                            endDate={endDate}
-                            locale={"ru"}
-                            dateFormat="MM/yyyy"
-                            showMonthYearPicker
-                        />
-                    </div>
+                   
                     <br />
+
+    </div>
+                    <button onClick={getResult}>Получение результата</button>
 
                     {result.load ?
                         <div style={{ padding: '20px' }}>
 
 
 
-                            <GETTABLE funcGetRows={[...getMassRows(result.massData)]} //Регистрационные данные
+                            <GETTABLE funcGetRows={[...getMassRows(result.massData)]} 
                                 style={{
                                     tclass: ["mtbl tblcolorhead"],
                                     captionStyle: { "color": "#5d40c5", "alignText": "center", "fontSize": "22px", fontWeight: '700' }
@@ -359,11 +503,6 @@ const LIST_WORKS = ({ activeModal, setActiveModal, name }) => {
                         : ''}
 
                     {/* ******************************************************************************************************************** */}
-
-                    <button type={"submit"}>Submit</button>
-                    <button onClick={prepareSQL}>Сборка SQL</button>
-                    <button onClick={getResult}>Получение результата</button>
-                    {/* <div style={{ color: 'blue', fontSize: '20px', zIndex: 22 }}> {act.id.current}</div> */}
                 </form>
             </div>
         </>
@@ -372,61 +511,89 @@ const LIST_WORKS = ({ activeModal, setActiveModal, name }) => {
         )
 
 
+        function setStateDualRange (value) {
+
+            setMassStatus(massStatus.map(
+                el=>el.name.includes("Капитал")? 
+                {...el,code:value.join(',')} : el
+            
+            )) 
+             
+
+
+        }
+
+   //// Результат     
         async function getResult() {
 
             const head = [
                 '№',
-                'Наименование организации',
-                'Дата статуса',
-                'Дата первой регистрации',
+                'Основная информация о организации',
+               // 'Дата статуса',
+                //'Дата первой регистрации',
                 `Коды класификаторы организации`,
-                'Регион',
                 'ОКВЭД(основной)',
                 'ФИО руководителя',
-                'Контакты',
-                'e-mail'
+                'Контакты'
             ]
 
 
 
             f_getResult(
-                JSON.stringify(massStatus).replaceAll('"', '\\"'), 15) // ----Json в postgres
+                JSON.stringify(massStatus).replaceAll('"', '\\"'), 50) // ----Json в postgres
                 .then(mass => {
+
+                    console.log(mass)
+                    if(mass && mass.length>0){
                     mass = mass.map((el, i) => {
                         return [
                             i + 1,
+                            <>
                             <span>
                                 <div className="quadr" style={{ "display": "inline-flex", 'background': el.isacting && el.isacting === 1 ? 'green' : 'red' }}></div>
                                 <div style={{ "display": "inline", color: 'gold' }}>{el.shortnamerus && el.okved && el.shortnamerus.length > 1 ? el.shortnamerus : el.fullnamerus}</div>
                             </span>
-                            , el.status_date
-                            , el.datefirstreg
-                            ,
-                            <>
+                           
+                            {el.chartercapital && el.chartercapital>0 ? <div style= {{paddingTop:'2px' ,paddingBottom:'2px' }}>{`Уставной капитал: ${el.chartercapital}`}</div> : null}
+                            {el.regionname && el.regionname.length>0 ? <div style= {{paddingTop:'2px' ,paddingBottom:'2px' }}>{`Регион: ${el.regionname}`}</div> : null} 
+                            {el.datefirstreg && el.datefirstreg.length>0 ? <div style= {{paddingTop:'2px' ,paddingBottom:'2px' }}>{`Дата регистрации: ${el.datefirstreg}`}</div> : null} 
+                            </>
+                          
+                            ,<>
+                            <div style={{paddingTop:'2px' ,paddingBottom:'2px'}}> 
                                 <div>{`ИНН:  ${el.inn}`}</div>
                                 <div>{`КПП:  ${el.kpp}`}</div>
                                 <div>{`ОГРН: ${el.ogrn}`}</div>
+                                </div>
 
                             </>
-
-                            , (el.regioncode ? el.regioncode : '') + ' ' + (el.regionname ? el.regionname : '')
                             , (el.okved_code ? el.okved_code : '') + ' ' + (el.okved ? el.okved : '')
                             , el.fio
-                            , el.phone_parsed
-                            , el.email
+                            , <>
+                             {el.phone_parsed && el.phone_parsed.length>0 ?
+                             <>
+                            <span style= {{color:'gold',paddingTop:'2px' ,paddingBottom:'2px' }}>{`Телефоны:`}</span>
+                            <span>
+                            {el.phone_parsed.split(',').map((el,i)=> {return <div key={i}>{el}</div>})} 
+                            </span>
+                            </> :null}
 
+                            {el.email && el.email.length>0 ?
+                            <>   
+                            <span style= {{color:'gold',paddingTop:'5px' ,paddingBottom:'5px'}}>{`Электронная почта:`}</span>
+                            {el.email.split(',').map((el,i)=> {return <div key={i}>{el}</div>})} 
+                            </> :''
 
-
-
-
+                        }
+                            </>
 
 
                         ]
 
                     })
+                }
 
-
-                    mass.unshift(head)
+                (!mass || !mass.length>0) ?  mass=([head]) : mass.unshift(head)
                     console.log(mass)
                     setResult({ load: true, massData: mass })
 
@@ -437,10 +604,6 @@ const LIST_WORKS = ({ activeModal, setActiveModal, name }) => {
 
         }
 
-        function prepareSQL() {
-
-alert(`f_getLists(join(',')})`)
-        }
 
         async function Handler(e, el) {
 
@@ -483,15 +646,14 @@ alert(`f_getLists(join(',')})`)
         }
 
 
-
-
-        function SuggMenu(mass, element) {
+        function SuggMenu(mass, element) { //подсказка
             return <>
                 <div style={{
                     position: 'absolute'
                     , zIndex: 10
+                    , top:50
                     , border: '1px solid grey'
-                    , width: '90%', marginLeft: '15px', background: 'whitesmoke', maxHeight: '500px', overflow: 'auto'
+                    , width: '80%', marginLeft: '15px', background: 'whitesmoke', maxHeight: '500px', overflow: 'auto'
                 }}>
 
                     {mass.map((el_names) => {
@@ -553,7 +715,6 @@ alert(`f_getLists(join(',')})`)
 
 
     }
-
 
 
 
