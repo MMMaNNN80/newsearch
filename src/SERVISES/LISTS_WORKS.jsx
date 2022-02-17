@@ -5,14 +5,12 @@ import { useState, useRef } from "react";
 import { getResponse } from "../JS/properties";
 import { f_getDictionary } from "../JS/SQL";
 import { f_getResult } from "../JS/SQL";
-import GETTABLE from "../COMPONENTS/GETTABLE";
-import { getMassRows } from "../JS/properties";
 import DatePicker, { registerLocale } from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import ru from "date-fns/locale/ru";
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
-
+import GET_TABLE_SRC from "../JS/GET_TABLE_SCR";
 
 const { createSliderWithTooltip } = Slider;
 const Range = createSliderWithTooltip(Slider.Range);
@@ -482,23 +480,32 @@ const LIST_WORKS = ({ activeModal, setActiveModal, name }) => {
                     <br />
 
     </div>
-                    <button onClick={getResult}>Получение результата</button>
+                    <button style = {{width:'150px',height:'30px'}} className="btn btn-secondary" onClick={getResult}>РЕЗУЛЬТАТ</button>
+
+                   
 
                     {result.load ?
                         <div style={{ padding: '20px' }}>
 
+                      <GET_TABLE_SRC 
+                    massObjCol={
+                        [ 
+                            {name:'#', style:{width:'7%'}},
+                            {name:'Основная информация о организации', style:{width:'30%'}},
+                            {name:'Коды организации', style:{width:'15%'}},
+                            {name:'ОКВЭД(основной)', style:{width:'20%'}},
+                            {name:'ФИО руководителя', style:{width:'15%'}},
+                            {name:'Контакты', style:{width:'15%'}},
+                        ]
+                 
+                        } 
+                        
 
+                        massValues = {result.massData}
+                        heightT = {{height:'500px'}}
+                        />
 
-                            <GETTABLE funcGetRows={[...getMassRows(result.massData)]} 
-                                style={{
-                                    tclass: ["mtbl tblcolorhead"],
-                                    captionStyle: { "color": "#5d40c5", "alignText": "center", "fontSize": "22px", fontWeight: '700' }
-                                }}
-                                name={"ВЫВОД ФРАГМЕНТА ВЫБОРКИ"}
-                                endtbl={true}
-                                cut={6}
-                            />
-
+                          
                         </div>
                         : ''}
 
@@ -526,19 +533,6 @@ const LIST_WORKS = ({ activeModal, setActiveModal, name }) => {
    //// Результат     
         async function getResult() {
 
-            const head = [
-                '№',
-                'Основная информация о организации',
-               // 'Дата статуса',
-                //'Дата первой регистрации',
-                `Коды класификаторы организации`,
-                'ОКВЭД(основной)',
-                'ФИО руководителя',
-                'Контакты'
-            ]
-
-
-
             f_getResult(
                 JSON.stringify(massStatus).replaceAll('"', '\\"'), 50) // ----Json в postgres
                 .then(mass => {
@@ -551,7 +545,7 @@ const LIST_WORKS = ({ activeModal, setActiveModal, name }) => {
                             <>
                             <span>
                                 <div className="quadr" style={{ "display": "inline-flex", 'background': el.isacting && el.isacting === 1 ? 'green' : 'red' }}></div>
-                                <div style={{ "display": "inline", color: 'gold' }}>{el.shortnamerus && el.okved && el.shortnamerus.length > 1 ? el.shortnamerus : el.fullnamerus}</div>
+                                <div style={{ "display": "inline", color: 'blue' }}>{el.shortnamerus && el.okved && el.shortnamerus.length > 1 ? el.shortnamerus : el.fullnamerus}</div>
                             </span>
                            
                             {el.chartercapital && el.chartercapital>0 ? <div style= {{paddingTop:'2px' ,paddingBottom:'2px' }}>{`Уставной капитал: ${el.chartercapital}`}</div> : null}
@@ -572,7 +566,7 @@ const LIST_WORKS = ({ activeModal, setActiveModal, name }) => {
                             , <>
                              {el.phone_parsed && el.phone_parsed.length>0 ?
                              <>
-                            <span style= {{color:'gold',paddingTop:'2px' ,paddingBottom:'2px' }}>{`Телефоны:`}</span>
+                            <span style= {{color:'blue',paddingTop:'2px' ,paddingBottom:'2px' }}>{`Телефоны:`}</span>
                             <span>
                             {el.phone_parsed.split(',').map((el,i)=> {return <div key={i}>{el}</div>})} 
                             </span>
@@ -580,7 +574,7 @@ const LIST_WORKS = ({ activeModal, setActiveModal, name }) => {
 
                             {el.email && el.email.length>0 ?
                             <>   
-                            <span style= {{color:'gold',paddingTop:'5px' ,paddingBottom:'5px'}}>{`Электронная почта:`}</span>
+                            <span style= {{color:'blue',paddingTop:'5px' ,paddingBottom:'5px'}}>{`Электронная почта:`}</span>
                             {el.email.split(',').map((el,i)=> {return <div key={i}>{el}</div>})} 
                             </> :''
 
@@ -592,9 +586,6 @@ const LIST_WORKS = ({ activeModal, setActiveModal, name }) => {
 
                     })
                 }
-
-                (!mass || !mass.length>0) ?  mass=([head]) : mass.unshift(head)
-                    console.log(mass)
                     setResult({ load: true, massData: mass })
 
                 }
