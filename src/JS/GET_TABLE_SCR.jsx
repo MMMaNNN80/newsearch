@@ -4,14 +4,6 @@ import { getEmpty } from './properties'
 
 const GET_TABLE_SRC = ({massObjCol,massValues, thread,heightT} )=>{
 
-//  massObjCol = [
-//     {name:'Название блюда', style:{width:'60%'}},
-//     {name:'Белки', style:{width:'10%'}},
-//     {name:'Жиры', style:{width:'10%'}},
-//     {name:'Углеводы', style:{width:'10%'}},
-//     {name:'ККАЛ', style:{width:'10%'}},
-// ]
-
 
 if (!massObjCol) {return getEmpty("Нет данных для построения таблицы")}
 if(!thread) { thread={background:'rgb(0, 111, 144)'} };
@@ -19,23 +11,27 @@ if(!massValues) {massValues=[]}
 if(!heightT) {heightT={height:'200px'}}
 
 
- 
-
-    return (
+  return (
         <div className={s.scrolltable}>
-        <table>
+        <table key={1}>
             <thead style={thread}>
-                <tr>
-                    {massObjCol.map((el,i)=><th key={i} col style={el.style}>{el.name}</th>)} 
-                </tr>
+           <tr>
+            
+                    {massObjCol.map((el,i)=><th key={i}  style={el.style}>{el.name}</th>)} 
+                    </tr>
             </thead>
+            <tbody></tbody>
         </table>	
         <div className={s.scrolltablebody} style={heightT}>
-            <table>
-            {massObjCol.map((el,i)=><th key={i} col style={el.style}/>)} 
-        
+            <table  key={2}>
 
-                <tbody>
+            <thead >
+                <tr>
+            {massObjCol.map((el,i)=> 
+            <th key={i}  style={el.style}/>)} 
+            </tr>
+        </thead>  
+        <tbody>  
 
                     {massValues.map((tr_,number)=>{
                          return  ( 

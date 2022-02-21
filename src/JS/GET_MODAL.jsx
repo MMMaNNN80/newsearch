@@ -15,7 +15,7 @@ import  css_ from "../CSS/modal.module.css"
                      
        <div></div>
        <div className={css_.header} style={styleHead?styleHead:{
-          fontSize:'20px' , fontWeight:'700',color:'#2196f3'
+          fontSize:'18px' , fontWeight:'700',color:'#2196f3'
        }}> {text?text:'Я MODAL WINDOW'}</div>
        <div className={css_.x} onClick={()=>{setActiveModal({active:false,id:0})}} >x</div>
        </div> 
