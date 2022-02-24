@@ -8,16 +8,17 @@
    
 }
 .scrolltable table {
-	width:100%;
+	/*width:100%;*/
 	table-layout: fixed; 
 	border: none;
+	
 
 }
 .scrolltable thead th {
 	font-weight: bold;
 	text-align: left;
 	border: none;
-	padding: 10px 30px;
+	padding: 15px 15px;
 	/* background: #09355a; */
     word-wrap:break-word;    /* для переноса слов*/
     color:white;
@@ -29,12 +30,17 @@
 	text-align: left;
 	border-left: 1px solid #ddd;
 	border-right: 1px solid #ddd;
-	padding: 10px 15px;
+	padding: 5px 5px;
 	font-size: 14px;
     word-wrap:break-word;    /* для переноса слов*/
     vertical-align: top;
     color:black;
+	
+	
 }
+
+
+
 .scrolltable tbody tr:nth-child(even){
 	background: #41bed4;
 
@@ -42,7 +48,7 @@
  
 /* Стили для скролла */
 ::-webkit-scrollbar {
-	width: 6px;
+	width: 8px;
 } 
 ::-webkit-scrollbar-track {
 	box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 

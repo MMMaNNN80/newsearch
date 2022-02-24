@@ -24,17 +24,17 @@
 }
 
 .modal_body {
-min-height: auto;
-max-width: 95%;
+min-height: 20%;
+max-width: 100%;
 background: rgb(242, 240, 247);
 padding: 20px;
-max-height: auto;
+max-height:90%;
+overflow: auto;
+}
 
 
 /* overflow-y: auto; */
 
-
-}
 .modalHeader 
 {
 display: flex;

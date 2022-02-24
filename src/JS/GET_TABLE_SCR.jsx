@@ -2,36 +2,38 @@
 import s from '../CSS/scrtable.module.css'
 import { getEmpty } from './properties'
 
-const GET_TABLE_SRC = ({massObjCol,massValues, thread,heightT} )=>{
+const GET_TABLE_SRC = ({massObjCol,massValues, thread,heightT,widthT} )=>{
 
 
 if (!massObjCol) {return getEmpty("Нет данных для построения таблицы")}
 if(!thread) { thread={background:'rgb(0, 111, 144)'} };
 if(!massValues) {massValues=[]}
 if(!heightT) {heightT={height:'200px'}}
+if(!widthT) {widthT={width:'100%'}}
+
 
 
   return (
-        <div className={s.scrolltable}>
-        <table key={1}>
-            <thead style={thread}>
-           <tr>
-            
-                    {massObjCol.map((el,i)=><th key={i}  style={el.style}>{el.name}</th>)} 
-                    </tr>
+        <div  className={s.scrolltable} >
+        <table style={{...widthT}} key={1}>
+            <thead style={{...thread  }}>
+           <tr style={{}}>
+         {massObjCol.map((el,i)=><th key={i}  style={{...el.style}}>{el.name}</th>)} 
+         </tr>       
             </thead>
-            <tbody></tbody>
+            
         </table>	
-        <div className={s.scrolltablebody} style={heightT}>
-            <table  key={2}>
-
-            <thead >
+        <div className={s.scrolltablebody} style={{...heightT}}>
+            <table style={{...widthT}} key={2}>
+            <thead style={{}}>
                 <tr>
             {massObjCol.map((el,i)=> 
-            <th key={i}  style={el.style}/>)} 
+            <th  key={i}  style={{...el.style}}/>)} 
             </tr>
-        </thead>  
+          </thead>
+       
         <tbody>  
+       
 
                     {massValues.map((tr_,number)=>{
                          return  ( 
