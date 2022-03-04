@@ -10,6 +10,9 @@ import "react-datepicker/dist/react-datepicker.css";
 import ru from "date-fns/locale/ru";
 import { Tabs, Tab, TabPanel, TabList } from 'react-web-tabs';
 import 'react-web-tabs/dist/react-web-tabs.css';
+import Spinner from 'react-bootstrap/Spinner';
+
+
 registerLocale("ru", ru);
 
 
@@ -21,6 +24,7 @@ const LIST_WORKS = ({ activeModal, setActiveModal, name }) => {
 
 
     if (!load.current) {
+        load.current = false
         f_getDictionary()
             .then(mass => {
                 setMassDic(mass)
@@ -54,10 +58,10 @@ const LIST_WORKS = ({ activeModal, setActiveModal, name }) => {
 
     function CHILDREN() {
 
-        const [result, setResult] = useState({ load: false, massData: [] })
+        const [result, setResult] = useState({ load: true, massData: [] })
         const startDate = useRef(null)
         const endDate = useRef(null)
-        const massR = useRef([])
+  
         const [isCollapse, setCollapse] = useState(false)
         let UL = true
 
@@ -83,8 +87,8 @@ const LIST_WORKS = ({ activeModal, setActiveModal, name }) => {
         mass.push({ id: mass.length, type_p: 'Фильтр (уставной капитал)', name: 'до 1млн руб', checked: false, type: 'RangeC', code: '0,1000000' })
         mass.push({ id: mass.length, type_p: 'Фильтр (уставной капитал)', name: 'более 1млн руб', checked: false, type: 'RangeC', code: '1000000,10000000000' })
         mass.push({ id: mass.length, type_p: 'Фильтр (Дата регистрации)', name: 'Дата регистрации', checked: false, type: 'Range', code: '' })
-        mass.push({ id: mass.length, type_p: 'Фильтр поиск по ИНН', name: 'Поиск по ИНН', checked: false, type: 'TextAreaINN', code: 'используется' })
-        massR.current = mass
+        mass.push({ id: mass.length, type_p: 'Фильтр поиск по ИНН', name: 'Поиск по ИНН', checked: false, type: 'TextAreaINN', code: 'используется',cnt: 0 })
+
 
         const [massStatus, setMassStatus] = useState(mass) //Главный массив
         const [view, setView] = useState([]) // меню - готовая разметка
@@ -97,19 +101,11 @@ const LIST_WORKS = ({ activeModal, setActiveModal, name }) => {
         return (
             <>
                 {GET_HEAD()}
-
                 <div style={{ padding: '5px' }}>
-
                     <form onSubmit={(e) => e.preventDefault()} >
-
                         <div style={{ display: isCollapse ? 'none' : 'block' }}>
-
-                            <hr />
-
-                            <Tabs
-                                defaultTab="1"
-                                onChange={(tabId) => { console.log(tabId) }}
-                            >
+                             <hr />
+                            <Tabs defaultTab="1">
                                 <TabList>
                                     <Tab  tabFor="1"><span style={{ color: '#006f90', fontWeight: '700' }}>ОСНОВНЫЕ ФИЛЬТРЫ</span></Tab>
                                     <Tab tabFor="2"><span style={{ color: '#006f90', fontWeight: '700' }}>ПОИСК ПО ИНН</span> </Tab>
@@ -127,7 +123,7 @@ const LIST_WORKS = ({ activeModal, setActiveModal, name }) => {
                                     </div>
                                 </TabPanel>
                                 <TabPanel tabId="2">
-                                    {GET_INN()}
+                                            {GET_INN()}
                                 </TabPanel>
                             </Tabs>
                             <hr />
@@ -151,7 +147,7 @@ const LIST_WORKS = ({ activeModal, setActiveModal, name }) => {
 
                                     if (el.type_p.includes('Доп')) { val = '+ вкл' }
                                     if (el.type.includes('txt')) { val = el.text }
-                                    if (el.type_p.includes('ИНН')) { val = '+ используется' }
+                                    if (el.type_p.includes('ИНН')) { val = `+ используется ${el.cnt} ИНН для поиска` }
                                     if (el.type_p.includes('Дата регистра')) { val = ` Выбран дипапазон: ${startDate.current ? startDate.current.toLocaleDateString() : ''} - ${endDate.current ? endDate.current.toLocaleDateString() : ''} ` }
 
                                     if (!val) { val = `${el.name}` }
@@ -165,15 +161,13 @@ const LIST_WORKS = ({ activeModal, setActiveModal, name }) => {
                             </ul>
 
                             <div style={{ display: 'flex', gridColumn: '2', gridRow: '1',justifySelf:'end' }}>
-                                <button style={{ width: '150px', height: '30px' }} className="btn btn-secondary" onClick={getResult}>РЕЗУЛЬТАТ</button>
-                                <button style={{ width: '150px', height: '30px' }} onClick={() => { setMassStatus(massR.current) }} className="btn btn-danger">ОЧИСТИТЬ</button>
+                                <button disabled  = {!result.load } style={{ width: '150px', height: '30px' }} className="btn btn-secondary" onClick={getResult}>РЕЗУЛЬТАТ</button>
+                                <button style={{ width: '150px', height: '30px' }} onClick={() => {setCollapse(false);setMassStatus(mass);setResult({load:true,massData:[]}) }} className="btn btn-danger">ОЧИСТИТЬ</button>
                             </div>
 
                         </div>
 
-
-
-                        {result.load ?
+                        {result.load && result.massData.length>0 ?
                             <div style={{ padding: '20px' }}>
 
                                 <GET_TABLE_SRC
@@ -185,8 +179,9 @@ const LIST_WORKS = ({ activeModal, setActiveModal, name }) => {
                                             { name: 'ОКВЭД(основной)', style: { width: '20%' } },
                                             { name: 'ФИО руководителя', style: { width: '15%' } },
 
-                                        ]} massValues={result.massData} heightT={{ height: !isCollapse ? '300px' : '800px' }} /> </div>
-                            : ''}
+                                        ]} massValues={result.massData} heightT={{ height: !isCollapse ? '300px' : '700px' }} /> </div>
+                            :!result.load && result.massData.length===0 ? <div style={{textAlign:'center',paddingTop:'50px'}}>
+                                <Spinner animation="border"  style={{width: '100px',height:'100px',borderWidth:'20px'}} variant="primary"/></div>:null}
 
                         {/* ******************************************************************************************************************** */}
                     </form>
@@ -199,11 +194,12 @@ const LIST_WORKS = ({ activeModal, setActiveModal, name }) => {
         async function getResult() {
             console.log(massStatus)
 
+             setResult({load:false,massData:[]})
             f_getResult(
-                JSON.stringify(massStatus).replaceAll('"', '\\"'), 50) // ----Json в postgres
+                JSON.stringify(massStatus).replaceAll('"', '\\"'), 200) // ----Json в postgres
                 .then(mass => {
-
-                    console.log(mass)
+                    
+                   // console.log(mass)
                     if (mass && mass.length > 0) {
                         mass = mass.map((el, i) => {
                             return [
@@ -274,16 +270,38 @@ const LIST_WORKS = ({ activeModal, setActiveModal, name }) => {
 
         function handleChangeInnTextArea(e) {
             let mass = []
-
+            let massCode = []
+            
             mass = massStatus
                 .map(el => {
                     if (el.type.includes('INN')) {
-                        el.text = e.target.value.replace(/\D/g, '\n').replace(/(\n)\1{1,}/gu, '$1');
-                        el.code = e.target.value.replace(/\D/g, ',').replace(/(,)\1{1,}/gu, '$1')
+                        el.code = e.target.value.replace(/\D/g, ',').replace(/(\n)\1{1,}/gu, '$1');
+                         massCode = el.code.split(',').filter(el=> el.length===10 || el.length===12) 
+                      el.code = massCode.join(',') 
+                      el.text = e.target.value
+                      el.cnt = massCode.length
+
                     }
+                    
                     return el
                 })
-            console.log(mass)
+    
+            setMassStatus(mass)
+
+
+        }
+
+        function InnTextAreaMake(e) {
+            let mass = []
+            mass = massStatus
+                .map(el => {
+                    if (el.type.includes('INN')) {
+                        el.text = el.code
+                    }
+                    
+                    return el
+                })
+    
             setMassStatus(mass)
 
 
@@ -394,7 +412,7 @@ const LIST_WORKS = ({ activeModal, setActiveModal, name }) => {
                 })
             }
 
-            console.log(mass)
+            
             if (mass.length > 0) { setMassStatus(mass) } else { alert('groupHandler - пустой массив') }
 
         }
@@ -689,7 +707,7 @@ const LIST_WORKS = ({ activeModal, setActiveModal, name }) => {
                                         , textAlign: 'center'
                                         , border: '1px solid #9e7248',
                                          marginLeft: '3px'
-                                        , padding: '20px', borderRadius: '6px'
+                                        , padding: '15px', borderRadius: '6px'
                                         , fontSize: '12px'
                                         , cursor: 'pointer'
                                         ,minHeight:'50px'
@@ -717,36 +735,55 @@ const LIST_WORKS = ({ activeModal, setActiveModal, name }) => {
         }
 
         function GET_INN() {
+
+            const massINN = massStatus.filter(el => el.type.includes('INN'))[0]
             return (
                 <>
-                     <div style={{paddingTop:'10px'}} className={s.module_header}>
-                            ПОИСК ПО ИНН: </div>
+         
                            
                             <div style={{display:'grid' , gridTemplateColumns:'1fr 1fr'}}>
-                    <div style={{marginTop: '10px', display:'flex',gridColumn:1, borderRight:'3px dotted black'}}>
-                    <input type='checkbox' style={{ marginRight: '10px' }}
+                            <div style={{display:'flex',justifyContent:'space-between'}}>
+                     <div style={{paddingTop:'10px'}} className={s.module_header}>
+                            ПОИСК ПО ИНН: </div>
+                            <span style={{display:'flex', marginRight:'2em',paddingTop:'10px'}}>
+                            <button
+                            onClick={(e)=> InnTextAreaMake(e)}
+                            className="btn btn-warning">Подготовить</button>
+                           {massINN && massINN.text ?  <button 
+                            onClick={()=> setMassStatus(massStatus.map(
+                                el => {
+                                    return el.name.includes("ИНН") ?
+                                        { ...el, text: '',code:'',cnt:0,checked:false } : el
+                               }))}
+                            className="btn btn-danger">Стереть</button> :null}
+                            </span>
+                </div>
+                    
+                    
+                    <div style={{marginTop: '10px', display:'flex',gridColumn:1,gridRow:2, borderRight:'3px dotted black'}}>
+                    <input type='checkbox'  style={{ marginRight: '10px' }}
                             onChange={() => {
                                 setMassStatus(massStatus.map(
                                     el => {
                                         return el.name.includes("ИНН") ?
                                             { ...el, checked: !el.checked } : el
                                    }))
-                            }} />
+                            }} checked={massINN.checked}
+                            />
                         <textarea
                             style={{
                                 marginBottom: '15px',
                                 paddingLeft: '5px',
                                 fontSize: '12px',
-                                width: '90%'
-                            }}
+                                width: '90%' }}
                             placeholder="Вставьте список ИНН через любой разделитель"
-                            rows={10} cols={3}
+                            rows={5} cols={6}
                             onChange={handleChangeInnTextArea}
-                            value={massStatus.filter(el => el.type.includes('INN'))[0].text}
+                            value={massINN.text}
                         />
                        
                     </div>
-                    <div style={{gridRow:2}} >Загружено: 11 ИНН</div>
+                    {massINN.checked?<div style={{gridRow:3}} >Загружено: {massINN.cnt}</div>:null} 
 
 
                     </div>
@@ -779,10 +816,6 @@ const LIST_WORKS = ({ activeModal, setActiveModal, name }) => {
                             {FORM_COWNERS()}
 
                         </div>
-
-
-
-
                         <div style={{ gridColumn: 2, gridRow: '1' }}>
                             <div className={s.module_header} style={{ padding: '10px' }}>Выберите статус:</div>
                             {STATUS()}

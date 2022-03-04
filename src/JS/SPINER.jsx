@@ -20,10 +20,11 @@ function SPINER({val,text} ){
 
 </div>
 <br/>
-{text===true ?<div style={{color:'white' ,textAlign:'center'}}>Подождите, идет загрузка...</div> :
-<div style={{color:'white' ,textAlign:'center'}}>{text}</div> 
+{text===true ?<div style={{color:'blue' ,textAlign:'center'}}>Подождите, идет загрузка...</div> :
+<div style={{color:'blue' ,textAlign:'center'}}>{text}</div> 
 }
 </div>
     </>)
   }
-export default SPINER;
+
+  export default SPINER;

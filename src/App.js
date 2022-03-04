@@ -9,7 +9,7 @@ import CARD_151 from './COMPONENTS/CARD_151';
 import NAVLINKS from './NAVIGATIONS/NAVLINKS'
 import ROUTERS from './NAVIGATIONS/ROUTERS';
 import { getOBJpublic } from './JS/MAPPING_SQL';
-import { getDATAGoszakupki,result,getDATAArbitrAGG,getDATAinn } from './JS/SQL';
+import { getDATAGoszakupki,result,getDATAArbitrAGG,getDATAinn,f_getPledges } from './JS/SQL';
 
 import SEVICES from './SERVISES/SERVICES';
 import ROUTERS_IP from './NAVIGATIONS/ROUTERS_IP';
@@ -36,7 +36,7 @@ function App() {
   const [massIP,setmassIP] = useState({loading:true, mass:[]})
 
   const [commercial, setCommercial] = useState(0)
-
+  const [pledges,setPledges] = useState({loading:true, mass:[]})
 
   
 
@@ -97,6 +97,11 @@ const inn = state && state[0]? state[0].data.inn : null
               .then( mass=>{
      
                 setAObj ({mass,loading:false})})
+
+                f_getPledges (inn) 
+                .then( mass=>{
+       
+                  setPledges ({mass,loading:false})})
 
                 param.current = false
                 
@@ -184,6 +189,7 @@ const inn = state && state[0]? state[0].data.inn : null
               cardstate={cardstate}
               commercial={commercial}
               setActiveModal ={setActiveModal} activeModal={activeModal}
+              pledges = {pledges} setPledges = {setPledges}
               /> : null}
           {state && cardstate === 2 ? 
           <NAVLINKS state={state} statusAll={statusAll} commercial={commercial} /> : null}
@@ -206,10 +212,6 @@ const inn = state && state[0]? state[0].data.inn : null
           />
 
 <NAVLINKS state={state} cardstate={cardstate} commercial={commercial}/>
-
-  
-
-
 
 
 </div>

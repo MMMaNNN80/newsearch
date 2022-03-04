@@ -2,7 +2,7 @@
 import s from '../CSS/scrtable.module.css'
 import { getEmpty } from './properties'
 
-const GET_TABLE_SRC = ({massObjCol,massValues, thread,heightT,widthT} )=>{
+const GET_TABLE_SRC = ({massObjCol,massValues, thread,heightT,widthT,styleCell={}} )=>{
 
 
 if (!massObjCol) {return getEmpty("Нет данных для построения таблицы")}
@@ -26,7 +26,7 @@ if(!widthT) {widthT={width:'100%'}}
         <div className={s.scrolltablebody} style={{...heightT}}>
             <table style={{...widthT}} key={2}>
             <thead style={{}}>
-                <tr>
+                <tr style={{visibility:'collapse'}}>
             {massObjCol.map((el,i)=> 
             <th  key={i}  style={{...el.style}}/>)} 
             </tr>
@@ -38,8 +38,8 @@ if(!widthT) {widthT={width:'100%'}}
                     {massValues.map((tr_,number)=>{
                          return  ( 
                               <>
-                              <tr key={number}>
-      {tr_.map((td_,j)=>{ return <td key={j}>{td_}</td> })}
+                              <tr  key={number}>
+      {tr_.map((td_,j)=>{ return <td style={{...styleCell}} key={j}>{td_}</td> })}
                               </tr>
                               </>)
                     })}

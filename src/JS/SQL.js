@@ -73,3 +73,24 @@ import {getResponsePg,render} from './connection'
              return await getResponsePg(obj)
              
             }
+
+                       
+         export async function f_getPledges (inn) {
+          if (inn){        
+           let obj =  getParamsObj()
+           obj.inn = inn
+           obj.fields = "*"
+           obj.table = `f_getPledges('${inn}')`
+           obj.host = '/159'
+           return await getResponsePg(obj)
+           }}
+            
+           export async function f_getpledges_participants (dataport_id, years) {
+            if (dataport_id && years){        
+             let obj =  getParamsObj()
+             obj.fields = "*"
+             obj.table = `f_getpledges_participants(${dataport_id},${years})`
+             obj.host = '/159'
+             return await getResponsePg(obj)
+             }}
+   

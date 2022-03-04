@@ -50,7 +50,7 @@ const ROUTERS = (props) => {
                     <Route path="/goszakupki/:inn" element={<GOSZAKUPKI mainForm={props.mainForm} fzObj={props.fzObj} setFzObj={props.setFzObj} />} />
                     <Route path="/bancrupt/:inn" element={<BANCRUPT mainForm={props.mainForm}  setActiveModal = {props.setActiveModal} activeModal={props.activeModal}/>} />
                     <Route path="/arbitr/:inn" element={<ARBITR mainForm={props.mainForm} AObj={props.AObj} setAObj={props.setAObj} />} />
-                    <Route path="/pledges_uk/:inn" element={<PLEDGES_UK mainForm={props.mainForm} />} />
+                    <Route path="/pledges_uk/:inn" element={<PLEDGES_UK mainForm={props.mainForm} SetPledges= {props.SetPledges} pledges= {props.pledges} />} />
                 </Routes>
             </>
 
