@@ -1,5 +1,5 @@
 
-import React, { useState,Fragment } from "react";
+import React, { useState,Fragment, useRef } from "react";
 import { f_getpledges_participants } from "../JS/SQL";
 import GETTABLE from "../COMPONENTS/GETTABLE";
 import MAIN_CARD from "../JS/MAIN_CARD";
@@ -17,9 +17,12 @@ import {  NavLink } from "react-bootstrap";
 
 
 const PLEDGES_UK = ({mainForm,pledges})=>{
-console.log (mainForm)
-  const [partState ,setPartState] = useState(null) 
-  const [massPart ,setMassPart] = useState(null) 
+
+  
+  const [massPart ,setMassPart] = useState({mass: [],years:null}) 
+  const [isOpen,setisOpen] = useState(false)
+  const type = useRef('ВСЕ')
+  const massAll = useRef([])
 
 // ДАННЫЕ
   let mass= []
@@ -41,9 +44,13 @@ let max_
 let massAllParts = []
 let massBtn = []
 
+
+if(  massPart.mass && massPart.mass.filter(el=> el.src.includes('TYPE').length>1 )) {
+massBtn =  massAll.current.filter(el=> el.src.includes('TYPE') ).map(el=>el.type_) 
+}
 //let massFL = []
 if (pledges.mass && pledges.mass.length>0 ) {
- massBtn = pledges.mass.filter(el=> el.description ).map(el=>el.description)
+ 
  console.log(massBtn)
 
 massPleges =  [
@@ -57,12 +64,12 @@ massPleges =  [
    massYears =  pledges.mass.filter(el=>el.src.includes('YEARS'))
 //===================================================================================================
 
-massAllParts = massPart ? massPart.filter(el =>el.src.includes('PART')):[]
+massAllParts = massPart.mass ? massPart.mass.filter(el =>el.src.includes('PART')):[]
 
 massAllParts = massAllParts.map((el,i)=> {
   return  [i+1, 
     <div style={{verticalAlign:'top'}}>
-       {el.inn? <div style={{"display": "flex",paddingBottom:'2px'}}><span> ИНН: </span> <span>{el.inn}</span> </div>:null}
+       {el.inn? <div style={{"display": "flex",paddingBottom:'2px'}}><span> №/ИНН: </span> <span>{el.inn}</span> </div>:null}
       {el.ogrn? <div style={{"display": "flex",paddingBottom:'2px'}}><span> {el.type_.includes('ИП') ? `ОГРНИП:` : `ОГРН`} </span> <span>{el.ogrn}</span> </div>:null} 
     <div style={{ "display": "flex", color: el.type_.includes('ИП')? '#01f321': 'orange', fontWeight: '700', fontSize:'14px' }}>
     {el.type_.includes('ИП') ? 'ИП '+ el.fullname: el.fullname}
@@ -73,10 +80,8 @@ massAllParts = massAllParts.map((el,i)=> {
     ,<NavLink onClick={()=>alert(el.participant_id)} >Залоговые сообщения</NavLink>
   ]})
 
-console.log(massPart)
 
 
-massBtn = massPart ? massPart.filter(el => el.type_.includes('TYPE')):[]
 //===================================================================================================
 
 
@@ -84,65 +89,88 @@ massBtn = massPart ? massPart.filter(el => el.type_.includes('TYPE')):[]
 
        }
 
-console.log(massPart)
 
 // компонента отображения 
 function DATA () { 
- 
+ console.log(massAll.current)
 
  return (
    <> 
        <ZAGOLOVOK text = {'Сведения о залоговых обязательствах'}/>
-   
+
+  
     {massPleges.length>0 && pledges.mass.filter(el=>el.src.includes('END').length>0) ?
-    <> <br/>
+    <>
+     {!isOpen ? 
+    <>     <br/>
 
        {getMainText (`Общая информация по залогам за период ${min_?min_:''} -  ${max_?max_:''}`)}
   
   <GETTABLE key={0} funcGetRows={  getRows(massPleges
    
     ) } style={{tclass: ['tblString'],}} /> <br/> 
+    </>
+
+    :null}
 
 
 {massYears && massYears.length>0 ? <>
   {getMainText (`Настройки для просмотра  участников известных залоговых сделок`)}
 
-<div style={{
-  display:'grid'
+<div  style={{
+ display:'grid'
 ,alignItems:'center'
-,gridTemplateColumns: '250px 120px auto 20px' 
+,gridTemplateColumns: '250px 100px auto 10px' 
 ,width:'100%' 
-,background:'#38384b',padding:'20px',borderRadius:'5px'}}>
+,background:'#38384b',padding:'10px',borderRadius:'5px'}}>
   <div style={{gridColumn:'1',color:'aqua', fontSize:'11px',paddingBottom:'10px'}}>Выберите доступный период:</div>
+  <div onClick={()=>{setisOpen(!isOpen)}}
+  
+  style={{gridColumn:'5'
+  ,alignSelf:'center'
+  ,verticalAlign:'center'
+  ,justifySelf:'center'
+  ,color:'white',transform: isOpen? 'rotate(90deg)' : 'rotate(0deg)' , fontSize:'16px',paddingBottom:'10px',cursor:'pointer'}}>| |</div>
   <div style={{gridColumn:'1',display:'inline-block', borderRight:'1px dotted aqua' }}> 
 
- {massYears.map(el=>{
+ {
+  //  Кнопки годов
+ massYears.map(el=>{
   return  (
- <button onClick={(e)=>{setPartState(el.years)}} 
- style={{padding:'10px',fontSize:'12px',minWidth:'60px',marginLeft:'10px',marginBottom:'10px'}}
+ <button onClick={async (e)=>{
+   await f_getpledges_participants(mainForm.dataport_id.value,massPart.years)
+  .then((mass) => {massAll.current = mass;type.current = 'ВСЕ'; 
+  setMassPart({mass,years:el.years})} )}}
+ style={{background: el.years === massPart.years ? '#0dcaf0': 'transparent', padding:'5px',fontSize:'10px',minWidth:'50px',marginLeft:'10px',marginBottom:'10px'}}
   className="btn btn-outline-info"> {el.years}</button>
 )}) }</div> 
- <div style={{gridColumn:'2',gridRow:'2',paddingLeft:'10px',fontSize:'10px', color:'#66e283',alignSelf:'flex-start'}}> {partState?`Выбран: ${partState} год`:`Ничего не выбрано` } </div>
- <div style={{display:'flex',gridColumn:'3',gridRow:'2/4',paddingLeft:'10px',height:'100%',fontSize:'10px', color:'#66e283',alignSelf:'flex-start',borderLeft:'1px dotted aqua'}}>
- 
- <button disabled = {!massPart && !partState?true:false} 
- onClick={
-   async ()=>{await f_getpledges_participants(mainForm.dataport_id.value,partState)
-  .then(mass => setMassPart(mass))
-}} 
- style={{padding:'10px',fontSize:'12px',minWidth:'60px',marginLeft:'10px',marginBottom:'10px'}}
-  className="btn btn-info"> {`ПОКАЗАТЬ`}</button>
-   <button disabled = {!partState?true:false} onClick={()=>{setPartState(null);setMassPart(null)}} 
- style={{padding:'10px',fontSize:'12px',minWidth:'60px',marginLeft:'10px',marginBottom:'10px'}}
-  className="btn btn-danger"> {`СТЕРЕТЬ`}</button>
-    </div>
+ <div style={{gridColumn:'2',gridRow:'2',paddingLeft:'10px',fontSize:'10px', color:'#66e283',alignSelf:'flex-start'}}> {massPart.years?`Выбран: ${massPart.years} год`:`Ничего не выбрано` } </div>
+ <div style={{gridColumn:'3',gridRow:'2/4',paddingLeft:'10px',height:'100%',fontSize:'10px', color:'#66e283',alignSelf:'flex-start',borderLeft:'1px dotted aqua'}}>
+ <div style={{display:'inline-block',gridColumn:'3',gridRow:'1',color:'aqua', fontSize:'11px',paddingBottom:'10px'}}>Выберите тип участника:</div>
+<div style={{gridRow:2,gridColumn:'3'}}> 
+{  //  Кнопки типов участников 
+massBtn.length>0 ?
+massBtn.map(el=>{
+  if(el.includes('Иностр')) {el= 'Иностр'}
+  return  (
+ <button  onClick={()=>{
+  type.current=el;
+   setMassPart({mass: massAll.current.filter(elem=>elem.type_.includes(el)), years:massPart.years})}
+ }
+ style={{background: el.includes(type.current)  ? '#0dcaf0': 'transparent', padding:'5px',fontSize:'10px',minWidth:'50px',marginLeft:'10px',marginBottom:'10px'}}
+  className="btn btn-outline-info"> {el}</button>
+)}) : ''
+
+}
+</div>
+  </div>
 </div></> :null} <br/>
        </>  : null}
 
     <>
-    {getMainText (`УЧАСТНИКИ СОВМЕСТНЫХ ЗАЛОГОВЫХ СДЕЛОК   ЗА ${partState} год (Количество - ${massAllParts.length} )`)}  
+    {getMainText (`УЧАСТНИКИ СОВМЕСТНЫХ ЗАЛОГОВЫХ СДЕЛОК  ЗА ${massPart.years} год (Количество - ${massAllParts.length} )`)}  
      <GET_TABLE_SRC key={2} 
-    styleCell={{color:'white',background:'#38456f',fontSize:'11px' }}
+    styleCell={{color:'white',background:'#38456f',fontSize:'11px',border:'1px solid grey' }}
     thread={{background:'#2c5f76',borderBottom:'2px solid black'}}
                                     massObjCol={
                                         [
@@ -152,7 +180,7 @@ function DATA () {
                                             { name: 'Ссылки на сообщения', style: { width: '20%' } },
                                  
 
-                                        ]} massValues={massAllParts} heightT={{ height:massAllParts.length <5 ?'100px':'200px' }} />
+                                        ]} massValues={massAllParts} heightT={{ maxHeight:!isOpen ?'100px':'400px' }} />
                                     </>  
                                        
  
