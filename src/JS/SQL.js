@@ -93,4 +93,14 @@ import {getResponsePg,render} from './connection'
              obj.host = '/159'
              return await getResponsePg(obj)
              }}
-   
+   //f_getpledges_detail
+
+
+   export async function f_getpledges_detail (mainpart=0, part=0,year = 0) {
+    if (1){        
+     let obj =  getParamsObj()
+     obj.fields = "*"
+     obj.table = `f_getpledges_detail(${mainpart},${part},${year})`
+     obj.host = '/159'
+     return await getResponsePg(obj)
+     }}

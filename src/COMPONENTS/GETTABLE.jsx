@@ -6,6 +6,9 @@ function GETTABLE(props) {
     let funcGetRows = []
     const funcGetRows_all = props.funcGetRows
     const tStyle = props.tStyle ? props.tStyle : ''  
+    const tClass =  props.style? props.style.tclass:[]
+    const captionStyle =  props.style? props.style.captionStyle:[]
+    const stbody = props.stbody ? props.stbody :{}
     let cut = 6
     if(props.cut && props.cut>0) {cut=props.cut}
     
@@ -13,11 +16,11 @@ function GETTABLE(props) {
         && props.endtbl) { funcGetRows = funcGetRows_all.slice(0, cut) }
     return (
         <>
-            <table style={{...tStyle,lineBreak:'auto' }} className={[...props.style.tclass]} onClick={props.onClick}>
-                <caption align="top" style={props.style.captionStyle}> {props.name}</caption>
+            <table style={{...tStyle,lineBreak:'auto' }} className={tClass} onClick={props.onClick}>
+                <caption align="top" style={captionStyle}> {props.name}</caption>
                 {[...colmass]}
 
-                <tbody style={{maxHeight:'min-content'}}>
+                <tbody style={stbody}>
                     {(!isOpen && props.endtbl && funcGetRows_all.length >= cut) ? [...funcGetRows] : [...funcGetRows_all]}
                 </tbody>
             </table>

@@ -102,7 +102,7 @@ el.p_prev_value
 
 massData.unshift(massPeriod)
 massData2.unshift(massPeriod)
-console.log(massData)
+// console.log(massData)
 
  
 if (okud.includes('0420126') ){

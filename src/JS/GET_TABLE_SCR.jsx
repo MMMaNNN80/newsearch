@@ -17,7 +17,7 @@ if(!widthT) {widthT={width:'100%'}}
         <div  className={s.scrolltable} >
         <table style={{...widthT}} key={1}>
             <thead style={{...thread  }}>
-           <tr style={{}}>
+           <tr style={{visibility:'visible'}}>
          {massObjCol.map((el,i)=><th key={i}  style={{...el.style}}>{el.name}</th>)} 
          </tr>       
             </thead>
@@ -38,7 +38,7 @@ if(!widthT) {widthT={width:'100%'}}
                     {massValues.map((tr_,number)=>{
                          return  ( 
                               <>
-                              <tr  key={number}>
+                              <tr style={{}}  key={number}>
       {tr_.map((td_,j)=>{ return <td style={{...styleCell}} key={j}>{td_}</td> })}
                               </tr>
                               </>)

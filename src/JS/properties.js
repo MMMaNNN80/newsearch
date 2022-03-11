@@ -20,16 +20,14 @@ export async function getResponse(e) {
   }
 }
 
-export function getRows(mass = [], tdStyles = {}) {
+export function getRows(mass = [], thStyles = {},tdStyles = {}) {
   let masshttp = []
 
-
-
-  for (let i = 0; i < mass.length; i++) {
+for (let i = 0; i < mass.length; i++) {
     masshttp.push(
 
-      <tr key={i} style={{}}>
-        <th style={{}} scope="row"><span>{mass[i][0]}</span></th>
+      <tr key={i} style={{tdStyles}}>
+        <th style={thStyles} scope="row"><span>{mass[i][0]}</span></th>
         <td style={{ ...mass[i][3] }}><span style={{ ...tdStyles }}>{mass[i][1]}</span></td>
       </tr>
     )
@@ -37,14 +35,14 @@ export function getRows(mass = [], tdStyles = {}) {
 }
 
 
-export function getMassRows(mass = [], ishead = true, styles = {}) {
+export function getMassRows(mass = [], ishead = true,thStyles={},tdStyles = {}) {
   let m = []
 
   mass.forEach((el, i) => {
 
     m.push(
       <Fragment key={i}>
-        <tr key={i} style={styles}>
+        <tr key={i} >
           {
             [...el.map((el, x) => {
 
@@ -52,12 +50,10 @@ export function getMassRows(mass = [], ishead = true, styles = {}) {
                 <Fragment key={x}>
 
                   {i === 0 && ishead ?
-                    <th key={x} style={{ alignText: "left" }}>{el}</th> :
+                    <th key={x} style={{ alignText: "left", ...thStyles }}>{el}</th> :
 
-                    <td key={x} >
+                    <td  style={{ alignText: "left", ...tdStyles }} key={x} >
                       <span>{el}</span>
-
-
                     </td>
                   }
                 </Fragment>
@@ -225,11 +221,11 @@ export const getfzCard = () => {
 
 
 
-export function getQuadr(txt, class_ = 'quadr') {
+export function getQuadr(txt=null, style = {}) {
   return (
     <span>
-      <div className={class_} style={{ "display": "inline-flex" }}></div>
-      <div style={{ "display": "inline" }}>{txt}</div>
+      <div style={{ "display": "inline-flex",background:'green',...style}}></div>
+      {txt? <div style={{ "display": "inline" }}>{txt}</div> :null}
     </span>
   )
 }
