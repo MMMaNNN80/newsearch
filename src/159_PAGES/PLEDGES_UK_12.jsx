@@ -14,11 +14,6 @@ import SPINER from "../JS/SPINER";
 
  
 
-
-
-
-
-
 const PLEDGES_UK = ({mainForm,pledges})=>{
   
   const [massDetail,setMassDetail] = useState([])
@@ -58,7 +53,7 @@ if (massBtn.length>0) {massBtn.unshift('ВСЕ')}
 
 }
 //let massFL = []
-if (pledges.mass && pledges.mass.length>0 ) {
+if (pledges.mass && pledges.mass.filter(el=>el.src.includes('COUNT') && el.sort.includes('Всего'))[0].cnt!==0 ){
  
  //console.log(massBtn)
 participant = pledges.mass.filter(el=> el.src.includes('MAIN')).map(el=>el.p)[0]
@@ -203,12 +198,16 @@ massBtn.length>0 ? massBtn.map(el=>{
   </div></>:null}
 </div></> :null} <br/>
        </>  : null}
-   {massAllParts.length>0? <>
-    
-    {getMainText (`Участники за ${massPart.years} год (количество - ${massAllParts.length} )`)}  
+
+      {/* Таблица участников */}
+      
+         {massAllParts.length>0? <>  
+<div style={{paddingBottom:'5px'}}>
+{getMainText (`Участники совместных залоговых сделок   ****${massPart.years} год, найдено ${massAllParts.length} ****`)} 
+</div>
     {dataLoad ? <SPINER val={'100'}/> :  <GET_TABLE_SRC key={2} 
     styleCell={{color:'white',background:'#33335d',fontSize:'11px',border:'1px solid grey' }}
-    thread={{background:'#132641',borderBottom:'2px solid black',fontSize:'10px'}}
+    thread={{background:'#0f5396',borderBottom:'2px solid black',fontSize:'10px'}}
                                     massObjCol={
                                         [
                                             { name: '#', style: { width: '5%' } },
@@ -218,52 +217,114 @@ massBtn.length>0 ? massBtn.map(el=>{
                                  
 
                                         ]} massValues={massAllParts} heightT={{ maxHeight:!isOpen ?'150px':'400px' }} /> 
-                                      }
-     </> : null} 
+                                      } </> : null}  </>
+    )}
 
-      </>
-    )
-  }
-
-
-
-  //CHILDREN={<CHILDREN key={1} />}
 function CHILDREN(){
+
+  const [opDop,setopData] = useState({message_id:null,isOpen:false})
+
+   //++++++++++++++++++++++++++++
  
-  const mass = massDetail.filter(el=> el.src.includes(`OSN_NABOR`)).map((el) => { 
+  const mass = massDetail.filter(el=> el.src.includes(`OSN_NABOR`)).filter(el=> el.rn===1).map((el,i) => { 
   //++++++++++++++++++++++++++++
-    const massDop = massDetail.filter(dop =>dop.src.includes(`DOP`))
+
+
+  const massDop = massDetail.filter(dop =>dop.src.includes(`DOP`))
   const text = massDop.filter(dop=> dop.message_id === el.message_id).map(dop=>dop.text_).join('')
   const datePerfome = massDop.filter(dop=> dop.message_id === el.message_id).map(dop=>dop.dateofperfomance).join('')
-  const MassSubj = massDetail.filter(dop =>dop.src.includes(`SUBJ`)) 
+  const MassSubj = massDetail.filter(sub =>sub.src.includes(`SUBJ`)) 
+
+  console.log(MassSubj.filter(elem=> elem.message_id === el.message_id).map(elem=> <div style={{color:'red'}}>{elem.ClassifierName}</div>))
+  const MassPart =  massDetail.filter(p =>p.src.includes(`PART`) ) 
   
   return [   
-    el.rn===1? <>{getQuadr(null,{background:'green',height:'10px',width:'10px',borderRadius:'10px'})}</> :''
-     ,
     <>
-     <div> {el.datepublish} </div> 
-     {datePerfome && el.rn===1? <div style={{color:'brown'}}> {`Дата исполнения договора: ${datePerfome}`} </div>  : null } 
-    </>,
-    <>
-    <div> {el.type_} </div> 
+    <div style={{display:'flex',alignItems:'center'}}>
+      <div style = {{border: '1px solid red',borderRadius:'20px',padding:'6px'}}>{i+1}</div>
+    {getQuadr(null,{background:'green',height:'10px',width:'10px',borderRadius:'10px',marginLeft:'5px'})}
+    <div style={{marginLeft:'5px',fontWeight:'700'}}> {el.datepublish} </div> 
+    
+     {datePerfome ? <div style={{color:'brown',marginLeft:'20px',marginRight:'5px'}}> {`* Дата исполнения договора: ${datePerfome} *`} </div> : null } 
+     </div>
+   
     </>
-    , text
-    ,MassSubj ? MassSubj.filter(elem=> elem.message_id=el.message_id).map(elem=> <div>{elem.ClassifierName}</div>) : null
-      
-]})
-  //console.log(massMainDeal)
+    ,<><div style={{paddingBottom:'5px'}}>{text}</div>
+    <div style={{display:'grid',gridTemplateColumns: '130px auto auto auto 200px', padding:'5px',columnGap:'5px'}}>
+ <div style={{color:'blue',gridRow:'1/2',gridColumn:'1/3'}}>УЧАСТНИКИ СДЕЛКИ:</div>
+  {MassPart ? MassPart.filter(p=> p.message_id === el.main_message_id)
+  .map(p=> { 
+    let  name = <></> 
 
-   return(
+if (p.type_.includes("ИП") || p.type_.includes("ЮЛ") || p.type_.includes("ФЛ")) {
+  name = <>
+  {p.inn ?<div style={{gridColumn:2}}> <span>ИНН: </span> <span style={{color:'blue'}}>{p.inn} </span>  </div> : null}
+  <span style ={{gridColumn:'3/4',fontSize:'13px',fontWeight:'700',color:'#006f90'}}>{p.type_.includes("ИП") ? `ИП ${p.fullname}` : p.fullname} </span>
+  </> }
+
+if (p.type_.includes("Иностр") ) {
+  name = <>
+  {p.inn ?<div style={{gridColumn:2}}> <span>№: </span> <span style={{color:'blue'}}>{p.inn} </span> </div> : null}
+  <span style ={{gridColumn:'3/4',fontSize:'13px',color:'#006f90'}}>{`${p.type_} (${p.country})`} </span>
+  </> }
+
+ return (
  <>
-<div style={{padding:'20px'}}>
-<div>ЗАЛОГОВЫЕ СООБЩЕНИЯ</div>
-<div style={{}}>
-<GETTABLE funcGetRows = {getMassRows(mass,false, {}
-,{color:'black',border:'none',paddingBottom:'7px',verticalAlign:'top',fontSize:'12px'})}/> </div> </div>
-</>)
+   <div style={{marginRight:'5px',gridColumn: 1}}> {p.role_}</div> 
+             {name}
+   
+   </>
+  )
+  }
+  ) : null}
+  <div style={{gridColumn: '5',paddingLeft:'5px',gridRow:'1/4',borderLeft:'1px dotted red'}}>
+   <div style={{color:'blue',}}>ПРЕДМЕТ СДЕЛКИ:</div>
+  <div > 
+      {MassSubj
+        .filter(elem=> elem.message_id === el.message_id)
+        .map(elem=> 
+         <div style={{color:'#726666'}}>{elem.classifiername ? elem.classifiername.toUpperCase(): 'НЕ УКАЗАНО'}</div>) }
+        </div>
+        </div>
+
+ 
+     </div>
+     {el.linked_message_id ? <div style={{paddingBottom:'5px',paddingTop:'5px',color:'blue', gridColumn:'1/3'}}>
+        
+          <button style={{padding:'3px'}} className={'btn btn-secondary'} onClick={()=>{setopData({message_id:el.message_id,isOpen:!opDop.isOpen})}}
+          >СВЯЗАННЫЕ СООБЩЕНИЯ:
+          </button>
+          </div>  :null}
+                
+{ opDop.isOpen && opDop.message_id===el.message_id  ?
+massDetail
+.filter(elem=> elem.src.includes(`OSN_NABOR`) && elem.rn !==1 && elem.main_message_id=== el.main_message_id)
+.map( el=>
+<>
+<span style={{gridColumn:'1/3'}}>{`${el.datepublish} ${el.type_}`}</span>
+{massDop.filter(dop=> dop.message_id === el.message_id)
+        .map(dop=> <div style={{gridColumn:'3/6'}}>{dop.text_}</div>)
 }
 
+</>) :null}  
+    </> 
+      ]})
+return (
+ <>
+<div style={{padding:'20px'}}>
+<div style={{ fontWeight:'700',paddingBottom:'20px',fontSize:'20px'}}>{`ЗАЛОГОВЫЕ ДОГОВОРА (найдено - ${mass.length} за ${massPart.years}г )`}</div>
+  
+    <div style={{minHeight:'auto',maxHeight:'400px',width:'700px',overflow:'auto',fontSize:'12px',padding:'5px'
 
+  
+  }}>
+
+{mass.map (el=>{return <><div>{el}</div> <hr/><br/></>})}
+
+</div>
+</div>
+</>)
+}
 return(
     <Fragment >
    { (massDetail && massDetail.length>0) ? <GET_MODAL
@@ -272,8 +333,8 @@ return(
             
             text={`СВЕДЕНИЯ О СВЯЗАННЫХ  СДЕЛКАХ`}
             styleHead={{
-                fontSize: '20px'
-                , padding: '10px'
+                fontSize: '30px'
+                , padding: '20px'
                 , fontFamily: 'ui-monospace'
                 , fontWeight: '700'
                 , color: '#006f90'
@@ -282,8 +343,7 @@ return(
             styleBody={{
                 minWidth: '600px'
                 , maxWidth: '1000px', height: 'auto'
-                , background: 'white'
-                 
+                , background: 'white'       
             }}
         /> : null}
         <MAIN_CARD mainForm={mainForm.short_name.value} CHILDREN ={  DATA } />                   
