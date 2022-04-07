@@ -104,3 +104,12 @@ import {getResponsePg,render} from './connection'
      obj.host = '/159'
      return await getResponsePg(obj)
      }}
+
+     export async function f_get_knm (dp =0) {
+      if (1){        
+       let obj =  getParamsObj()
+       obj.fields = "*"
+       obj.table = `f_getknm_info(${dp})`
+       obj.host = '/159'
+       return await getResponsePg(obj)
+       }}

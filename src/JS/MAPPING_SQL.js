@@ -39,6 +39,7 @@ export const getMainform = async (obj) => {
                 mainForm.leader.value = objX[0].fio
                 mainForm.leader_post.value = objX[0].position
                 mainForm.isacting = objX[0].isacting
+                mainForm.knm_cnt = objX[0].knm_cnt
                 
             //
                 mainForm.regauthorityFNS.value = objX[0].regauthority
@@ -255,6 +256,7 @@ export function getOBJpublic (p='UL') {
      report_id: {name:  'Идентификатор отчета на 159 сервере', value: ''},
      rosstat_report_id: {name:  'Идентификатор отчета в Росстат на 159 сервере', value: ''},
      branches_count: {name:  'Количество филиалов', value: ''},
+     knm_cnt:{name:  'Количество проверок государственными органами', value: ''}
      
 }
     }

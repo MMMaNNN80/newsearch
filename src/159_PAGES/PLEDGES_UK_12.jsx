@@ -53,7 +53,7 @@ if (massBtn.length>0) {massBtn.unshift('ВСЕ')}
 
 }
 //let massFL = []
-if (pledges.mass && pledges.mass.filter(el=>el.src.includes('COUNT') && el.sort.includes('Всего'))[0].cnt!==0 ){
+if (pledges.mass.length>0 && pledges.mass.filter(el=>el.src.includes('COUNT') && el.sort.includes('Всего'))[0].cnt!==0 ){
  
  //console.log(massBtn)
 participant = pledges.mass.filter(el=> el.src.includes('MAIN')).map(el=>el.p)[0]
