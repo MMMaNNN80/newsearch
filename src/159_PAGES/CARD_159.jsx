@@ -83,9 +83,16 @@ const CARD_159 = ({ mainForm, cardstate }) => {
     const KNM = () => {
     
 return (<>
-            <div style={{ "color": "lightgrey", "alignText": "center", paddingTop: '5px', display: 'flex', justifyContent: 'space-between' }}>
+            <div style={{ "color": "lightgrey", "alignText": "center", paddingTop: '5px',paddingBottom:'5px', display: 'flex', justifyContent: 'space-between' }}>
                 <span>Сведения о проверках государственными органами</span>
-                <div onClick={() => 
+                
+            </div>
+            <div style={{ display:'flex',justifyContent:'space-between',color: 'yellow', fontSize: '10px', width: '100%', background: '#3e47a7', padding: '8px' }}> 
+             <span>{mainForm.knm_cnt >0 ? `Присутствуют данные о ${mainForm.knm_cnt} проверке/ах`: `Отсутствуют данные о проверке/ах госорганами` }
+             </span>
+
+             {mainForm.knm_cnt >0 ? 
+             <span onClick={() => 
                 { 
                      setIsOpen(!isOpen) 
 
@@ -103,10 +110,8 @@ return (<>
                         , alignSelf: 'center'
                         , verticalAlign: 'center'
                         , justifySelf: 'center'
-                        , color: 'white', transform: !isOpen ? 'rotate(90deg)' : 'rotate(0deg)', fontSize: '16px', paddingBottom: '10px', cursor: 'pointer'
-                    }}>| |</div>
-            </div>
-            <div style={{ color: 'yellow', fontSize: '10px', width: '100%', background: '#3e47a7', padding: '8px' }}>  {`Присутствуют данные о ${mainForm.knm_cnt} проверке/ах`}
+                        , color: 'white', transform: !isOpen ? 'rotate(90deg)' : 'rotate(0deg)', fontSize: '16px', cursor: 'pointer'
+                    }}>| |</span>:null}
             </div>
             {isOpen && massMain ? <div>
                 <PROS_FILTER massMain={massMain } />

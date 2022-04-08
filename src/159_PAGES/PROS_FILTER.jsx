@@ -13,13 +13,7 @@ const PROS_FILTER = ({massMain}) => {
         const initRef = useRef(filter)
     
 
-    
-
-
-
-
-
-    function set_unset_check (name,val) {
+     function set_unset_check (name,val) {
         
     let mass=[]
     let massData = {}
@@ -125,16 +119,6 @@ obj = getInitialObj (massData)
         } 
         
         
-        
-         
-
-
-
-
-                
-
-
-
 
                 return <>
                 
@@ -161,8 +145,7 @@ obj = getInitialObj (massData)
                 ,background: year.checked ? '#0dcaf0' :'none'
                 ,color: year.checked ? 'black' :'white' 
             }}
-             onClick={()=>{ 
-                set_unset_check('year',year.val)
+             onClick={()=>{   set_unset_check('year',year.val)
                 
             }}     
                 >
@@ -238,7 +221,7 @@ obj = getInitialObj (massData)
         
                   <div style={{gridColumn:4,padding:'5px',paddingRight:'10px',height:'100%'}}>
               <div
-              onClick={()=>{console.log(initRef.current);setFilter(initRef.current)}}
+              onClick={()=>{setFilter(initRef.current)}}
               style={{
                color:'aqua'
               ,height:'10px'
@@ -247,6 +230,8 @@ obj = getInitialObj (massData)
              ,borderRadius:'20px'
              ,cursor:'pointer'
              }}>  </div> </div>
+
+             <span  style={{color:'gold',fontSize:'10px',gridColumn:'3',paddingLeft:'10px'}}>{`***Показано: ${filter.massData.length} записей из ${massMain.length}`}</span>
             
         </div>
 
@@ -259,7 +244,7 @@ obj = getInitialObj (massData)
                                                          { name: '#', style: { width: '6%' } },
                                                          { name: 'Дата', style: { width: '13%' } },
                                                          { name: 'Информация по проверке', style: { width: '50%' } },
-                                                         { name: 'Проверяющие организации', style: { width: '50%' } },
+                                                         { name: 'Проверяющие организации', style: { width: '50%'} },
                                               
              
                                                      ]} massValues={getMassData(filter.massData)} heightT={{ maxHeight:'400px' }} /> 
@@ -289,6 +274,7 @@ obj = getInitialObj (massData)
 
                     return mass.map((data, i) => {
                         let address = data.address.split("#")
+                        let inspectors = data.inspectors_fio.split("#").join(', ')
                         let style = { background: 'aqua' }
                         if (data.status.includes('Завер')) { style = { background: 'green' } }
                         if (data.status.includes('Ожидает')) { style = { background: 'orange' } }
@@ -302,13 +288,19 @@ obj = getInitialObj (massData)
                                     <div style={{ "display": "inline-flex" }}>{data.status}</div>
             
                                 </div>
-                                <div>{`${data.type_knm} . ${data.kind}`}
+                                <div style={{fontWeight:'700',color:'white',fontSize:'13px'}}>{`${data.type_knm} . ${data.kind}`}
                                 </div>
                                 <ul style={{ color: 'lightblue', margin: '2px' }}>
                                     {address.map((a, n) => <li key={n} style={{ padding: '0px', margin: '5px' }}>{a}</li>)}
                                 </ul>
+                              {inspectors && inspectors.length>0 ? <div>
+                                <div>Инспекторы:</div>
+                             <div style={{color:'#88e0e2'}} key={i}>{inspectors}</div>
+                             
+                                </div>
+                                :null }
                             </>
-                            , <><div style={{ color: '#f9cd57' }}>{data.gov_name.toUpperCase()}</div> </>]
+                            , <><div style={{ color: '#f9cd57',fontSize:'10px',height:'max-content' }}>{data.gov_name.toUpperCase()}</div> </>]
                     }
                     )
                 }
