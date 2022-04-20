@@ -3,7 +3,7 @@ import GET_MODAL from "../JS/GET_MODAL";
 import s from "../CSS/listworks.module.css"
 import { useState, useRef } from "react";
 import { f_getDictionary } from "../JS/SQL";
-import { f_getResult } from "../JS/SQL";
+import { f_getResult,f_getlistsresult_ip_do } from "../JS/SQL";
 import GET_TABLE_SRC from "../JS/GET_TABLE_SCR"
 import DatePicker, { registerLocale } from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
@@ -11,6 +11,8 @@ import ru from "date-fns/locale/ru";
 import { Tabs, Tab, TabPanel, TabList } from 'react-web-tabs';
 import 'react-web-tabs/dist/react-web-tabs.css';
 import Spinner from 'react-bootstrap/Spinner';
+import {getListWorkData_ejs} from '../JS/preExportExcel'
+//import e from "cors";
 
 
 registerLocale("ru", ru);
@@ -21,6 +23,10 @@ const LIST_WORKS = ({ activeModal, setActiveModal, name }) => {
 
     const [massDic, setMassDic] = useState([])
     const load = useRef(false)
+    const minVal = useRef('')
+    const maxVal = useRef('')
+    const [err,setErr] = useState(false)
+    const massExcel = useRef([])
 
 
     if (!load.current) {
@@ -37,16 +43,16 @@ const LIST_WORKS = ({ activeModal, setActiveModal, name }) => {
             CHILDREN={<CHILDREN key={1} />}
             text={name}
             styleHead={{
-                fontSize: '42px'
-                , padding: '20px'
+                fontSize: '30px'
+                , padding: '8px'
                 , fontFamily: 'ui-monospace'
                 , fontWeight: '700'
                 , color: '#006f90'
             }}
             styleBody={{
                 minWidth: '1000px'
-                , maxWidth: '50%', height: 'auto'
-                , background: 'white'
+                , maxWidth: '1200px', height: 'auto'
+                , background: '#e6e6e6'
                 ,
             }}
         />
@@ -54,13 +60,11 @@ const LIST_WORKS = ({ activeModal, setActiveModal, name }) => {
         </>
     )
 
+function CHILDREN() {
 
-
-    function CHILDREN() {
-
-        const [result, setResult] = useState({ load: true, massData: [] })
-        const startDate = useRef(null)
-        const endDate = useRef(null)
+        const [result, setResult] = useState({ load: false, massData: [] })
+        const startDate = useRef('')
+        const endDate = useRef('')
   
         const [isCollapse, setCollapse] = useState(false)
         let UL = true
@@ -87,6 +91,8 @@ const LIST_WORKS = ({ activeModal, setActiveModal, name }) => {
         mass.push({ id: mass.length, type_p: 'Фильтр (уставной капитал)', name: 'до 1млн руб', checked: false, type: 'RangeC', code: '0,1000000' })
         mass.push({ id: mass.length, type_p: 'Фильтр (уставной капитал)', name: 'более 1млн руб', checked: false, type: 'RangeC', code: '1000000,10000000000' })
         mass.push({ id: mass.length, type_p: 'Фильтр (Дата регистрации)', name: 'Дата регистрации', checked: false, type: 'Range', code: '' })
+        mass.push({ id: mass.length, type_p: 'Фильтр - Выручка', name: 'Вкл ', checked: false, type: 'RangeRev', code: !minVal.current && !maxVal.current ? 
+         `${minVal.current},${maxVal.current}`:null})
         mass.push({ id: mass.length, type_p: 'Фильтр поиск по ИНН', name: 'Поиск по ИНН', checked: false, type: 'TextAreaINN', code: 'используется',cnt: 0 })
 
 
@@ -116,10 +122,13 @@ const LIST_WORKS = ({ activeModal, setActiveModal, name }) => {
                                     </div>
                                     <div style={{ display: 'grid', gridTemplateColumns: '2fr  2fr 1fr', padding: '5px' }}>
                                             {TEXT_REASON()}
+                                           <div style={{gridRow:4,gridColumn:'1/3'}}>   {REVENUE()} </div>  
+      
                                         <div style={{ gridColumn: 3, gridRow: '1/5', borderLeft: '3px dotted black' }}>
                                             {DATEPICKER()}
-                                            {CHARTER_CAPITAL()}
+                                            <div > {CHARTER_CAPITAL()}</div>   
                                         </div>
+                                 
                                     </div>
                                 </TabPanel>
                                 <TabPanel tabId="2">
@@ -136,42 +145,66 @@ const LIST_WORKS = ({ activeModal, setActiveModal, name }) => {
         <div style={{ color: 'orange', fontWeight: 700, gridColumn: '1/2' }}>КРИТЕРИИ ПОИСКА:</div>
         <ul style={{ gridColumn: '1', color: 'white', fontSize: '12px' }}>
                                 {massStatus.filter(el => el.checked).map((el, i) => {
+                                    let rangeRev =''
+                                    if (minVal.current && !maxVal.current) {rangeRev = `от ${minVal.current}` }
+                                    if (!minVal.current && maxVal.current) {rangeRev = `до ${maxVal.current}` }
+                                    if (minVal.current && maxVal.current) {rangeRev = `от ${minVal.current} до ${maxVal.current}` }
 
                                     let val = ''
 
-                                    if (el.type.includes('OPF')) {
-                                        val = el.name
-
-                                    }
-
-
+                                    if (el.type.includes('OPF')) {val = el.name}
                                     if (el.type_p.includes('Доп')) { val = '+ вкл' }
                                     if (el.type.includes('txt')) { val = el.text }
                                     if (el.type_p.includes('ИНН')) { val = `+ используется ${el.cnt} ИНН для поиска` }
                                     if (el.type_p.includes('Дата регистра')) { val = ` Выбран дипапазон: ${startDate.current ? startDate.current.toLocaleDateString() : ''} - ${endDate.current ? endDate.current.toLocaleDateString() : ''} ` }
-
+                                    if (el.type_p.includes('Выручк')){val = rangeRev}
                                     if (!val) { val = `${el.name}` }
                                     return <li key={i}> <span > {el.type_p}</span>
-                                        <span style={{ color: '#38ef9e', marginLeft: '10px', fontSize: '12px' }}>{"--------------> " + val}</span>  </li>
-                                }
-
-                                )}
+                                        <span style={{ color: '#38ef9e', marginLeft: '10px', fontSize: '12px' }}>{"--------------> " + val}</span>  </li>})}
 
 
                             </ul>
 
-                            <div style={{ display: 'flex', gridColumn: '2', gridRow: '1',justifySelf:'end' }}>
-                                <button disabled  = {!result.load } style={{ width: '150px', height: '30px' }} className="btn btn-secondary" onClick={getResult}>РЕЗУЛЬТАТ</button>
-                                <button style={{ width: '150px', height: '30px' }} onClick={() => {setCollapse(false);setMassStatus(mass);setResult({load:true,massData:[]}) }} className="btn btn-danger">ОЧИСТИТЬ</button>
+                            <div style={{ display: 'flex', gridColumn: '2', gridRow: '1',justifySelf:'end', }}>
+                            <button  disabled ={result.load}
+                            style={{ width: '90px', height: '30px' }} className="btn btn-secondary"
+                            
+                            onClick={()=> {getResult(result.massData, UL)}}>ПОКАЗАТЬ  </button>
+                                <button disabled  = {result.massData.length===0 } 
+                                style={{ width: '90px', height: '30px' }} className="btn btn-success"
+                            
+                                onClick={()=> {getListWorkData_ejs(massExcel.current, UL);massExcel.current=[]}}> 
+                                      <div style={{ display: 'flex',alignItems:'center',justifyContent:'center'}}>
+                                          <div>ВЫГРУЗИТЬ</div> <div><img  style={{height:'30px'}} alt="" src="..\img\excel_import.png"></img></div> 
+                                      </div> 
+                                    </button>
+
+                                <button style={{ width: '90px', height: '30px' }} onClick={() => {
+                                    //alert(('').replace(/\D/g, ''))
+                                    startDate.current = ''
+                                    endDate.current=''
+                                    minVal.current=''
+                                    ;maxVal.current=''
+                                    ;massExcel.current = []
+                                    ;setErr(false)
+                                    ;setCollapse(false)
+                                    ;setMassStatus(mass)
+                                    ;setResult({load:false,massData:[]}) }} 
+                                className="btn btn-danger">ОЧИСТИТЬ</button>
                             </div>
+                            
+                            
+                           {result.massData.length===0 ? null: <div style={{fontSize:'12px',padding:'10px',gridColumn: '2',gridRow:'2/4',color:'white',justifySelf:'end'}}>
+                                
+                             {`Результирующее количество строк показано ${result.massData.length}  из ${massExcel.current.length} готовых к экспорту.`}    </div>}
 
-                        </div>
+                                 </div>
 
-                        {result.load && result.massData.length>0 ?
+                        { !result.load && result.massData.length>0 ?
                             <div style={{ padding: '20px' }}>
 
                                 <GET_TABLE_SRC
-                                    massObjCol={
+                                    massObjCol={UL ?
                                         [
                                             { name: '#', style: { width: '5%' } },
                                             { name: 'Основная информация о организации', style: { width: '45%' } },
@@ -179,8 +212,14 @@ const LIST_WORKS = ({ activeModal, setActiveModal, name }) => {
                                             { name: 'ОКВЭД(основной)', style: { width: '20%' } },
                                             { name: 'ФИО руководителя', style: { width: '15%' } },
 
-                                        ]} massValues={result.massData} heightT={{ height: !isCollapse ? '300px' : '700px' }} /> </div>
-                            :!result.load && result.massData.length===0 ? <div style={{textAlign:'center',paddingTop:'50px'}}>
+                                        ] : [
+                                            { name: '#', style: { width: '5%' } },
+                                            { name: 'Наименование ИП', style: { width: '55%' } },
+                                            { name: 'Коды ИП', style: { width: '15%' } },
+                                            { name: 'ОКВЭД(основной)', style: { width: '25%' } },
+                                        ]
+                                    } massValues={ result.massData} heightT={{ height: !isCollapse ? '300px' : '700px' }} /> </div>
+                            :result.load  ? <div style={{textAlign:'center',paddingTop:'50px'}}>
                                 <Spinner animation="border"  style={{width: '100px',height:'100px',borderWidth:'20px'}} variant="primary"/></div>:null}
 
                         {/* ******************************************************************************************************************** */}
@@ -190,85 +229,103 @@ const LIST_WORKS = ({ activeModal, setActiveModal, name }) => {
         )
 
 
+        
+
+
         //// Результат     
         async function getResult() {
-            console.log(massStatus)
+           // console.log(massStatus)
+            if((Number(minVal.current) > Number(maxVal.current) ) && massStatus.filter(el=>el.type.includes("RangeRev"))[0].checked
+            )   {alert (`${minVal.current}  ${maxVal.current}`);setErr(true);return}
+            setErr(false)
+       
+            setResult({load:true, massData:[]})
+   
+   if(UL) {
 
-             setResult({load:false,massData:[]})
             f_getResult(
-                JSON.stringify(massStatus).replaceAll('"', '\\"'), 200) // ----Json в postgres
+                JSON.stringify(massStatus).replaceAll('"', '\\"'), 50000) // ----Json в postgres
                 .then(mass => {
-                    
-                   // console.log(mass)
+                     // console.log(mass)
+                  
+                       massExcel.current = mass
                     if (mass && mass.length > 0) {
-                        mass = mass.map((el, i) => {
+                        mass = mass.slice(0,1000).map((el, i) => {
                             return [
                                 <span style={{ fontSize: '10px' }}>{i + 1}</span>,  // номер
                                 <>   {/*Название компании*/}
+                                <div style={{display:'grid',gridTemplateColumns: '1fr 160px',columnGap:'10px'}}>
+                                    <div style={{gridColumn:1}}>
                                     <span>
                                         <div className="quadr" style={{ "display": "inline-flex", 'background': el.isacting && el.isacting === 1 ? 'green' : 'red' }}></div>
                                         <div style={{ "display": "inline", color: 'blue', fontWeight: '700' }}>
                                             {el.shortnamerus && el.okved && el.shortnamerus.length > 1 ? el.shortnamerus : el.fullnamerus}</div>
                                     </span>
-
-                                    {el.chartercapital && el.chartercapital > 0 ? <div style={{ paddingTop: '2px', paddingBottom: '2px' }}>{`Уставной капитал: ${el.chartercapital}`}</div> : null}
+                                    
                                     {el.regionname && el.regionname.length > 0 ? <div style={{ paddingTop: '2px', paddingBottom: '2px' }}>{`Регион: ${el.regionname}`}</div> : null}
-                                    {el.datefirstreg && el.datefirstreg.length > 0 ? <div style={{ paddingTop: '2px', paddingBottom: '2px' }}>{`Дата регистрации: ${el.datefirstreg}`}</div> : null}
+                                    {el.datefirstreg && el.datefirstreg.length > 0 ? <div style={{ paddingTop: '2px', paddingBottom: '2px' }}>{`Дата регистрации: ${new Date(el.datefirstreg).toLocaleDateString()}`}</div> : null}
+                                    </div>
+                                    <div style={{gridColumn:2,fontSize:'12px'}}> 
+                                    {el.chartercapital && el.chartercapital > 0 ? <div style={{ paddingTop: '2px', paddingBottom: '2px' }}>{`Уставной капитал: ${el.chartercapital}`}</div> : null}
+                                    <div style={{ paddingTop: '2px', paddingBottom: '2px',color:'#262df4' }}>{`ФИН.ПЕРИОД: ${el.period} ГОД:`}</div> 
+                                    <div style={{ paddingTop: '2px', paddingBottom: '2px' }}>{`Выручка: ${el.revenue2110}`}</div> 
+                                    <span style={{ paddingTop: '2px', paddingBottom: '2px' }}>{`Прибыль/убыток: `}</span>
+                                    <span style={{color: el.pribil2400>=0 ? 'green': 'red' }}>{el.pribil2400}</span>
+                                    </div>
+                                    </div>
                                 </>
-
                                 , <> {/*Реквизиты*/}
                                     <div style={{ paddingTop: '2px', paddingBottom: '2px' }}>
                                         <div>{`ИНН:  ${el.inn}`}</div>
                                         <div>{`КПП:  ${el.kpp}`}</div>
                                         <div>{`ОГРН: ${el.ogrn}`}</div>
                                     </div>
-
                                 </>
                                 /*ОКВЭД*/
-                                , (el.okved_code ? el.okved_code : '') + ' ' + (el.okved ? el.okved : '')
+                                , <div style={{fontSize:'12px'}}>{(el.okved_code ? el.okved_code : '') + ' ' + (el.okved ? el.okved : '')}</div>
                                 /*Лидер*/
-
-
                                 , <><span style={{ color: 'blue' }}>{el.position}</span> <span>{el.fio}</span> </>
+    ]
+                        })}
+                    setResult({ load: false, massData: mass })
+                })}
+if (!UL) {
+    f_getlistsresult_ip_do(
+        JSON.stringify(massStatus).replaceAll('"', '\\"'), 30000)
+        .then(mass=> {
+            massExcel.current = mass 
+            if (mass && mass.length > 0) {
+            mass = mass.slice(0,1000).map((el, i) => { 
+                return [
+                     <span style={{ fontSize: '10px' }}>{i + 1}</span>
+                    ,<div style={{display:'grid',gridTemplateColumns: '1fr 160px',columnGap:'10px'}}>
+                    <div style={{gridColumn:1}}>
+                    <span>
+                        <div className="quadr" style={{ "display": "inline-flex", 'background': el.isacting ? 'green' : 'red' }}></div>
+                        <div style={{ "display": "inline", color: 'blue', fontWeight: '700' }}>
+                            {el.full_name_rus }</div>
+                    </span>
+                       {el.address && el.address.length > 0 ? <div style={{ paddingTop: '2px', paddingBottom: '2px' }}>{`Регион: ${el.address}`}</div> : null}
+                    {el.date_first_reg && el.date_first_reg.length > 0 ? <div style={{ paddingTop: '2px', paddingBottom: '2px' }}>{`Дата регистрации: ${el.date_first_reg}`}</div> : null}
+                    </div>
+                    </div>
+                    ,<> {/*Реквизиты*/}
+                                        <div style={{ paddingTop: '2px', paddingBottom: '2px' }}>
+                                            <div>{`ИНН:  ${el.inn}`}</div>
+                                            <div>{`ОГРНИП: ${el.ogrnip}`}</div>
+                                        </div>
+                    </>                       
+                 ,<>    {/*ОКВЭД*/}
+                  <div style={{fontSize:'12px'}}>
+                     {(el.okved_code ? el.okved_code : '') + ' ' + (el.okved_name ? el.okved_name : '')}
+                 </div>
+                 </>
+                    ] })
+        setResult({ load: false, massData: mass })
+    }} )}
+}
 
-                                /*Телефоны + электронная почта*/
-                                //=============================================================================================
-                                // , <>
-
-                                //     {el.phone_parsed && el.phone_parsed.length > 0 ?
-                                //         <>
-                                //             <span style={{ color: 'blue', paddingTop: '2px', paddingBottom: '2px' }}>{`Телефоны:`}</span>
-                                //             <span>
-                                //                 {el.phone_parsed.split(',').map((el, i) => { return <div key={i}>{el}</div> })}
-                                //             </span>
-                                //         </> : null}
-
-                                //     {el.email && el.email.length > 0 ?
-                                //         <>
-                                //             <span style={{ color: 'blue', paddingTop: '5px', paddingBottom: '5px' }}>{`Электронная почта:`}</span>
-                                //             {el.email.split(',').map((el, i) => { return <div key={i}>{el}</div> })}
-                                //         </> : ''
-
-                                //     }
-                                // </>
-
-
-                            ]
-
-                        })
-                    }
-                    setResult({ load: true, massData: mass })
-
-                }
-
-
-                )
-
-        }
-
-
-
-        function handleChangeInnTextArea(e) {
+ function handleChangeInnTextArea(e) {
             let mass = []
             let massCode = []
             
@@ -505,6 +562,80 @@ const LIST_WORKS = ({ activeModal, setActiveModal, name }) => {
             )
         }
 
+
+function REVENUE() {
+
+ 
+    return (
+        <>     
+ <div style={{
+                        alignSelf: 'center',
+                        display: 'inline-flex',
+                        alignItems: 'center'
+                    }}>
+                                
+                                <input type='checkbox' 
+                               checked= {massStatus.filter(el=>el.type.includes("RangeRev"))[0].checked}
+                               disabled={!UL}
+                            onChange={() => {
+                                setMassStatus(massStatus.map(
+                                    el => {
+                                        return el.type.includes("RangeRev") ?
+                                            { ...el, checked: !el.checked } : el
+                                    }))
+
+                            }} />
+                                
+                    <div style={{display:'flex'}}>
+            <div className={s.module_header}
+                style={{ paddingLeft: '1rem' }}
+            >Выберите значения выручки от</div>
+
+             <div style={{fontSize:'12px'}}>
+              <input type={'number'}
+              value={minVal.current}
+              disabled={!UL}
+              onChange = {(e)=>
+                {
+                  let mass=[]
+                minVal.current =  e.target.value;
+              
+                mass = massStatus.map(el=> { 
+                return el.type.includes("RangeRev") ?
+                   { ...el, code: (!minVal.current && !maxVal.current) ? '':
+                     [minVal.current ? minVal.current.replace(/\D/g, ''):''
+                     ,maxVal.current  ? maxVal.current.replace(/\D/g, ''):''].join(',') } : el})
+                   setMassStatus(mass)
+                   }}
+            
+              placeholder="не выбрано"
+              style={{textAlign:'center',width:'100px',padding:'5px'}} />
+          
+           <span style={{padding:'10px',}}>{ `до` }</span>
+            <input  value={maxVal.current}
+            placeholder="не выбрано" type={'number'} 
+            disabled={!UL}
+             onChange = {(e)=>
+                {
+                  let mass=[]
+                  maxVal.current =  e.target.value;
+                mass = massStatus.map(el=> { 
+                return el.type.includes("RangeRev") ?
+                   { ...el, code: [minVal.current,maxVal.current].join(',') } : el})
+                   setMassStatus(mass)
+                   }} style={{padding:'5px',width:'100px',fontSize:'12px',textAlign:'center'}} />
+            </div>
+            </div>
+
+</div>
+{err?<div style={{color:'red',padding:'10px',fontSize:'12px'}}> {`ОШИБКА!!!***Значение выручки "от" - ${minVal.current}  больше значения "до"- ${maxVal.current} `} </div>:null}
+        </>
+    )
+
+}
+
+
+
         function TEXT_REASON() {
             return (
                 <>
@@ -544,6 +675,7 @@ const LIST_WORKS = ({ activeModal, setActiveModal, name }) => {
                                     }}>
 
                                         <input
+                                        disabled = {el.name.includes('Лидер') && !UL}
                                             type="checkbox"
                                             style={{
                                                 marginBottom: '15px'
@@ -553,17 +685,18 @@ const LIST_WORKS = ({ activeModal, setActiveModal, name }) => {
                                                 massStatus.map((el_) => el_.id === el.id ?
                                                     { ...el, checked: !el.checked } : el_))}
                                             name={el.id}
-                                            disabled={el.disabled}
+                                           
                                             checked={el.checked}
                                         />
                                         <textarea
+                                       disabled= {el.name.includes('Лидер') && !UL}
                                             // placeholder={' ' + el.name}
                                             style={{
                                                 marginBottom: '15px',
                                                 paddingLeft: '15px',
                                                 fontSize: '12px',
                                                 marginLeft: '8px',
-                                                height: '50px',
+                                                height: '40px',
                                                 width: '95%',
 
                                                 overflow: 'auto',
@@ -621,6 +754,7 @@ const LIST_WORKS = ({ activeModal, setActiveModal, name }) => {
                     }}>
 
                         <input type='checkbox' style={{ marginRight: '2px' }}
+                            checked = {massStatus.filter(el=>el.name.includes("регистрац"))[0].checked}
                             onChange={() => {
                                 setMassStatus(massStatus.map(
                                     el => {
@@ -701,20 +835,21 @@ const LIST_WORKS = ({ activeModal, setActiveModal, name }) => {
 
                         {massStatus.filter((el) => el.type.includes("RangeC"))
                             .map((el, i) =>
-                                <div key={i}
+                                <button
+                                disabled={!UL}
+                                key={i}
                                     style={{
                                         alignSelf: 'center'
                                         , textAlign: 'center'
-                                        , border: '1px solid #9e7248',
-                                         marginLeft: '3px'
-                                        , padding: '15px', borderRadius: '6px'
+                                        , border: '1px solid #9e7248'
+                                        , marginLeft: '3px'
+                                        , padding: '6px', borderRadius: '6px'
                                         , fontSize: '12px'
                                         , cursor: 'pointer'
-                                        ,minHeight:'50px'
-                                        ,MinWidth:'60px'
-                                        ,justifySelf:'center'
+                                        , minHeight:'30px'
+                                        , MinWidth:'60px'
+                                        , justifySelf:'center'
                                         
-
                                     }}
                                     onClick={() => { groupHandler(el) }}
                                     className={el.checked ? s.active : ''}
@@ -723,7 +858,7 @@ const LIST_WORKS = ({ activeModal, setActiveModal, name }) => {
                                 >
                                     {el.name}
 
-                                </div>
+                                </button>
 
                             )}
                     </div>
@@ -750,7 +885,8 @@ const LIST_WORKS = ({ activeModal, setActiveModal, name }) => {
                             onClick={(e)=> InnTextAreaMake(e)}
                             className="btn btn-warning">Подготовить</button>
                            {massINN && massINN.text ?  <button 
-                            onClick={()=> setMassStatus(massStatus.map(
+                            onClick={()=> 
+                                setMassStatus(massStatus.map(
                                 el => {
                                     return el.name.includes("ИНН") ?
                                         { ...el, text: '',code:'',cnt:0,checked:false } : el
@@ -796,33 +932,32 @@ const LIST_WORKS = ({ activeModal, setActiveModal, name }) => {
 
             return (
                 <>
-                    <hr />
-                 <div style={{display:'grid' ,gridTemplateColumns:'50%,50%'}}>
-                    <div style={{ display: 'inline-flex', alignItems: 'flex-start' }}>
+                    <hr style={{margin:'10px'}} />
+                 <div style={{display:'grid' ,gridTemplateColumns:'1fr,1fr, 1fr, 20px',padding:'5px',columnGap:'5px'}}>
+                    <div style={{ display: 'inline-flex', alignItems: 'center',  gridColumn:1,gridRow:'1/4' }}>
                         <span className={s.dName}> НАСТРОЙКИ </span>
-                        <img alt='' src="..\img\GreyTools.svg" width={'45px'} />
+                        <img alt='' src="..\img\GreyTools.svg" width={'50px'} />
                 
                     </div>
-                    <div style={{gridColumn:2, justifySelf:'end'}}>
-                            <button style={{padding:'15px',color:'black'}} onClick={() => { setCollapse(!isCollapse) }} className="btn btn-outline-warning"> '|  |' 
-                            </button></div>
+           
 
-
-                    </div>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'auto auto ' }}>
-                        <div style={{ gridColumn: 1, marginLeft: '2em', gridRow: 1 }} >
-                            <div className={s.module_header} style={{ padding: '10px' }}>
+                            <div style={{gridColumn: 2,gridRow:1,borderRight:'3px dotted black'}}>
+                
+                        <div className={s.module_header} style={{ padding: '10px' }}>
                                 Выберите форму собственности: </div>
                             {FORM_COWNERS()}
-
-                        </div>
-                        <div style={{ gridColumn: 2, gridRow: '1' }}>
+                    </div>
+                    <div style={{ gridColumn: 3, gridRow: '1' ,paddingLeft:'10px'}}>
                             <div className={s.module_header} style={{ padding: '10px' }}>Выберите статус:</div>
                             {STATUS()}
                         </div>
-
+                        
+                        <div style={{gridColumn:4, justifySelf:'end'}}>
+                            <button style={{padding:'8px',color:'black'}} onClick={() => { setCollapse(!isCollapse) }} className="btn btn-outline-warning"> '|  |' 
+                            </button></div>
 
                     </div>
+       
                 </>)
         }
 

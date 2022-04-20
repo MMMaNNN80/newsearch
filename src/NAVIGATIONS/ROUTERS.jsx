@@ -12,6 +12,7 @@ import GOSZAKUPKI from '../159_PAGES/GOSZAKUPKI_10';
 import PLEDGES_UK from '../159_PAGES/PLEDGES_UK_12';
 import FREE_PAGE from '../159_PAGES/FREE_PAGES';
 import ARBITR from '../159_PAGES/ARBITR_11';
+import PROS_FILTER from '../159_PAGES/PROVERKI/PROS_FILTER';
 import {
     Route,
     Routes,
@@ -51,6 +52,7 @@ const ROUTERS = (props) => {
                     <Route path="/bancrupt/:inn" element={<BANCRUPT mainForm={props.mainForm}  setActiveModal = {props.setActiveModal} activeModal={props.activeModal}/>} />
                     <Route path="/arbitr/:inn" element={<ARBITR mainForm={props.mainForm} AObj={props.AObj} setAObj={props.setAObj} />} />
                     <Route path="/pledges_uk/:inn" element={<PLEDGES_UK mainForm={props.mainForm} SetPledges= {props.SetPledges} pledges= {props.pledges} />} />
+                    <Route path="/knm/:inn" element={<PROS_FILTER mainForm={props.mainForm} massMain ={props.massMain} setMassMain={props.setMassMain}  />} />
                 </Routes>
             </>
 
@@ -74,7 +76,7 @@ const ROUTERS = (props) => {
                     <Route path="/bancrupt/:inn" element={<FREE_PAGE id={13}  mainForm={props.mainForm} />} />
                     <Route path="/arbitr/:inn" element={<FREE_PAGE id={14} mainForm={props.mainForm} />} />
                     <Route path="/pledges_uk/:inn" element={<FREE_PAGE id={15} mainForm={props.mainForm} />} />
-                
+                    <Route path="/knm/:inn" element={<FREE_PAGE id={16} mainForm={props.mainForm} />} />
                 </Routes>
             </>
 

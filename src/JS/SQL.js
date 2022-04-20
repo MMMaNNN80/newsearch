@@ -64,7 +64,7 @@ import {getResponsePg,render} from './connection'
            
           }
 
-          export async function f_getResult( json_ = '',dopSql = '') {
+          export async function f_getResult( json_ = '',dopSql = '') {  // ЮЛ работа со списками
             let obj =  getParamsObj()
              obj.fields = "*"
              obj.table = `f_getlistsresult_do('${json_}','${dopSql}')`
@@ -73,6 +73,18 @@ import {getResponsePg,render} from './connection'
              return await getResponsePg(obj)
              
             }
+
+            export async function f_getlistsresult_ip_do( json_ = '',dopSql = '') {// ИП работа со списками
+              let obj =  getParamsObj()
+               obj.fields = "*"
+               obj.table = `f_getlistsresult_ip_do('${json_}',${dopSql})`
+               obj.host = '/159'
+               obj.dopSql = ''
+               return await getResponsePg(obj)
+               
+              }
+
+
 
                        
          export async function f_getPledges (inn) {
@@ -105,11 +117,20 @@ import {getResponsePg,render} from './connection'
      return await getResponsePg(obj)
      }}
 
-     export async function f_get_knm (dp =0) {
+     export async function f_get_knm (inn ='') {
       if (1){        
        let obj =  getParamsObj()
        obj.fields = "*"
-       obj.table = `f_getknm_info(${dp})`
+       obj.table = `f_getknm_info('${inn}')`
        obj.host = '/159'
        return await getResponsePg(obj)
        }}
+
+       export async function f_getknm_dopinfo (rp_id =0) {
+        if (1){        
+         let obj =  getParamsObj()
+         obj.fields = "*"
+         obj.table = `f_getknm_dopinfo(${rp_id})`
+         obj.host = '/159'
+         return await getResponsePg(obj)
+         }}

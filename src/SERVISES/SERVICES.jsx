@@ -4,10 +4,10 @@ import LIST_WORKS from "./LISTS_WORKS"
 
 const SEVICES = ({activeModal,setActiveModal }) => {
 
-   
-
-const ListService = 
-[{id:1, func: <LIST_WORKS name = {`СЕРВИС "РАБОТА СО СПИСКАМИ"`} activeModal={activeModal} setActiveModal={setActiveModal}  /> }]
+   const ListService = 
+[{id:1, func: <LIST_WORKS name = {`СЕРВИС "РАБОТА СО СПИСКАМИ"`} 
+activeModal={activeModal} 
+setActiveModal={setActiveModal}  /> }]
 
 
 return (
@@ -16,7 +16,6 @@ return (
         {/* <div style={{gridColumn:'1/10',justifySelf:'center', padding:'300px',color:'red',fontSize:'200px' ,zIndex:5}}> {`id = ${id}` }</div>  */}
        { ListService.filter(el => el.id ===activeModal.id).map(el=> el.func)[0]}
        
-            
        </>
            )
 

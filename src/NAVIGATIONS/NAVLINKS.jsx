@@ -18,7 +18,7 @@ const inn =(props.state ) ? props.state[0].data.inn  : null
 const img = <img src="..\img\close.png" height="10px" alt=""/>
 
 if (inn && inn.length===10 ){
-const mass =getNavMenuMass('UL',inn)
+const mass =getNavMenuMass('UL',inn,props.mainForm)
 
 if(props.cardstate >1) {return null}
 if (props.commercial ===0  ) {mass.map(el=> el.isCom=false)}

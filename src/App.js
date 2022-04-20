@@ -9,7 +9,7 @@ import CARD_151 from './COMPONENTS/CARD_151';
 import NAVLINKS from './NAVIGATIONS/NAVLINKS'
 import ROUTERS from './NAVIGATIONS/ROUTERS';
 import { getOBJpublic } from './JS/MAPPING_SQL';
-import { getDATAGoszakupki,result,getDATAArbitrAGG,getDATAinn,f_getPledges } from './JS/SQL';
+import { getDATAGoszakupki,result,getDATAArbitrAGG,getDATAinn,f_getPledges,f_get_knm } from './JS/SQL';
 
 import SEVICES from './SERVISES/SERVICES';
 import ROUTERS_IP from './NAVIGATIONS/ROUTERS_IP';
@@ -32,6 +32,7 @@ function App() {
       S159: false,
       CDI: false,
     })
+  const [massMain,setMassMain] = useState([])
   const [services, setServices] = useState({isOpen:false,service_id:0})
   const [massIP,setmassIP] = useState({loading:true, mass:[]})
 
@@ -80,9 +81,14 @@ const inn = state && state[0]? state[0].data.inn : null
       )  
           {
           result(inn,commercial).then( data=>{
+
             setMainform (
-            prev=> {return { ...prev, ...data}})})
+            prev=> {return { ...prev, ...data}})}
             
+            )
+ 
+            
+           
             setFzObj({loading:true}      )
             
             if(commercial===0){
@@ -102,11 +108,21 @@ const inn = state && state[0]? state[0].data.inn : null
                 .then( mass=>{
        
                   setPledges ({mass,loading:false})})
+                  if(inn !==null) {
+                  f_get_knm (inn)
+                  .then(mass=> {
+                 setMassMain(mass) }) }
+                
+          }
+             
+  
+      
+
 
                 param.current = false
                 
               }
-            }
+            
             
         } ,[param,commercial,mainForm,inn,cardstate,state]   
         
@@ -190,11 +206,13 @@ const inn = state && state[0]? state[0].data.inn : null
               commercial={commercial}
               setActiveModal ={setActiveModal} activeModal={activeModal}
               pledges = {pledges} setPledges = {setPledges}
+              massMain ={massMain} setMassMain={setMassMain}
               /> : null}
           {state && cardstate === 2 ? 
-          <NAVLINKS state={state} statusAll={statusAll} commercial={commercial} /> : null}
+          <NAVLINKS state={state} statusAll={statusAll} commercial={commercial}   mainForm={mainForm}  /> : null}
           {state && status.CDI && cardstate === 2 && commercial===0? <CDI_CARD objState={state} /> : ''}
           {state && status.S151 && cardstate === 2 && commercial===0 ? <CARD_151 objState={state} /> : ''}
+        
         </div>
 : null}
 

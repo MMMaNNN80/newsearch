@@ -1,16 +1,13 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment } from 'react'
 import { getMassForm } from "../JS/properties"
 import GETTABLE from '../COMPONENTS/GETTABLE'
 import { getRows} from '../JS/properties'
 import MAIN_CARD from '../JS/MAIN_CARD'
-import PROS_FILTER from './PROS_FILTER'
-import { f_get_knm } from '../JS/SQL'
+
 
 
 
 const CARD_159 = ({ mainForm, cardstate }) => {
-    const [isOpen, setIsOpen] = useState(false)
-    const [massMain,setMassMain] = useState([])
 
     let masshd = []
     let mass = []
@@ -43,7 +40,7 @@ const CARD_159 = ({ mainForm, cardstate }) => {
       
         return (
             <Fragment>
-                {!isOpen ? <>
+                
                     <GETTABLE key={0} funcGetRows={getMassForm("159", 'OSN', mainForm)}
                         style={
                             {
@@ -71,8 +68,11 @@ const CARD_159 = ({ mainForm, cardstate }) => {
                         }
                         name={"Признаки хозяйственной деятельности"}
                     /> : ''}
-                </> : null}
+            
                 <KNM />
+
+               
+
             </Fragment>
 
         )
@@ -91,40 +91,13 @@ return (<>
              <span>{mainForm.knm_cnt >0 ? `Присутствуют данные о ${mainForm.knm_cnt} проверке/ах`: `Отсутствуют данные о проверке/ах госорганами` }
              </span>
 
-             {mainForm.knm_cnt >0 ? 
-             <span onClick={() => 
-                { 
-                     setIsOpen(!isOpen) 
-
-                    if(!isOpen && mainForm.dataport_id.value) { 
-                       f_get_knm (mainForm.dataport_id.value)
-                       .then(mass=> {
-                             
-                        setMassMain(mass)
-                    })
-                    }
-                
-                }}
-                    style={{
-                        gridColumn: '5'
-                        , alignSelf: 'center'
-                        , verticalAlign: 'center'
-                        , justifySelf: 'center'
-                        , color: 'white', transform: !isOpen ? 'rotate(90deg)' : 'rotate(0deg)', fontSize: '16px', cursor: 'pointer'
-                    }}>| |</span>:null}
-            </div>
-            {isOpen && massMain ? <div>
-                <PROS_FILTER massMain={massMain } />
-            </div> : null}
+            </div> 
         </>)
 
 
     }
 
-
-
-
-    if (cardstate === 2) {
+if (cardstate === 2) {
         return (<Fragment><MAIN_CARD mainForm={mainForm.short_name.value} CHILDREN={DATA} /> </Fragment>)
     } else { return null; }
 

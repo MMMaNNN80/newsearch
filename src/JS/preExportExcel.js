@@ -3,6 +3,139 @@
 import { writeExcelJS } from "./excelwriter";
 
 
+export const getListWorkData_ejs = async (mass,UL, hbgColor, htextcolor) => {
+
+const workSheetName = [!UL ? `Информация_ИП`:`Компании`];
+ const filePath = `Списки_${mass.length}.xlsx`
+ let workSheetColumnNames = []
+if(!UL) {hbgColor='083e53'}
+
+let data = []
+if (UL) {
+ workSheetColumnNames.push(
+ [
+   { header: "ИД ДАТАПОРТ", key: 'dataport_id', width: 10 },
+   { header: "Статус", key: 'status_type', width: 60 },
+   { header: "Дата статуса", key: 'status_date', width: 13 },
+   { header: "Действующее", key: 'isacting', width: 10 },
+   { header: "ИНН", key: 'inn', width: 13 },
+   { header: "КПП", key: 'kpp', width: 13 },
+   { header: "ОГРН", key: 'ogrn', width: 13 },
+   { header: "ОКПО", key: 'okpo', width: 13 },
+   { header: "ОКТМО", key: 'oktmo_code', width: 13 },
+   { header: "Краткое наименование", key: 'shortnamerus', width: 60 },
+   { header: "Полное наименование", key: 'fullnamerus', width: 60 },
+   { header: "Код ОКВЭД", key: 'okved_code', width: 13 },
+   { header: "ОКВЭД", key: 'okved', width: 13 },
+   { header: "Уст.Капитал", key: 'chartercapital', width: 20 },
+   { header: "Код региона", key: 'regioncode', width: 13 },
+   { header: "Регион", key: 'regionname', width: 13 },
+   { header: "Дата ликв ЕГРЮЛ", key: 'egrullikvidation', width: 13 },
+   { header: "Дата перв рег-ии", key: 'datefirstreg', width: 13 },
+   { header: "Кол-во филиалов", key: 'count_filials_egrul', width: 13 },
+   { header: "Должность", key: 'position', width: 13 },
+   { header: "ФИО", key: 'fio', width: 13 },
+   { header: "Дата нач диск-ции", key: 'disq_begin_date', width: 13 },
+   { header: "Дата оконч диск-ции", key: 'disq_end_date', width: 13 },
+   { header: "Телефоны", key: 'phone_parsed', width: 13 },
+   { header: "email", key: 'email', width: 13 },
+   { header: "Фин период", key: 'period', width: 13 },
+   { header: "Выручка (2110)", key: 'revenue2110', width: 13 },
+   { header: "Прибыль/Убыток(2400)", key: 'pribil2400', width: 13 }
+ ])
+
+ mass.forEach(el => {
+
+           data.push(
+             { 
+                dataport_id: el.dataport_id
+               , status_type : el.status_type 
+               , status_date : el.status_date 
+               , isacting : el.isacting 
+               , inn : el.inn 
+               , kpp : el.kpp 
+               , ogrn : el.ogrn 
+               , okpo : el.okpo 
+               , oktmo_code : el.oktmo_code 
+               , shortnamerus : el.shortnamerus 
+               , fullnamerus : el.fullnamerus 
+               , okved_code : el.okved_code 
+               , okved : el.okved 
+               , chartercapital : el.chartercapital 
+               , regioncode : el.regioncode 
+               , regionname : el.regionname 
+               , egrullikvidation : el.egrullikvidation 
+               , datefirstreg : el.datefirstreg 
+               , count_filials_egrul : el.count_filials_egrul 
+               , position : el.position 
+               , fio : el.fio 
+               , disq_begin_date: el.disq_begin_date
+               , disq_end_date : el.disq_end_date 
+               , phone_parsed : el.phone_parsed 
+               , email : el.email 
+               , period : el.period 
+               , revenue2110 : el.revenue2110 
+               , pribil2400 : el.pribil2400 
+                              
+})
+         }
+        
+         
+         )
+        }
+        if(!UL) {
+          workSheetColumnNames.push(
+            [
+              { header: "ИД ДАТАПОРТ", key: 'dataport_id', width: 10 },
+              { header: "Наименование ИП", key: 'full_name_rus', width: 60 },
+              { header: "Статус", key: 'status_text', width: 60 },
+              { header: "Дата статуса", key: 'status_date', width: 13 },
+              { header: "Действующее", key: 'isacting', width: 10 },
+              { header: "ИНН", key: 'inn', width: 13 },
+              { header: "ОГРНИП", key: 'ogrnip', width: 13 },
+              { header: "Код ОКВЭД", key: 'okved_code', width: 13 },
+              { header: "ОКВЭД", key: 'okved_name', width: 13 },
+              { header: "Код региона", key: 'region_code', width: 13 },
+              { header: "Местоположение", key: 'address', width: 43 }, 
+              { header: "Дата регистрации", key: 'date_first_reg', width: 13 },   
+
+            ]);
+            mass.forEach(el => {
+
+              data.push(
+                { 
+                   dataport_id: el.dataport_id
+                  ,full_name_rus: el.full_name_rus
+                  , status_text : el.status_text 
+                  , status_date : el.status_date 
+                  , isacting : el.isacting ? 'Действующий':'Ликвидированный' 
+                  , inn : el.inn 
+                  , ogrnip : el.ogrnip 
+                  , okved_code : el.okved_code 
+                  , okved_name : el.okved_name 
+                  , region_code: el.region_code
+                  , address: el.address
+                  , date_first_reg: el.date_first_reg            
+   })
+            }
+           
+            
+            )
+
+
+
+
+
+        }
+data= [[...data]]
+
+    
+
+       writeExcelJS(data, workSheetColumnNames, workSheetName, filePath, hbgColor, htextcolor)
+   
+ 
+}
+
 export const getDetailzakupki_ejs = async (inn, year = 2020, x, fz = 44, hbgColor, htextcolor) => {
     //console.log(inn,year,44)
     const workSheetName = [`${fz}-ФЗ_${inn}_${year}`];
@@ -329,4 +462,7 @@ export const getDetailzakupki_ejs = async (inn, year = 2020, x, fz = 44, hbgColo
         
       
     }
+
+
+  
   

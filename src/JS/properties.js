@@ -230,7 +230,7 @@ export function getQuadr(txt=null, style = {}) {
   )
 }
 
-export function getNavMenuMass(type = 'UL', inn) {
+export function getNavMenuMass(type = 'UL', inn='',mainForm = {}) {
   let mass = []
   
   if (type === 'UL') {
@@ -251,6 +251,7 @@ export function getNavMenuMass(type = 'UL', inn) {
       , { id: 13, name: `Сведения о банкротстве`, isCom: true, type: 'nav', path: `/bancrupt/${inn}` }
       , { id: 14, name: `Арбитражные дела`, isCom: true, type: 'nav', path: `/arbitr/${inn}` }
       , { id: 15, name: `Залоги`, isCom: true, type: 'nav', path: `/pledges_uk/${inn}` }
+      , { id: 16, name: `Государственные проверки (${mainForm.knm_cnt> 0 ? mainForm.knm_cnt:0})`, isCom: true, type: 'nav', path: `/knm/${inn}` }
     ]
     return mass
   }
@@ -284,5 +285,36 @@ export function getMainText(text = '') {
       {text}
     </div>
   )
+
+}
+
+
+export function getOpenModule() {
+
+  // {mainForm.knm_cnt >0 ? 
+  //   <span onClick={() => 
+  //      { 
+  //           setIsOpen(!isOpen) 
+
+  //          if(!isOpen && mainForm.dataport_id.value.length>0) { 
+  //             f_get_knm (mainForm.inn)
+  //             .then(mass=> {
+                    
+  //              setMassMain(mass)
+  //          })
+  //          }
+       
+  //      }}
+  //          style={{
+  //              gridColumn: '5'
+  //              , alignSelf: 'center'
+  //              , verticalAlign: 'center'
+  //              , justifySelf: 'center'
+  //              , color: 'white', transform: !isOpen ? 'rotate(90deg)' : 'rotate(0deg)', fontSize: '16px', cursor: 'pointer'
+  //          }}>| |</span>:null}
+  //  </div>
+  //  {isOpen && massMain ? <div>
+  //      <PROS_FILTER massMain={massMain} mainForm={mainForm}  />
+
 
 }
