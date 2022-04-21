@@ -27,6 +27,7 @@ const LIST_WORKS = ({ activeModal, setActiveModal, name }) => {
     const maxVal = useRef('')
     const [err,setErr] = useState(false)
     const massExcel = useRef([])
+  
 
 
     if (!load.current) {
@@ -173,7 +174,13 @@ function CHILDREN() {
                                 <button disabled  = {result.massData.length===0 } 
                                 style={{ width: '90px', height: '30px' }} className="btn btn-success"
                             
-                                onClick={()=> {getListWorkData_ejs(massExcel.current, UL);massExcel.current=[]}}> 
+                                onClick={()=> { 
+                                getListWorkData_ejs(massExcel.current, UL)
+                                .then(massExcel.current=[])
+
+                                
+                              
+                                }}> 
                                       <div style={{ display: 'flex',alignItems:'center',justifyContent:'center'}}>
                                           <div>ВЫГРУЗИТЬ</div> <div><img  style={{height:'30px'}} alt="" src="..\img\excel_import.png"></img></div> 
                                       </div> 
@@ -200,7 +207,7 @@ function CHILDREN() {
 
                                  </div>
 
-                        { !result.load && result.massData.length>0 ?
+                        { !result.load && result.massData.length > 0 ?
                             <div style={{ padding: '20px' }}>
 
                                 <GET_TABLE_SRC
@@ -445,6 +452,7 @@ if (!UL) {
         function groupHandler(elem) {
 
             let mass = []
+            setResult({ load: false, massData: [] })
             if (elem.type === 'OPF' || elem.type === 'status') {
                 mass = massStatus.map(el => {
                     if (el.id === elem.id) { el.checked = true }
@@ -478,6 +486,8 @@ if (!UL) {
         /// КОМПОНЕНТЫ 
         /* Формы собственности */
         function FORM_COWNERS() {
+
+           
             return (<>
 
 
