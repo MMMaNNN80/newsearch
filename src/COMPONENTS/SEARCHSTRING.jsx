@@ -25,7 +25,7 @@ function SEARCHSTRING(props)
         if (mass) { props.objState.update(mass.suggestions) }
     }
     return (
-        <div className="container">
+        <div className="container" >
             <div className={"lbl  "} >ПОИСК</div>
             <input type="text" name="searchstr" style={{ ...inputStyle }}
                 placeholder={'Введите поисковый запрос'}

@@ -8,6 +8,7 @@ import { getParamsObj } from "../../JS/properties";
 import { getResponsePg } from "../../JS/connection";
 import SPINER from "../../JS/SPINER";
 import MAIN_CARD from "../../JS/MAIN_CARD";
+import ZAGOLOVOK from "../../COMPONENTS/ZAGOLOVOK";
 const STRUCTURE_OPEN = (props) => {
   //let mainForm = JSON.parse(localStorage.getItem('159'))
   const [cowmass,setCowMass] = useState({loading:true}) 
@@ -32,6 +33,7 @@ function DATA () {
 
   return (
     <Fragment>
+      <ZAGOLOVOK text = {'Структура развернуто'}/>
          <div className="" style={{"padding":"10px"}}>
              <div style={{"color":"lightblue",
               "padding":"0px", "marginBottom":"15px",

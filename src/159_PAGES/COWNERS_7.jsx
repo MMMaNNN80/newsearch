@@ -16,6 +16,7 @@ import PAO_EGRUL_IN_COWNERS from "./COWNERS/PAO_COWNERS/PAO_EGRUL_IN_COWNERS";
 import PAO_EGRUL_UL_COWNERS from "./COWNERS/PAO_COWNERS/PAO_EGRUL_UL_COWNERS";
 import { getEmpty } from "../JS/properties";
 import MAIN_CARD from "../JS/MAIN_CARD";
+import ZAGOLOVOK from "../COMPONENTS/ZAGOLOVOK";
 
 
 const COWNERS = (props) => {
@@ -37,7 +38,8 @@ let massRosstatPAO = []
   function DATA () {
 
     return (
-      <Fragment>              
+      <Fragment> 
+         <ZAGOLOVOK  text={'Совладельцы'}/>             
                <div style={{"color":"lightblue", "padding":"5px", "margin":"0","textAlign":"center" }}>
                   Совладение по данным ЕГРЮЛ
                </div>

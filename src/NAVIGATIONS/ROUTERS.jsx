@@ -13,11 +13,13 @@ import PLEDGES_UK from '../159_PAGES/PLEDGES_UK_12';
 import FREE_PAGE from '../159_PAGES/FREE_PAGES';
 import ARBITR from '../159_PAGES/ARBITR_11';
 import PROS_FILTER from '../159_PAGES/PROVERKI/PROS_FILTER';
+import LIC_ZNAK from '../159_PAGES/LIC_ZNAK';
 import {
     Route,
     Routes,
     useNavigate
 } from "react-router-dom";
+import RAPF from '../RAPF/RAPF';
 //import { getNavMenuMass } from '../JS/properties';
 
 
@@ -34,16 +36,33 @@ const ROUTERS = (props) => {
 
 
 
-    if (props.commercial === 0 && props.state && props.status.S159) {
+    if ( props.mainForm && props.mainForm.src ==='RAPF' && props.state && props.status.S159) {
         return (
             <>
                 <Routes>
+
+                    <Route path="/" element={<RAPF mainForm={props.mainForm} cardstate={props.cardstate} />} />
+                    <Route path="/:inn" element={<RAPF mainForm={props.mainForm} cardstate={props.cardstate} />} />
+                </Routes>
+            </>
+
+        )
+
+
+    }
+
+     if ( props.commercial === 0 && props.state && props.status.S159) {
+        return (
+            <>
+                <Routes>
+
                     <Route path="/" element={<CARD_159 mainForm={props.mainForm} cardstate={props.cardstate} />} />
                     <Route path="/:inn" element={<CARD_159 mainForm={props.mainForm} cardstate={props.cardstate} />} />
                     <Route path="regdata/:inn" element={<REGDATA mainForm={props.mainForm} />} />
                     <Route path="/okveds/:inn" element={<OKVEDS mainForm={props.mainForm} />} />
                     <Route path="/info/:inn" element={<CONTACTS_DATA mainForm={props.mainForm} />} />
                     <Route path="/changescompany/:inn" element={<CHANGES_COMP mainForm={props.mainForm} />} />
+                    <Route path="/licencies/:inn" element={<LIC_ZNAK mainForm={props.mainForm} />} />
                     <Route path="/leaders/:inn" element={<LEADERS mainForm={props.mainForm} />} />
                     <Route path="/cowners/:inn" element={<COWNERS mainForm={props.mainForm} />} />
                     <Route path="/openstruct/:inn" element={<STRUCTURE_OPEN mainForm={props.mainForm} />} />
@@ -58,7 +77,7 @@ const ROUTERS = (props) => {
 
         )
     }
-    if (props.commercial !== 0 && props.state && props.status.S159) {
+    if (  props.commercial !== 0 && props.state && props.status.S159 ) {
         return (
             <>
                 <Routes>
@@ -77,6 +96,7 @@ const ROUTERS = (props) => {
                     <Route path="/arbitr/:inn" element={<FREE_PAGE id={14} mainForm={props.mainForm} />} />
                     <Route path="/pledges_uk/:inn" element={<FREE_PAGE id={15} mainForm={props.mainForm} />} />
                     <Route path="/knm/:inn" element={<FREE_PAGE id={16} mainForm={props.mainForm} />} />
+                    <Route path="/licencies/:inn" element={<FREE_PAGE id={17} mainForm={props.mainForm} />} />
                 </Routes>
             </>
 

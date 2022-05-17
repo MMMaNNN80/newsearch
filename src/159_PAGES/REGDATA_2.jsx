@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import GETTABLE from "../COMPONENTS/GETTABLE";
 import { getRows, getMassRows } from "../JS/properties";
 import MAIN_CARD from "../JS/MAIN_CARD";
-
+import ZAGOLOVOK from '../COMPONENTS/ZAGOLOVOK'
 
 
 const REGDATA = (props) => {
@@ -62,6 +62,8 @@ const REGDATA = (props) => {
   function DATA () {
     return (
       <Fragment>
+
+        <ZAGOLOVOK text = {'Регистрационные данные'}/>
               <GETTABLE funcGetRows={[...getRows(mass)]}  //Регистрационные данные
                 style={{
                   tclass: ["mtbl"],

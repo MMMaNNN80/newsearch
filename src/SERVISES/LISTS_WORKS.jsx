@@ -21,12 +21,15 @@ registerLocale("ru", ru);
 
 const LIST_WORKS = ({ activeModal, setActiveModal, name }) => {
 
+    const loadingExcel = useRef(false)
+
     const [massDic, setMassDic] = useState([])
     const load = useRef(false)
     const minVal = useRef('')
     const maxVal = useRef('')
     const [err,setErr] = useState(false)
     const massExcel = useRef([])
+   
   
 
 
@@ -101,11 +104,10 @@ function CHILDREN() {
         const [view, setView] = useState([]) // меню - готовая разметка
         const act = useRef({ act: false, id: '' })   // для прокидывания переменной
 
+let massX = []
 
-        let massX = []
         if (massStatus.filter(el => el.id === 1)[0].checked) { UL = false }
-
-        return (
+  return (
             <>
                 {GET_HEAD()}
                 <div style={{ padding: '5px' }}>
@@ -141,7 +143,7 @@ function CHILDREN() {
                         </div>
                         <div style={{
                             width: '100%', background: '#084153', padding: '25px'
-                            , display: 'grid', gridTemplateColumns: 'auto 1fr', columnGap: '10px'
+                            , display: 'grid', gridTemplateColumns: 'auto auto auto 1fr', columnGap: '20px'
                         }}>
         <div style={{ color: 'orange', fontWeight: 700, gridColumn: '1/2' }}>КРИТЕРИИ ПОИСКА:</div>
         <ul style={{ gridColumn: '1', color: 'white', fontSize: '12px' }}>
@@ -163,31 +165,31 @@ function CHILDREN() {
                                     return <li key={i}> <span > {el.type_p}</span>
                                         <span style={{ color: '#38ef9e', marginLeft: '10px', fontSize: '12px' }}>{"--------------> " + val}</span>  </li>})}
 
-
                             </ul>
+                            {(result.load)  ? <div style={{textAlign:'center',gridColumn: '3',gridRow:'1/4'}}>
+                                <Spinner animation="border"  style={{width: '100px',height:'100px',borderWidth:'15px'}} variant="primary"/></div>
+                            :null}
 
-                            <div style={{ display: 'flex', gridColumn: '2', gridRow: '1',justifySelf:'end', }}>
+                            <div style={{ display: 'flex', gridColumn: '4', gridRow: '1',justifySelf:'end', }}>
+                        
                             <button  disabled ={result.load}
                             style={{ width: '90px', height: '30px' }} className="btn btn-secondary"
                             
-                            onClick={()=> {getResult(result.massData, UL)}}>ПОКАЗАТЬ  </button>
-                                <button disabled  = {result.massData.length===0 } 
-                                style={{ width: '90px', height: '30px' }} className="btn btn-success"
-                            
-                                onClick={()=> { 
-                                getListWorkData_ejs(massExcel.current, UL)
-                                .then(massExcel.current=[])
+                            onClick={()=> {           //   ПОКАЗАТЬ              
+                                getResult(result.massData, UL)
+                                }}>ПОКАЗАТЬ  </button>
 
-                                
-                              
-                                }}> 
+                                <button disabled  = {(result.massData.length===0 || loadingExcel.current) } 
+                                style={{ width: '90px', height: '30px' }} className="btn btn-success"
+                                onClick={()=> {      //   ВЫГРУЗИТЬ                              
+                                getListWorkData_ejs(massExcel.current, UL)
+                                .then(()=> {massExcel.current=[]})}}> 
                                       <div style={{ display: 'flex',alignItems:'center',justifyContent:'center'}}>
                                           <div>ВЫГРУЗИТЬ</div> <div><img  style={{height:'30px'}} alt="" src="..\img\excel_import.png"></img></div> 
                                       </div> 
                                     </button>
 
                                 <button style={{ width: '90px', height: '30px' }} onClick={() => {
-                                    //alert(('').replace(/\D/g, ''))
                                     startDate.current = ''
                                     endDate.current=''
                                     minVal.current=''
@@ -199,15 +201,21 @@ function CHILDREN() {
                                     ;setResult({load:false,massData:[]}) }} 
                                 className="btn btn-danger">ОЧИСТИТЬ</button>
                             </div>
-                            
-                            
-                           {result.massData.length===0 ? null: <div style={{fontSize:'12px',padding:'10px',gridColumn: '2',gridRow:'2/4',color:'white',justifySelf:'end'}}>
-                                
+
+                           {result.massData.length===0 ? null: 
+                           <div style={{
+                               fontSize:'12px'
+                               ,padding:'10px'
+                               ,gridColumn: '4'
+                               ,gridRow:'2/4'
+                               ,color:'#aedeb8'
+                               ,justifySelf:'end'
+                               }}>     
                              {`Результирующее количество строк показано ${result.massData.length}  из ${massExcel.current.length} готовых к экспорту.`}    </div>}
 
                                  </div>
 
-                        { !result.load && result.massData.length > 0 ?
+                        { (!result.load && result.massData.length > 0) ?
                             <div style={{ padding: '20px' }}>
 
                                 <GET_TABLE_SRC
@@ -226,8 +234,7 @@ function CHILDREN() {
                                             { name: 'ОКВЭД(основной)', style: { width: '25%' } },
                                         ]
                                     } massValues={ result.massData} heightT={{ height: !isCollapse ? '300px' : '700px' }} /> </div>
-                            :result.load  ? <div style={{textAlign:'center',paddingTop:'50px'}}>
-                                <Spinner animation="border"  style={{width: '100px',height:'100px',borderWidth:'20px'}} variant="primary"/></div>:null}
+                            :null}
 
                         {/* ******************************************************************************************************************** */}
                     </form>

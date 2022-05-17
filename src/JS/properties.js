@@ -241,6 +241,7 @@ export function getNavMenuMass(type = 'UL', inn='',mainForm = {}) {
       , { id: 3, name: `Виды экономической деятельности`, isCom: false, type: 'nav', path: `/okveds/${inn}` }
       , { id: 4, name: `Телефоны и Адреса`, isCom: true, type: 'nav', path: `/info/${inn}` }
       , { id: 5, name: `История изменений`, isCom: true, type: 'nav', path: `/changescompany/${inn}` }
+      , { id: 17, name: `Лицензии, сертификаты и зарегистрированные товарные знаки`, isCom: true, type: 'nav', path: `/licencies/${inn}` }
       , { id: 6, name: `Структура компании`, isCom: false, type: 'div', path: null }
       , { id: 7, name: `Органы управления`, isCom: true, type: 'nav', path: `/leaders/${inn}` }
       , { id: 8, name: `Совладельцы`, isCom: true, type: 'nav', path: `/cowners/${inn}` }

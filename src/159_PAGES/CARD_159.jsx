@@ -3,6 +3,7 @@ import { getMassForm } from "../JS/properties"
 import GETTABLE from '../COMPONENTS/GETTABLE'
 import { getRows} from '../JS/properties'
 import MAIN_CARD from '../JS/MAIN_CARD'
+import ZAGOLOVOK from '../COMPONENTS/ZAGOLOVOK'
 
 
 
@@ -40,6 +41,7 @@ const CARD_159 = ({ mainForm, cardstate }) => {
       
         return (
             <Fragment>
+                 <ZAGOLOVOK  text={'Карточка компании'}/>
                 
                     <GETTABLE key={0} funcGetRows={getMassForm("159", 'OSN', mainForm)}
                         style={

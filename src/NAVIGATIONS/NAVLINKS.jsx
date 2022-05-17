@@ -56,7 +56,9 @@ if (inn && inn.length===12 && props.cardstate>1 ) {
                 {massNavIP.map((el,z)=>{
           
           if(el.type==='div') { return <div key={z} className = "navdiv">{el.name}</div>}
-          if(el.type==='nav') { return <><NavLink  key={z} to={el.path}>{<span style={{margin:0,padding:0}}>{el.isCom ? img:''} {el.name}</span>}</NavLink> <br /></>}
+          if(el.type==='nav') { return <><NavLink  key={z} 
+          to={el.path}>{<span style={{margin:0,padding:0}}>
+            {el.isCom ? img:''} {el.name}</span>}</NavLink> <br /></>}
           return null
         })}
             </animated.div>

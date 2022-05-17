@@ -3,6 +3,7 @@ import React, { Fragment } from "react";
 import GETTABLE from "../COMPONENTS/GETTABLE";
 import { getMassRows } from "../JS/properties";
 import MAIN_CARD from "../JS/MAIN_CARD";
+import ZAGOLOVOK from "../COMPONENTS/ZAGOLOVOK"
 
 
 const LEADERS = (props) => {
@@ -92,6 +93,7 @@ const LEADERS = (props) => {
   function DATA() {
     return (
       <Fragment>
+        <ZAGOLOVOK  text={'Органы управления'}/>
         <GETTABLE key={0} funcGetRows={[...getMassRows(massLeaders)]} //Регистрационные данные
           style={{
             tclass: ["mtbl"],

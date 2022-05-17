@@ -6,13 +6,14 @@ export const getMainform = async (obj) => {
 
     await getResponsePg(obj).then(mass => {
                 
-       
+     let objX = mass // такое название объекта по имени процедуры
              
-                let objX = mass // такое название объекта по имени процедуры
-             
-           
-
-                //---ОСНОВНАЯ ИНФОРМАЦИЯ
+     //---ОСНОВНАЯ ИНФОРМАЦИЯ
+ if (objX[0].src==='RAPF'){
+                   
+                    mainForm = {...objX[0], inn: {value:objX[0].inn_branch}} 
+                    return mainForm
+                }
                 
                 mainForm.report_id.value = objX[0].report_id
                 mainForm.rosstat_report_id.value = objX[0].rosstat_report_id
@@ -76,6 +77,7 @@ export const getMainform = async (obj) => {
                
                mainForm.massPAOcows = objX.filter(el=>el.src==='COWS_PAO')
                mainForm.massBancrupt = objX.filter(el=>el.src==='BANCRUPT')
+               mainForm.massLIC = objX.filter((el)=>el.src==='LICENCES_TOVZNAK')
                //-----------На бесплатные версии
                mainForm.freeMass = 
                [
@@ -205,7 +207,19 @@ export const getMainform = async (obj) => {
                 `Детальная информация по КНМ: организации иницурующие проверки, инспекторы, адреса, объекты, действия в рамках КНМ `      
         ]
             , afterHtml:''
-            , lblcolor: '#061023'
+            , lblcolor: '#381e15'
+         }
+         ,
+         {
+            id:17
+            ,razdelName: 'Лицензии, сертификаты, товарные знаки'
+            ,postHtml:'Информация о регистрированных лицензиях , сертификатов, товарных знаков' 
+            , massList : [
+                'Информация о лицензиях',
+                `Информация о заригистрированных товарных знаках. Ссылка на источник `      
+        ]
+            , afterHtml:''
+            , lblcolor: '#041039'
          }
                
         
@@ -213,9 +227,12 @@ export const getMainform = async (obj) => {
                
                
             
-    })
+    }
 
-    return mainForm 
+    )
+
+    return mainForm
+   
 }
 
 export function getOBJpublic (p='UL') {
@@ -320,8 +337,8 @@ export function getOBJpublic (p='UL') {
             
 
         }
+        
     }
-
 }
 
 

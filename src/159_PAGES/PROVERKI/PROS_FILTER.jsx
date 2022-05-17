@@ -4,6 +4,7 @@ import { f_getknm_dopinfo } from '../../JS/SQL'
 import GET_MODAL from '../../JS/GET_MODAL'
 import MAIN_CARD from '../../JS/MAIN_CARD'
 import DOP_INFO from './DOP_INFO'
+ import ZAGOLOVOK from '../../COMPONENTS/ZAGOLOVOK'
 
 
 
@@ -170,6 +171,7 @@ function FILTER_PANEL ()
  
  { 
 return (<>
+<ZAGOLOVOK text={`Государственные проверки`}/>
         <div  style={{
          display:'grid'
         ,alignItems:'center'

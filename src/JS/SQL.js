@@ -14,9 +14,9 @@ import {getResponsePg,render} from './connection'
 
 
        
-     export async function result (inn,commercial) {
+     export async function result (inn,kpp,commercial) {
        let sql='';
-       if (commercial===0) {sql= `f_getformsX('${inn}')`}  
+       if (commercial===0) {sql= `f_getformsX('${inn}','${kpp}')`}  
        if (commercial===1) {sql= `f_getforms_free('${inn}',1)`}
        if (commercial===2) {sql= `f_getforms_free('${inn}',2)`}
 

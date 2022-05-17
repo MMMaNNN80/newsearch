@@ -4,6 +4,7 @@ import GETTABLE from "../COMPONENTS/GETTABLE";
 import {getMassRows} from "../JS/properties";
 import { getEmpty } from "../JS/properties";
 import MAIN_CARD from "../JS/MAIN_CARD";
+import ZAGOLOVOK from "../COMPONENTS/ZAGOLOVOK";
 
 
 const CONTACTS_DATA = (props) => {
@@ -43,6 +44,7 @@ let massPhones = []
 function DATA() {
 return (
 <Fragment>
+  <ZAGOLOVOK text={'Телефоны и адреса'}/>
        {massPhones.length>0 ? <GETTABLE funcGetRows={[...getMassRows(massPhones)]}  //Регистрационные данные
             style={{
                 tclass: ["mtbl"],
