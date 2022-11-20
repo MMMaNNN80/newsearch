@@ -34,7 +34,6 @@ for (let i = 0; i < mass.length; i++) {
   } return masshttp
 }
 
-
 export function getMassRows(mass = [], ishead = true,thStyles={},tdStyles = {}) {
   let m = []
 
@@ -66,7 +65,8 @@ export function getMassRows(mass = [], ishead = true,thStyles={},tdStyles = {}) 
   )
   return m
 }
-
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 export function getMassForm(server = "159", form = "OSN", mainForm = getOBJpublic()) {
   let mass = []
   //---Основное меню
@@ -75,7 +75,6 @@ export function getMassForm(server = "159", form = "OSN", mainForm = getOBJpubli
   {style= {width:'10px', height:'10px',background: 'orange' }}
 
   if (mainForm.isacting ===1  && !mainForm.status.value.includes('ликвид' || 'банкрот')) {style= {width:'10px', height:'10px',background: 'green' }}
-
 
   if (server === "159") { mass.push([mainForm.dataport_id.name, mainForm.dataport_id.value, 'OSN', { "color": "lightgreen" }]) }
   if (server === "151") { mass.push([mainForm.sparkid.name, mainForm.sparkid.value, 'OSN', { "color": "cyan" }]) }
@@ -105,25 +104,42 @@ export function getMassForm(server = "159", form = "OSN", mainForm = getOBJpubli
   </span> : mainForm.status.value
      , 'OSN', {}])
   mass.push([mainForm.leader.name, mainForm.leader.value, 'OSN', {}])
+  
+  if(mainForm.massCompReg && mainForm.massCompReg.length>0) 
+  { mass.push([mainForm.compReg.name, 
+    mainForm.massCompReg.map((el,i)=>{ return (
+    <div style={{minWidth:'200px',maxWidth:'350px',textAlign:'left',padding:'10px', border:'1px dotted orange'}} key={i}>
+    <div style={{display:'inline-flex'}}>
+    <span style={{color:'white'}}> {`ИНН: `}</span>  <span>{el.inn}</span>
+    <span style={{color:'white'}}> {`ОГРН: `}</span>  <span>{el.ogrn}</span>
+    </div>
+    <div style={{color:'orange'}}>{el.name}</div>
+    <div style={{fontSize:'10px'}}>{`* актуально на ${el.actual_date}`}</div>
+    
+    <div style={{display:'inline-flex'}}>
+    <span style={{color:'white'}}> {`ГРН: `}</span>  <span>{el.grn}</span>
+    <span style={{color:'white'}}> {`Дата ГРН: `}</span>  <span>{el.recdate}</span>
+    </div>
+  
+    </div>
+    )
+    }) , 'OSN', {}])} 
 
-  //--------Контакты
+    //--------Контакты
   mass.push(([mainForm.address.name, mainForm.address.value, 'CONT', {}]))
   mass.push(([mainForm.phones.name, mainForm.phones.value, 'CONT', {}]))
   mass.push(([mainForm.phone_parsed.name, mainForm.phone_parsed.value, 'CONT', {}]))
   mass.push(([mainForm.email.name, mainForm.email.value, 'CONT', {}]))
   mass.push(([mainForm.web.name, mainForm.web.value, 'CONT', {}]))
 
+mass = mass.filter(el => el[2] === form)
+mass = getRows(mass)
 
 
-
-  mass = mass.filter(el => el[2] === form)
-  ///console.log(mass)
-
-  mass = getRows(mass)
-
-
-  return mass   // 
+  return mass   //
 }
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 
 export const getParamsObj = () => {
   const obj = {
@@ -225,7 +241,7 @@ export function getQuadr(txt=null, style = {}) {
   return (
     <span>
       <div style={{ "display": "inline-flex",background:'green',...style}}></div>
-      {txt? <div style={{ "display": "inline" }}>{txt}</div> :null}
+      {txt? <div style={{ "display": "inline",padding:'5px' }}>{txt}</div> :null}
     </span>
   )
 }
@@ -235,17 +251,18 @@ export function getNavMenuMass(type = 'UL', inn='',mainForm = {}) {
   
   if (type === 'UL') {
     mass = [
-      { id: 0, name: `Основная информация`, isCom: false, type: 'div', path: null }
-      , { id: 1, name: `Карточка компании`, isCom: false, type: 'nav', path: `/${inn}` }
-      , { id: 2, name: `Регистрационные данные`, isCom: false, type: 'nav', path: `regdata/${inn}` }
-      , { id: 3, name: `Виды экономической деятельности`, isCom: false, type: 'nav', path: `/okveds/${inn}` }
-      , { id: 4, name: `Телефоны и Адреса`, isCom: true, type: 'nav', path: `/info/${inn}` }
-      , { id: 5, name: `История изменений`, isCom: true, type: 'nav', path: `/changescompany/${inn}` }
-      , { id: 17, name: `Лицензии, сертификаты и зарегистрированные товарные знаки`, isCom: true, type: 'nav', path: `/licencies/${inn}` }
-      , { id: 6, name: `Структура компании`, isCom: false, type: 'div', path: null }
-      , { id: 7, name: `Органы управления`, isCom: true, type: 'nav', path: `/leaders/${inn}` }
-      , { id: 8, name: `Совладельцы`, isCom: true, type: 'nav', path: `/cowners/${inn}` }
-      , { id: 9, name: `Структура (развернуто)`, isCom: true, type: 'nav', path: `/openstruct/${inn}` }
+      { id: 0, name: `Основная информация`, isCom: false, type: 'div', path: null  }
+      , { id: 1, name: `Карточка компании`, isCom: false, type: 'nav', path: `/${inn}`}
+      , { id: 2, name: `Регистрационные данные`, isCom: false, type: 'nav', path: `regdata/${inn}`} 
+      , { id: 3, name: `Виды экономической деятельности`, isCom: false, type: 'nav', path: `/okveds/${inn}`}
+      , { id: 4, name: `Телефоны и Адреса`, isCom: false, type: 'nav', path: `/info/${inn}` }
+      , { id: 5, name: `История изменений`, isCom: false, type: 'nav', path: `/changescompany/${inn}`} 
+      , { id: 17, name: `Лицензии, сертификаты и зарегистрированные товарные знаки`, isCom: true, type: 'nav', path: `/licencies/${inn}`} 
+    
+      , { id: 6, name: `Структура компании`, isCom: false, type: 'div', path: null ,exTextMass:[]}
+      , { id: 7, name: `Органы управления`, isCom: true, type: 'nav', path: `/leaders/${inn}` } 
+      , { id: 8, name: `Совладельцы`, isCom: true, type: 'nav', path: `/cowners/${inn}`} 
+      , { id: 9, name: `Структура (развернуто)`, isCom: true, type: 'nav', path: `/openstruct/${inn}`}
       , { id: 10, name: `Деятельность компании`, isCom: false, type: 'div', path: null }
       , { id: 11, name: `Баланс и отчет о финансовых результатах`, isCom: true, type: 'nav', path: `/finstr/${inn}` }
       , { id: 12, name: `Участие в Госконтрактах`, isCom: true, type: 'nav', path: `/goszakupki/${inn}` }

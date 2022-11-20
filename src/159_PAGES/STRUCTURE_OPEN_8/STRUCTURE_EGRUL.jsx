@@ -8,11 +8,12 @@ import { Link } from "react-router-dom";
 
 const STRUCTURE_EGRUL = ({ cowmass }) => {
 
+  
     useState({ transform: "rotate(0deg)", backgroundColor: "white" })
 
   // paginations
   const [currentPage, setCurrentPage] = useState(1)
-  const [perCountPages] = useState(10)
+  const [perCountPages] = useState(25)
 
   const lastPageIndex = currentPage * perCountPages  //5
   const firstPageIndex = lastPageIndex - perCountPages
@@ -38,6 +39,7 @@ const STRUCTURE_EGRUL = ({ cowmass }) => {
       ]
     )
   });
+  console.log(mass)
   const cnt = massEGRULChild.length
   mass = massEGRULChild
   mass = mass.slice(firstPageIndex, lastPageIndex)

@@ -12,12 +12,7 @@ const FZ44 = ({ main, inn}) => {
 
    const excHback = '483D8B'
    const excHtxt = 'f2f3f7'
-
-
-       
-   
-
-    return (
+     return (
         <Fragment>
      
           <GETGOSZAKUPKIGOV 

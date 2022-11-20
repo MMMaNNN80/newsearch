@@ -1,6 +1,7 @@
 
 import s from '../CSS/scrtable.module.css'
 import { getEmpty } from './properties'
+import { Fragment } from 'react'
 
 const GET_TABLE_SRC = ({massObjCol,massValues, thread,heightT,widthT,styleCell={}} )=>{
 
@@ -37,11 +38,11 @@ if(!widthT) {widthT={width:'100%'}}
 
                     {massValues.map((tr_,number)=>{
                          return  ( 
-                              <>
-                              <tr style={{}}  key={number}>
+                              <Fragment key={number}>
+                              <tr style={{}}  >
       {tr_.map((td_,j)=>{ return <td style={{...styleCell}} key={j}>{td_}</td> })}
                               </tr>
-                              </>)
+                              </Fragment >)
                     })}
 
                 </tbody>

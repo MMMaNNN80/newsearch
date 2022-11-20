@@ -23,6 +23,7 @@ useEffect(() => {
       obj.table = `f_getRecursStruct('${inn}')`
       obj.host = '/159'
       await getResponsePg(obj).then(mass => { 
+      
        setCowMass ({mass:mass,loading:false})    
     } ) }
     getCowners()

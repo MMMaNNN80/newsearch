@@ -1,7 +1,13 @@
 import {getParamsObj} from './properties'
 import {getResponsePg,render} from './connection'
 
-  export async function getDATAGoszakupki (inn)  {
+  
+
+
+
+
+
+   export async function getDATAGoszakupki (inn)  {
     if(inn) {
        
       let obj =  getParamsObj()
@@ -43,13 +49,13 @@ import {getResponsePg,render} from './connection'
           
 
            
-         export async function getDATAinn (inn) {
+         export async function getDATAinn (inn,ogrnip = null) {
           if (inn){ 
             
            let obj =  getParamsObj()
            obj.inn = inn
            obj.fields = "*"
-           obj.table = `f_getformsIP('${inn}')`
+           obj.table = `f_getformsIP('${inn}', '${ogrnip}')`
            obj.host = '/159'
            return await getResponsePg(obj)
            }}
@@ -126,6 +132,16 @@ import {getResponsePg,render} from './connection'
        return await getResponsePg(obj)
        }}
 
+       
+     export async function f_getTovZnak (inn ='') {
+      if (1){        
+       let obj =  getParamsObj()
+       obj.fields = "*"
+       obj.table = `f_getTOVZNAK('${inn}')`
+       obj.host = '/159'
+       return await getResponsePg(obj)
+       }}
+
        export async function f_getknm_dopinfo (rp_id =0) {
         if (1){        
          let obj =  getParamsObj()
@@ -134,3 +150,21 @@ import {getResponsePg,render} from './connection'
          obj.host = '/159'
          return await getResponsePg(obj)
          }}
+
+         export async function f_get_substates (dp_id =0,y = 0) {
+               
+           let obj =  getParamsObj()
+           obj.fields = "*"
+           obj.table = `f_get_substates(${dp_id},${y})`
+           obj.host = '/159'
+           return await getResponsePg(obj)
+         }
+// МОНИТОРИНГ
+         export async function f_get_migr_all_info() {
+          let obj =  getParamsObj()
+          obj.fields = "*"
+          obj.table = `f_get_migr_all_info()`
+          obj.host = '/159'
+          return await getResponsePg(obj)
+        }
+

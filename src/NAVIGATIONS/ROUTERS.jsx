@@ -13,7 +13,7 @@ import PLEDGES_UK from '../159_PAGES/PLEDGES_UK_12';
 import FREE_PAGE from '../159_PAGES/FREE_PAGES';
 import ARBITR from '../159_PAGES/ARBITR_11';
 import PROS_FILTER from '../159_PAGES/PROVERKI/PROS_FILTER';
-import LIC_ZNAK from '../159_PAGES/LIC_ZNAK';
+import LIC from '../159_PAGES/LIC';
 import {
     Route,
     Routes,
@@ -41,7 +41,7 @@ const ROUTERS = (props) => {
             <>
                 <Routes>
 
-                    <Route path="/" element={<RAPF mainForm={props.mainForm} cardstate={props.cardstate} />} />
+                    <Route path="/" element={<RAPF mainForm={props.mainForm}  cardstate={props.cardstate} />} />
                     <Route path="/:inn" element={<RAPF mainForm={props.mainForm} cardstate={props.cardstate} />} />
                 </Routes>
             </>
@@ -62,7 +62,7 @@ const ROUTERS = (props) => {
                     <Route path="/okveds/:inn" element={<OKVEDS mainForm={props.mainForm} />} />
                     <Route path="/info/:inn" element={<CONTACTS_DATA mainForm={props.mainForm} />} />
                     <Route path="/changescompany/:inn" element={<CHANGES_COMP mainForm={props.mainForm} />} />
-                    <Route path="/licencies/:inn" element={<LIC_ZNAK mainForm={props.mainForm} />} />
+                    <Route path="/licencies/:inn" element={<LIC mainForm={props.mainForm} tovZnak = {props.tovZnak} />} />
                     <Route path="/leaders/:inn" element={<LEADERS mainForm={props.mainForm} />} />
                     <Route path="/cowners/:inn" element={<COWNERS mainForm={props.mainForm} />} />
                     <Route path="/openstruct/:inn" element={<STRUCTURE_OPEN mainForm={props.mainForm} />} />
@@ -85,8 +85,10 @@ const ROUTERS = (props) => {
                     <Route path="/:inn" element={<CARD_159 mainForm={props.mainForm} cardstate={props.cardstate} />} />
                     <Route path="regdata/:inn" element={<REGDATA mainForm={props.mainForm} />} />
                     <Route path="/okveds/:inn" element={<OKVEDS mainForm={props.mainForm} />} />
-                    <Route path="/info/:inn" element={<FREE_PAGE id={4} mainForm={props.mainForm} />} />
-                    <Route path="/changescompany/:inn" element={<FREE_PAGE id={5} mainForm={props.mainForm} />} />
+                    <Route path="/info/:inn" element={<CONTACTS_DATA mainForm={props.mainForm} />} />
+                    <Route path="/changescompany/:inn" element={<CHANGES_COMP mainForm={props.mainForm} />} />
+                    {/* <Route path="/info/:inn" element={<FREE_PAGE id={4} mainForm={props.mainForm} />} /> */}
+                    {/* <Route path="/changescompany/:inn" element={<FREE_PAGE id={5} mainForm={props.mainForm} />} /> */}
                     <Route path="/leaders/:inn" element={<FREE_PAGE id={7} mainForm={props.mainForm} />} />
                     <Route path="/cowners/:inn" element={<FREE_PAGE id={8} mainForm={props.mainForm} />} />
                     <Route path="/openstruct/:inn" element={<FREE_PAGE id={9} mainForm={props.mainForm} />} />

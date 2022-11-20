@@ -7,10 +7,6 @@ import { getEmpty } from "../../JS/properties";
 
 const BALANCE = ({mainForm}) => {
 
-
-
- 
-
 if(!mainForm.massFinReport || mainForm.massFinReport.length<1) 
 {return (getEmpty('Данные о наличии отчета "Бухгалтерский баланс" отсутствуют'))}
 

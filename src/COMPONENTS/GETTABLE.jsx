@@ -17,12 +17,18 @@ function GETTABLE(props) {
     return (
         <>
             <table style={{...tStyle,lineBreak:'auto' }} className={tClass} onClick={props.onClick}>
-                <caption align="top" style={captionStyle}> {props.name}</caption>
-                {[...colmass]}
+         
+                    {[...colmass]}
+                
+            <caption align="top" style={captionStyle}> {props.name}</caption>
+               
+               
+              
 
                 <tbody style={stbody}>
                     {(!isOpen && props.endtbl && funcGetRows_all.length >= cut) ? [...funcGetRows] : [...funcGetRows_all]}
                 </tbody>
+               
             </table>
             {props.endtbl && funcGetRows_all.length >= cut ?
                 <div style={{...tStyle}} className="endreport"

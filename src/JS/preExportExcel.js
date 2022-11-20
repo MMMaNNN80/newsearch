@@ -358,7 +358,7 @@ export const getDetailzakupki_ejs = async (inn, year = 2020, x, fz = 44, hbgColo
         let obj = getParamsObj()
         obj.inn = inn
         obj.fields = "*"
-        obj.table = `f_getarbitrdetailExcel('${inn}',` + (year ? `'${year}'` : 'null') + ',' + (part ? `'${part}'` : 'null') + ',' + (category ? `'${category}'` : 'null') + ')'
+        obj.table = `f_getarbitrdetailexcel('${inn}',` + (year ? `'${year}'` : 'null') + ',' + (part ? `'${part}'` : 'null') + ',' + (category ? `'${category}'` : 'null') + ')'
         obj.host = '/159'
         obj.dopSql = ''
         await getResponsePg(obj)

@@ -216,7 +216,8 @@ return (<>
                 
                 style={{width:'100%',height:'auto',fontSize:'10px',marginBottom:'10px'}}>
                 {filter.kind.map((kind,i) => 
-            <option key={i}   selected = {kind.checked }
+            <option key={i}   
+            selected = {kind.checked }
                 className=""
                  style={{}}
                 
@@ -301,11 +302,11 @@ function getMassData(mass) {
 
                  
                  return mass.map((data, i) => {
-                     let address = data.address.split("#")
-                     let inspectors = data.inspectors_fio.split("#").join(', ')
+                     let address = data.address?.split("#")
+                     let inspectors = data.inspectors_fio?.split("#").join(', ')
                      let style = { background: 'aqua' }
-                     if (data.status.includes('Завер')) { style = { background: 'green' } }
-                     if (data.status.includes('Ожидает')) { style = { background: 'orange' } }
+                     if (data.status?.includes('Завер')) { style = { background: 'green' } }
+                     if (data.status?.includes('Ожидает')) { style = { background: 'orange' } }
          
                      return [
                          i + 1
@@ -326,7 +327,7 @@ function getMassData(mass) {
                              <div style={{fontWeight:'700',color:'white',fontSize:'13px'}}>{`${data.type_knm} . ${data.kind}`}
                              </div>
                              <ul style={{ color: 'lightblue', margin: '2px' }}>
-                                 {address.map((a, n) => <li key={n} style={{ padding: '0px', margin: '5px' }}>{a}</li>)}
+                                 {address?.map((a, n) => <li key={n} style={{ padding: '0px', margin: '5px' }}>{a}</li>)}
                              </ul>
                     
                          </>

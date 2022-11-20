@@ -8,8 +8,6 @@ import MAIN_CARD from "../JS/MAIN_CARD"
 const CARD159_IP = ({massIP}) => {
 
 
-    
-
     if (massIP.mass && massIP.mass.length<1) {return null}
     const obj = massIP.mass[0]
 

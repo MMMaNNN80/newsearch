@@ -17,55 +17,58 @@ const NAVLINKS = (props) => {
 const inn =(props.state ) ? props.state[0].data.inn  : null
 const img = <img src="..\img\close.png" height="10px" alt=""/>
 
-if (inn && inn.length===10 ){
+if (inn?.length===10 )
+{
 const mass =getNavMenuMass('UL',inn,props.mainForm)
 
-if(props.cardstate >1) {return null}
+if (props.cardstate ===3) {return null}
 if (props.commercial ===0  ) {mass.map(el=> el.isCom=false)}
 
 
 return (
     
-        <animated.div key={1}  style={sMenu} className={"menu"} >
+        <animated.div  style={sMenu} className={"menu"} >
             <img src="..\icon\paper-plane.png" height="40px" alt="a" />
             <h6 >Навигация</h6>
         {mass.map((el,x)=>{
           
-          if(el.type==='div') { return <div key={x}  className = "navdiv">{el.name}</div>}
-          if(el.type==='nav') { return <><NavLink key={x} to={el.path}>{<span style={{margin:0,padding:0}}>{el.isCom ? img:''} {el.name}</span>}</NavLink> <br /></>}
+          if(el.type==='div') { return <div key={el.id}  className = "navdiv">{el.name}</div>}
+          if(el.type==='nav') { return <>
+          <NavLink key={el.id} to={el.path}>
+            {<span  style={{margin:0,padding:0}}>{el.isCom ? img:''} {el.name}</span>}
+            </NavLink> <br /></>}
           return null
         })}
+       
         </animated.div>
        
 )} 
 
-
-
-if (inn && inn.length===12 && props.cardstate>1 ) {
+if (inn?.length===12 && props.cardstate===3 ) {
       const massNavIP =getNavMenuMass('IP',inn)
     if (props.commercial ===0) {
         
         massNavIP.map(el=> el.isCom=false)
     }
-
-    return (
-        
-            <animated.div  key={2} style={sMenu}  className={"menu"} >
+ return (
+        <animated.div   style={sMenu}  className={"menu"} >
                 <img src="..\icon\paper-plane.png" height="40px" alt="a" />
                 <h6 >Навигация</h6>
-                {massNavIP.map((el,z)=>{
+    
+    {massNavIP.map((el,z)=>{
           
           if(el.type==='div') { return <div key={z} className = "navdiv">{el.name}</div>}
-          if(el.type==='nav') { return <><NavLink  key={z} 
+          if(el.type==='nav') { return <>
+          <NavLink  key={z}
           to={el.path}>{<span style={{margin:0,padding:0}}>
-            {el.isCom ? img:''} {el.name}</span>}</NavLink> <br /></>}
+            {el.isCom ? img:''} {el.name}</span>}
+            </NavLink> <br /></>}
           return null
         })}
             </animated.div>
         
         )
-
- }
+      }
  
  return null;
 }

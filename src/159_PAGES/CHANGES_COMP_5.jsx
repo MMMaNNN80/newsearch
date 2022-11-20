@@ -4,6 +4,7 @@ import GETTABLE from "../COMPONENTS/GETTABLE";
 import { getMassRows } from "../JS/properties";
 import MAIN_CARD from "../JS/MAIN_CARD";
 import ZAGOLOVOK from "../COMPONENTS/ZAGOLOVOK";
+import SUBSTATES from "./SUBSTATES";
 
 
 
@@ -34,6 +35,7 @@ const CHANGES_COMP = (props) => {
     return (
       <Fragment>
         <ZAGOLOVOK text={'История изменений'}/>
+               <SUBSTATES dp_id = {mainForm.dataport_id.value}/>
         <GETTABLE key={0} funcGetRows={[...getMassRows(massSUCC)]}  //Регистрационные данные
           style={{
             tclass: ["mtbl"],

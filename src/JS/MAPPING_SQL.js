@@ -9,9 +9,8 @@ export const getMainform = async (obj) => {
      let objX = mass // такое название объекта по имени процедуры
              
      //---ОСНОВНАЯ ИНФОРМАЦИЯ
- if (objX[0].src==='RAPF'){
-                   
-                    mainForm = {...objX[0], inn: {value:objX[0].inn_branch}} 
+ if (objX[0]?.src==='RAPF'){
+                   mainForm = {...objX[0], inn: {value:objX[0].inn_branch}} 
                     return mainForm
                 }
                 
@@ -41,6 +40,8 @@ export const getMainform = async (obj) => {
                 mainForm.leader_post.value = objX[0].position
                 mainForm.isacting = objX[0].isacting
                 mainForm.knm_cnt = objX[0].knm_cnt
+                mainForm.actual_date = objX[0].actual_date
+
                 
             //
                 mainForm.regauthorityFNS.value = objX[0].regauthority
@@ -77,7 +78,9 @@ export const getMainform = async (obj) => {
                
                mainForm.massPAOcows = objX.filter(el=>el.src==='COWS_PAO')
                mainForm.massBancrupt = objX.filter(el=>el.src==='BANCRUPT')
-               mainForm.massLIC = objX.filter((el)=>el.src==='LICENCES_TOVZNAK')
+               mainForm.massLIC = objX.filter((el)=>el.src==='LICENCES')
+               mainForm.massCompReg = objX.filter((el)=>el.src==='COMPREG')
+               mainForm.massReestr = objX.filter((el)=>el.src==='REESTR')
                //-----------На бесплатные версии
                mainForm.freeMass = 
                [
@@ -216,7 +219,7 @@ export const getMainform = async (obj) => {
             ,postHtml:'Информация о регистрированных лицензиях , сертификатов, товарных знаков' 
             , massList : [
                 'Информация о лицензиях',
-                `Информация о заригистрированных товарных знаках. Ссылка на источник `      
+                `Информация о зарегистрированных товарных знаках. Ссылка на источник `      
         ]
             , afterHtml:''
             , lblcolor: '#041039'
@@ -287,6 +290,7 @@ export function getOBJpublic (p='UL') {
      report_id: {name:  'Идентификатор отчета на 159 сервере', value: ''},
      rosstat_report_id: {name:  'Идентификатор отчета в Росстат на 159 сервере', value: ''},
      branches_count: {name:  'Количество филиалов', value: ''},
+     compReg: {name:  'Компания регистратор', value: ''},
      knm_cnt:{name:  'Количество проверок государственными органами', value: ''}
      
 }

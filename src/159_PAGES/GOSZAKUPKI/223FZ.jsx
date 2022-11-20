@@ -12,9 +12,7 @@ const FZ223 = ({ main, inn}) => {
 
    const excHback =  '61543b'
    const excHtxt =  'f2f3f7'
-   
-
-    return (
+   return (
         <Fragment>
      
           <GETGOSZAKUPKIGOV 

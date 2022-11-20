@@ -1,9 +1,10 @@
 import React, { Fragment } from 'react'
-import { getMassForm } from "../JS/properties"
+import { getMassForm,getMassRows } from "../JS/properties"
 import GETTABLE from '../COMPONENTS/GETTABLE'
 import { getRows} from '../JS/properties'
 import MAIN_CARD from '../JS/MAIN_CARD'
 import ZAGOLOVOK from '../COMPONENTS/ZAGOLOVOK'
+import { getQuadr } from '../JS/properties'
 
 
 
@@ -12,7 +13,21 @@ const CARD_159 = ({ mainForm, cardstate }) => {
 
     let masshd = []
     let mass = []
-    if (mainForm.massFinReport && mainForm.massFinReport.length > 1 && mainForm.massFinReport[0].fin_type === 'rosstat_finreport') {
+    let  massReestr = []
+     massReestr = mainForm?.massReestr?.map((el,i)=>{ 
+        let background = 'green';
+        if(el.link.includes('rnp') && el.status.includes('не')) {background='pink'}
+        if(el.link.includes('reestr') && !el.status.includes('не')) {background='yellow'}
+        return (
+        [i+1,
+         el.name,
+         el.link,
+         <div>  {getQuadr(el.status,{height:'10px',width:'30px',background:background})} </div>
+        ] )} )
+        massReestr?.unshift(['#',`Наименование списка`, `Источник`, `Статус`])
+
+
+    if ( mainForm?.massFinReport?.length > 1 && mainForm.massFinReport[0].fin_type === 'rosstat_finreport') {
 
         mass = mainForm.massFinReport.filter(el => el.form.toLowerCase().includes('о прибылях и убытках') && el.curr === 1)
 
@@ -28,15 +43,20 @@ const CARD_159 = ({ mainForm, cardstate }) => {
         });
     }
 
-    if (mainForm.massWorkersNumber && mainForm.massWorkersNumber.length > 0) {
+    if (mainForm?.massWorkersNumber?.length > 0) {
+  const jsx = mainForm.massWorkersNumber.map ((el, i) => {
+    return (
+    <li style={{padding:'2px'}} key={i}>
+<span>{`${el.period}г -${el.value} чел`}</span>  {el.diff ? <span style={{background: el.diff>=0 ?'green':'darkblue', padding:'4px',fontSize:'12px',fontWeight:'700'}}>{ el.diff>=0 ? <>&uarr;</> : <>&darr;</>  } {el.diff}</span>:''}
+  </li>)})
+     
+            masshd.unshift([`Средняя численность сотрудников`,  
+          <div style={{padding:'5px'}}><ul >{jsx}</ul></div>   , {}])
 
-        mainForm.massWorkersNumber.forEach((el, i) => {
-            masshd.unshift([`Средняя численность сотрудников`, `${el.value} чел  (данные за ${el.period}г)`, {}])
-
-        })
+        
     }
 
-    masshd.length ? mass = getRows(masshd) : mass = []
+    masshd?.length ? mass = getRows(masshd) : mass = []
     function DATA() {
       
         return (
@@ -61,14 +81,25 @@ const CARD_159 = ({ mainForm, cardstate }) => {
                         }
                         name={"Контакты:"}
                     />
-                    {mass.length > 0 ? <GETTABLE key={2} funcGetRows={mass}
+                   
+                   {massReestr && massReestr.length > 1 ? <GETTABLE key={2} funcGetRows ={getMassRows(massReestr)}
                         style={
                             {
                                 tclass: ["mtbl"],
                                 captionStyle: { "color": "lightgrey", "alignText": "center", }
                             }
                         }
-                        name={"Признаки хозяйственной деятельности"}
+                        name={"Позитивные, негативные,  списки (по данным Росстат):"}
+                    /> : ''}
+   
+                    {mass.length > 0 ? <GETTABLE key={3} funcGetRows={mass}
+                        style={
+                            {
+                                tclass: ["mtbl"],
+                                captionStyle: { "color": "lightgrey", "alignText": "center", }
+                            }
+                        }
+                        name={"Признаки хозяйственной деятельности:"}
                     /> : ''}
             
                 <KNM />
@@ -85,7 +116,8 @@ const CARD_159 = ({ mainForm, cardstate }) => {
     const KNM = () => {
     
 return (<>
-            <div style={{ "color": "lightgrey", "alignText": "center", paddingTop: '5px',paddingBottom:'5px', display: 'flex', justifyContent: 'space-between' }}>
+            <div style={{ "color": "lightgrey", "alignText": "center", paddingTop: '5px',paddingBottom:'5px'
+            , display: 'flex', justifyContent: 'space-between' }}>
                 <span>Сведения о проверках государственными органами</span>
                 
             </div>

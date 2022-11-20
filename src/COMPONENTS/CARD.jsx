@@ -7,8 +7,8 @@ function CARD({ state, update, setCardstate, cardstate, status, setStatus }) {
         let mass = state
 
         return mass.map((obj, num) => {
-            const shortname = obj.value;
-            const data = obj.data;
+            const shortname = obj?.value;
+            const data = obj?.data;
             let color = [];
             let branchStyle = {}
             obj.key = num
@@ -63,12 +63,12 @@ function CARD({ state, update, setCardstate, cardstate, status, setStatus }) {
             function clickHanhler(e) {
 
                 if (e.target.id === "159") {
-                    cardstate >0 ? setCardstate(2): setCardstate(0) ;
+                    cardstate >0 ? setCardstate(3): setCardstate(0) ;
                    setStatus(prev => {return {...prev, S159: !status.S159}} )}; 
                   
                 
                 if (e.target.id === "151") {
-                    cardstate >0 ? setCardstate(2): setCardstate(0) ;
+                    cardstate >0 ? setCardstate(3): setCardstate(0) ;
                    setStatus(prev => {
                         return {
                             ...prev,
@@ -76,7 +76,7 @@ function CARD({ state, update, setCardstate, cardstate, status, setStatus }) {
                         }}) }
 
                 if (e.target.id === "CDI") {
-                    cardstate > 0 ? setCardstate(2): setCardstate(0);
+                    cardstate > 0 ? setCardstate(3): setCardstate(0);
                   setStatus(prev => {
                         return {
                             ...prev,
@@ -96,6 +96,9 @@ function CARD({ state, update, setCardstate, cardstate, status, setStatus }) {
                 <div className="card" key={obj.key}
                     onClick={(e) => {
                         setDataReport(obj.key, e.target.name) }}>
+                    
+
+                    
                     <div className="status " style={color}></div>
 
 
@@ -123,7 +126,7 @@ function CARD({ state, update, setCardstate, cardstate, status, setStatus }) {
 
 
                         <div className="orgaddress monospace lead">
-                            {data.address.unrestricted_value}
+                            {data.address?.unrestricted_value}
 
                             <BTNCLOSE />
                         </div>

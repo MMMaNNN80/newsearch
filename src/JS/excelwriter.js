@@ -6,6 +6,9 @@ import FileSaver from 'file-saver';
 
 export const writeExcelJS = async (data=[],workSheetColumnNames,WorksheetNames,filePath, hbgColor ='131b8f',htextcolor= 'f2f3f7') =>{
     
+  
+  
+  
   const workbook = new XL.Workbook();
   
   

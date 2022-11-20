@@ -1,14 +1,19 @@
 import React from "react"
+import INN_DEMO from "./INN_DEMO"
 import LIST_WORKS from "./LISTS_WORKS"
+
 
 
 const SEVICES = ({activeModal,setActiveModal }) => {
 
-   const ListService = 
+const ListService = 
 [{id:1, func: <LIST_WORKS name = {`СЕРВИС "РАБОТА СО СПИСКАМИ"`} 
 activeModal={activeModal} 
-setActiveModal={setActiveModal}  /> }]
-
+setActiveModal={setActiveModal}  /> }
+, {id:2, func: <INN_DEMO name = {`ИНН ДЛЯ ПРОВЕДЕНИЯ ДЕМО`} 
+activeModal={activeModal} 
+setActiveModal={setActiveModal}  /> }
+]
 
 return (
   
@@ -18,14 +23,6 @@ return (
        
        </>
            )
-
-    
-
-
-       
-       
-  
-//     )
 
 }
 export default SEVICES;
