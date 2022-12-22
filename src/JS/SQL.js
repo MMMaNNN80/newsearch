@@ -168,3 +168,21 @@ import {getResponsePg,render} from './connection'
           return await getResponsePg(obj)
         }
 
+  // ХОЛДИНГИ СОВЛАДЕНИЯ
+
+  export async function h_get_initialstate(holder = null) {
+    let obj =  getParamsObj()
+    obj.scheme = 'h3k'
+    obj.fields = "*"
+    obj.table = `h_get_initialstate(${holder})`
+    obj.host = '/151'
+    return await getResponsePg(obj)
+  }
+  export async function f_getforms(inn = null,sh='h3k', host='/151' ) {
+    let obj =  getParamsObj()
+    obj.scheme = sh
+    obj.fields = "*"
+    obj.table = `f_getforms('${inn}')`
+    obj.host = host
+    return await getResponsePg(obj)
+  }

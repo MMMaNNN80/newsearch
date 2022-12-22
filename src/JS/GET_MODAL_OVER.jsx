@@ -7,20 +7,17 @@ import  React from 'react';
  const GET_MODAL_OVER = ({CHILDREN}) => {
    return (
 <div  style={{
-  
-  display: 'grid'
-            , gridTemplateColumns:'minmax(100px,auto)  minmax(50%,60%)  auto'
-            ,width:'100vw'
+            width:'100vw'
             ,height:'100vh'
-            ,background:'#323b3f'
+            ,background:'#39484b'
             ,position:'absolute'
-            ,zIndex:2
+            ,zIndex:1
             ,overflow:'auto'
 
             }}>
-      <div style={{gridColumn:2,width:'100%'}}>   
+      
       {CHILDREN ? CHILDREN  :null}
-      </div>
+
       </div>
   
     );

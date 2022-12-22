@@ -49,11 +49,11 @@ export const getResponsePg =  async ( obj
   ) 
   
  const jsonData= await response.json()
- ///console.log(jsonData)
+//  console.log(jsonData)
 
  
  console.log('загружаем данные с БД');
-return await jsonData;
+return  jsonData;
 }
 
 

@@ -52,32 +52,29 @@ function MIGRATIONS({setActionList}) {
 
   if (mass_all.length > 0) {
     return (
+      <div style={{gridColumn:2,paddingTop:'10px'}}>
         <div style={{
-         overflow: 'auto',
-          height: '100vh'
-        , backgroundColor: '#2f3039'
-        ,paddingleft:'10px'
-    
-        }}>
-            
- 
+          width:'100%'
+          ,height:'200px'
+          ,background:'white'
+          }}>
+      <div style={{
         
-        <div style={{
-  position:'fixed'
-          ,fontSize: '60px'
+          textAlign:'left'
+          ,height:'200px'
            , fontWeight: 450
-           ,width:'auto'
+          ,width:'100%'
            , color: 'white'
-           , background: 'rgb(50 101 146)', padding: '80px'
-           , fontFamily: 'sans-serif'
+           , background: 'rgb(50 101 146)'
+           ,opacity:0.95
+           , padding: '50px'
+           , fontFamily: 'sans-serif'   
           
-         }}>МОНИТОРИНГ МИГРАЦИИ ДАННЫХ </div>   
-         <div style={{
-     position:'fixed'
-       ,border:'1px solid grey'
+         }}> <div style={{ fontSize: '45px'
+         ,letterSpacing:3}}>МОНИТОРИНГ МИГРАЦИИ ДАННЫХ</div>
+<div style={{
+        border:'1px solid grey'
        ,padding:'8px'
-       ,marginTop:'20px'
-       ,marginLeft:'5px'
        ,width:'110px'
      , fontSize:'14px'
      , color:'white'
@@ -85,16 +82,21 @@ function MIGRATIONS({setActionList}) {
      }}  onClick={()=>{setActionList({open:false,id:0})}}>
         {`<---- НАЗАД`}
         </div>
+
+          </div>   
+    
+        
+  
+         
        
         
-            <div style={{ zIndex:0
+            <div style={{ zIndex:1,marginTop:'40px',overflow:'auto'
             }}>
               <div
                 style={{
                   display: 'grid'
-                  ,paddingTop:'150px'
-                  , gridTemplateColumns: '1fr 3fr  50px'
-                  , columnGap: '50px'
+                  , gridTemplateColumns: '1fr 1fr  50px'
+                  , columnGap: '10px'
                   , rowGap: '10px'
                   , alignItems: 'flex-start'
                   , justifyItems: 'flex-start'
@@ -104,13 +106,13 @@ function MIGRATIONS({setActionList}) {
                   , height: 'auto'
                  ,zindex:0
                 }}>
-                <div style={{ gridColumn: 1,paddingTop:'200px' }}>
+                <div style={{ gridColumn: 1}}>
                   <GET_TABLE_SRC massObjCol={
                     [
                       { name: 'Группа загрузок', style: { width: '7%', fontSize: '13px' } },
                       { name: 'Статус', style: { width: '6%', fontSize: '13px' } },
                       { name: 'Запуск', style: { width: '6%', fontSize: '12px' } },
-                      { name: `Тематика объектов`, style: { width: '30%', fontSize: '16px' } }
+                      { name: `Тематика объектов`, style: {width: '30%', fontSize: '16px' } }
                     ]
                   }
                     massValues={mmm}
@@ -120,13 +122,13 @@ function MIGRATIONS({setActionList}) {
                     thread={{ background: '#4f64ca' }}
                   />
                 </div>
-                <div style={{ gridColumn: 2,paddingTop:'200px' }}>
+                <div style={{ gridColumn: 2 }}>
                   <TABLES_INFO />
                 </div>
               </div>
             </div>
           </div>
-      
+          </div>
     
   
    

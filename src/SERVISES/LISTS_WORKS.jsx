@@ -8,16 +8,14 @@ import GET_TABLE_SRC from "../JS/GET_TABLE_SCR"
 import DatePicker, { registerLocale } from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import ru from "date-fns/locale/ru";
-import { Tabs, Tab, TabPanel, TabList } from 'react-web-tabs';
-import 'react-web-tabs/dist/react-web-tabs.css';
+// import { Tabs, Tab, TabPanel, TabList } from 'react-web-tabs';
+// import 'react-web-tabs/dist/react-web-tabs.css';
 import Spinner from 'react-bootstrap/Spinner';
 import {getListWorkData_ejs} from '../JS/preExportExcel'
 //import e from "cors";
 
 
 registerLocale("ru", ru);
-
-
 
 const LIST_WORKS = ({ activeModal, setActiveModal, name }) => {
 
@@ -31,8 +29,6 @@ const LIST_WORKS = ({ activeModal, setActiveModal, name }) => {
     const massExcel = useRef([])
    
   
-
-
     if (!load.current) {
         load.current = false
         f_getDictionary()
@@ -114,30 +110,35 @@ let massX = []
                     <form onSubmit={(e) => e.preventDefault()} >
                         <div style={{ display: isCollapse ? 'none' : 'block' }}>
                              <hr />
-                            <Tabs defaultTab="1">
+                            {/* <Tabs defaultTab="1">
                                 <TabList>
                                     <Tab  tabFor="1"><span style={{ color: '#006f90', fontWeight: '700' }}>ОСНОВНЫЕ ФИЛЬТРЫ</span></Tab>
                                     <Tab tabFor="2"><span style={{ color: '#006f90', fontWeight: '700' }}>ПОИСК ПО ИНН</span> </Tab>
                                 </TabList>
                                 <TabPanel  tabId="1">
-                                    <div style={{ marginTop: '10px' }}>
+                                  
+                                  
+      
+                               
+                                </TabPanel>
+                                <TabPanel tabId="2">
+                                           
+                                </TabPanel>
+                            </Tabs> */}
+                              <div style={{ marginTop: '10px' }}>
                                             {DOP_OPTIONS()}
                                     </div>
                                     <div style={{ display: 'grid', gridTemplateColumns: '2fr  2fr 1fr', padding: '5px' }}>
                                             {TEXT_REASON()}
                                            <div style={{gridRow:4,gridColumn:'1/3'}}>   {REVENUE()} </div>  
-      
-                                        <div style={{ gridColumn: 3, gridRow: '1/5', borderLeft: '3px dotted black' }}>
+                                           <div style={{ gridColumn: 3, gridRow: '1/5', borderLeft: '3px dotted black' }}>
                                             {DATEPICKER()}
                                             <div > {CHARTER_CAPITAL()}</div>   
                                         </div>
                                  
                                     </div>
-                                </TabPanel>
-                                <TabPanel tabId="2">
-                                            {GET_INN()}
-                                </TabPanel>
-                            </Tabs>
+                                    {GET_INN()}
+                           
                             <hr />
                             <br />
                         </div>

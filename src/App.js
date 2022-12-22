@@ -21,7 +21,7 @@ import {
 
 } from './JS/SQL';
 import MIGRATIONS from './SERVISES/MIGRATIONS';
-import SEVICES from './SERVISES/MIGRATIONS';
+import SEVICES from './SERVISES/SERVICES';
 import ROUTERS_IP from './NAVIGATIONS/ROUTERS_IP';
 import GET_MODAL_OVER from './JS/GET_MODAL_OVER';
 import COWNER_LINKS from './SERVISES/COWNER_LINKS'
@@ -59,11 +59,11 @@ function App() {
 
 
   const objState = {
-    update: function (state) {
+      update: function (state) {
       setState(state)
     },
     state: state,
-    setCardstate: x => setCardstate(x)
+     setCardstate: x => setCardstate(x)
     , cardstate: cardstate
     , clearStatus: () => setStatus({
       S151: false,
@@ -151,8 +151,20 @@ if (commercial === 0 && !isRAPF) {
 
   )
   //
- console.log(actionList.open + '  ' +  actionList.id)
+ console.log(activeModal?.id )
+ console.log(actionList?.id )
 return (
+  <>
+  {actionList.open && actionList.id===4? 
+  <GET_MODAL_OVER
+    CHILDREN={<MIGRATIONS setActionList={setActionList} actionList={actionList}/>} 
+    />:null}
+          
+   {actionList.open
+  && actionList.id===5? 
+  <GET_MODAL_OVER
+    CHILDREN={<COWNER_LINKS setActionList={setActionList} actionList={actionList}/>} 
+   />:null}
     <div className="App bg-dark border-danger h7 mr-10">
 
       <div className={'all'}>
@@ -160,7 +172,6 @@ return (
           <div style={{ display: 'grid', gridTemplateColumns: '5fr 1fr 50px', columnGap: '10px', padding: '5px' }}>
 
             <div style={{ gridColumn: 1, borderRight: '1px dotted gold', padding: '10px' }}>
-
               <HEAD />
               <SEARCHSTRING
                 objState={objState}
@@ -176,7 +187,9 @@ return (
               setActiveModal={setActiveModal} /> : null}
 
             <div style={{ gridColumn: 2, gridRow: '1/6', paddingTop: '40px', width: '200px', marginTop: '10px' }}  >
-              <GETINSERVICES  actionList={actionList} setActionList = {setActionList}/>
+           <GETINSERVICES  
+            actionList={actionList} 
+            setActionList = {setActionList}/>
 
             </div>
           </div>
@@ -247,15 +260,10 @@ return (
       </div>
       {/* <div style={{color:'white',fontSize:'80px',zIndex:7}}> {activeModal ?'Да':'Нет'}</div>   */}
      
-      {actionList.open && actionList.id===1? <GET_MODAL_OVER
-       CHILDREN={<MIGRATIONS setActionList={setActionList} actionList={actionList}/>} 
-       />:null}
-             
-      {actionList.open && actionList.id===2? <GET_MODAL_OVER
-       CHILDREN={<COWNER_LINKS setActionList={setActionList} actionList={actionList}/>} 
-      />:null}
+  
 
     </div>
+    </>
   )
     
   
