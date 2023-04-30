@@ -8,7 +8,6 @@ return (
   {massHolders.length ?
     <div style={{ padding: 10, zIndex: '10' }}>
       {massHolders
-        .filter(el => el.src === 'SRC')
         .map((el, i) => {
           return (
             <div className={s.card_h}

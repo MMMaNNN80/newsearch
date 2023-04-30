@@ -11,6 +11,7 @@ const  GETINSERVICES = ({actionList, setActionList}) => {
   ,{id:3, options: ["ОРПОНИЗАЦИЯ АДРЕСОВ", "https://10.42.78.166:38167"]}
   ,{id:4, options: ["МИГРАЦИИ"]}
   ,{id:5, options: ["СХЕМЫ СОВЛАДЕНИЯ"]}
+  ,{id:6, options: ["НОВАЯ ВЕРСТКА ДАТАПОРТ"]}
 
 ]
   return (
@@ -37,7 +38,7 @@ const  GETINSERVICES = ({actionList, setActionList}) => {
               <span style={{padding:'2px'}}>
               <button 
                     className='btn'
-                    style={{ fontSize:'13px',minWidth: '70px', padding: '8px',backgroundColor:'#5f6f22' }}
+                    style={{ fontSize:'13px',minWidth: '70px', padding: '8px',backgroundColor: el.id===6 ?'red':'#5f6f22' }}
                       onClick={()=>setActionList({open:true, id:!actionList.open ? el.id:0})}>
                         {el.options[0]}
                       </button>

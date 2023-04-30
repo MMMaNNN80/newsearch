@@ -21,10 +21,12 @@ import {
 
 } from './JS/SQL';
 import MIGRATIONS from './SERVISES/MIGRATIONS';
+import DATAPORT_NEW from './SERVISES/DATAPORT_NEW'
 import SEVICES from './SERVISES/SERVICES';
 import ROUTERS_IP from './NAVIGATIONS/ROUTERS_IP';
 import GET_MODAL_OVER from './JS/GET_MODAL_OVER';
 import COWNER_LINKS from './SERVISES/COWNER_LINKS'
+import SVG_LOADER from './COMPONENTS/LOADERS/SVG_LOADER';
 
 function App() {
 
@@ -32,6 +34,7 @@ function App() {
   const [isloaded,setIsLoaded ] = useState(false)
   const [state, setState] = useState(null);
   const [cardstate, setCardstate] = useState(0);
+  const [data,setData] = useState(null)
   const [status, setStatus] = useState(
     {
       S151: false,
@@ -94,7 +97,8 @@ useEffect(
         .then(data => {
           setIsLoaded(true) 
           if (data && data?.src === 'RAPF') { setIsRAPF(true) } else { setIsRAPF(false) }
-          if (data) { setMainform(data) }
+          if (data) { setData(data);setMainform(data) }
+
         })
 if (commercial === 0 && !isRAPF) {
         getDATAGoszakupki(inn)
@@ -151,13 +155,18 @@ if (commercial === 0 && !isRAPF) {
 
   )
   //
- console.log(activeModal?.id )
- console.log(actionList?.id )
+//  console.log(activeModal?.id )
+//  console.log(actionList?.id )
 return (
   <>
   {actionList.open && actionList.id===4? 
   <GET_MODAL_OVER
     CHILDREN={<MIGRATIONS setActionList={setActionList} actionList={actionList}/>} 
+    />:null}
+     
+     {actionList.open && actionList.id===6? 
+  <GET_MODAL_OVER
+    CHILDREN={<DATAPORT_NEW tovZnak={tovZnak} data={data} setActionList={setActionList} actionList={actionList}/>} 
     />:null}
           
    {actionList.open
@@ -223,7 +232,7 @@ return (
                 pledges={pledges} setPledges={setPledges}
                 massMain={massMain} setMassMain={setMassMain}
                 tovZnak={tovZnak}
-              /> : null}
+              /> : cardstate===2 ?<SVG_LOADER/>: null}
 
             {state && cardstate === 2 ?
               <NAVLINKS state={state} statusAll={statusAll} commercial={commercial}

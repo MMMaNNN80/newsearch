@@ -2,6 +2,21 @@ import {getParamsObj} from './properties'
 import {getResponsePg,render} from './connection'
 
   
+       
+export async function result (inn,kpp,commercial) {
+  let sql='';
+  if (commercial===0) {sql= `f_getformsx_test('${inn}','${kpp}')`}  
+  if (commercial===1) {sql= `f_getforms_free('${inn}',1)`}
+  if (commercial===2) {sql= `f_getforms_free('${inn}',2)`}
+
+   if (inn){  
+    let obj =  getParamsObj()
+    obj.inn = inn
+    obj.fields = "*"
+    obj.table = sql
+    obj.host = '/159'
+   return await render(obj)
+    }}
 
 
 
@@ -19,21 +34,6 @@ import {getResponsePg,render} from './connection'
        } }
 
 
-       
-     export async function result (inn,kpp,commercial) {
-       let sql='';
-       if (commercial===0) {sql= `f_getformsX('${inn}','${kpp}')`}  
-       if (commercial===1) {sql= `f_getforms_free('${inn}',1)`}
-       if (commercial===2) {sql= `f_getforms_free('${inn}',2)`}
-
-        if (inn){  
-         let obj =  getParamsObj()
-         obj.inn = inn
-         obj.fields = "*"
-         obj.table = sql
-         obj.host = '/159'
-        return await render(obj)
-         }}
 
 
          export async function getDATAArbitrAGG (inn) {
@@ -170,11 +170,12 @@ import {getResponsePg,render} from './connection'
 
   // ХОЛДИНГИ СОВЛАДЕНИЯ
 
-  export async function h_get_initialstate(holder = null) {
+  export async function h_get_initialstate(holder = null,inn=null) {
+    const inn_ = inn ? "'"+ inn +"'" : null   
     let obj =  getParamsObj()
-    obj.scheme = 'h3k'
+    obj.scheme = 'h3k_old'
     obj.fields = "*"
-    obj.table = `h_get_initialstate(${holder})`
+    obj.table = `h_get_initialstate(${holder}, ${inn_})`
     obj.host = '/151'
     return await getResponsePg(obj)
   }

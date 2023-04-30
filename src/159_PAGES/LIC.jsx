@@ -72,7 +72,7 @@ const LIC = (props) => {
                                             { name: 'Кем выдано / Тип деятельности', style: { width: '65%' } },
                                             { name: 'Данные ГРН', style: { width: '15%' } },
                                         ]}
-                                     massValues={ massLic} heightT={{ height:  'auto' }}
+                                     massValues={ massLic} heightT={{ height:  '350px' }}
                                      
                                      styleCell = {{background:'white'}}
                                      /> :getEmpty("Отсутствует информация о лицензиях, выданных компании")} </div> 

@@ -1,82 +1,93 @@
 
 
-import { useState, useCallback, useEffect, useRef, useMemo } from 'react';
-import ReactFlow, { MiniMap, Controls, Background, applyNodeChanges, applyEdgeChanges, addEdge } from 'reactflow';
+import React,{ useState, useCallback, useEffect } from 'react';
+import ReactFlow
+, { MiniMap, Controls, Background, applyNodeChanges, applyEdgeChanges, addEdge } 
+from 'reactflow';
 import s from '../CSS/cownerslinks.module.css'
 import 'reactflow/dist/style.css';
 import { h_get_initialstate } from '../JS/SQL';
-//import CARD_151 from '../COMPONENTS/CARD_151';
-import { f_getforms } from '../JS/SQL';
 import CUSTOM_NODES from './COW_CUSTOM_NODES/MAIN_NODE';
 import HOLDER from './HOLDERS/HOLDER';
 import HOLDER_LIST from './HOLDERS/HOLDER_LIST';
 import LABEL from './HOLDERS/LABEL';
 import { getMainMass } from './HOLDERS/get_Nodes_edgges';
+import SVG_LOADER from '../COMPONENTS/LOADERS/SVG_LOADER';
 
 
+const nodeTypes = {mainNode: CUSTOM_NODES};
 
 function COWNER_LINKS({ setActionList }) {
  
   const [nodes, setNodes] = useState([]);
   const [edges, setEdges] = useState([]);
   const [card, setCard] = useState(null)
-  // const [s_value, sets_value] = useState(0)
+  const [mass, setMass] = useState([])
   const [h, seth] = useState([])
   const [flow,setFlow ] = useState(null)
-  const init_ref = useRef([])
-  const onInit = (e)=> {setFlow(e)}
+  const [isLoad, setIsLoad] = useState(false)
 
+ 
+const updatechart= useCallback  (
+    
+  async (holder =null, inn = null) =>{
+    setNodes([]);
+    setEdges([]);  
+    setIsLoad(true)
+    await h_get_initialstate(holder,inn)
+        .then(obj => {
+    setIsLoad(false)
+            console.log(obj)
+            try{            
+          const m = obj
+          const inn_ = inn || m?.inn
+          setCard(inn_)
+           const massnodes = getMainMass(m?.cowners)  
+           const h_ = {
+            ...m
+          , nodes: massnodes?.length ? massnodes[0] : [] 
+          , edges: massnodes?.length>1 ? massnodes[1] : []   
+        }  
+       seth([h_])
+        setNodes(h_?.nodes);
+        setEdges(h_?.edges)      
+    } catch{
+      const massnodes = getMainMass([])
+      setNodes(massnodes);
+      setEdges([]) 
 
-    const nodeTypes = useMemo(() => {
-  return {
-      mainNode: CUSTOM_NODES,
     }
-  }, []);
-
-
-  useEffect(() => {
-    h_get_initialstate().then(initmass => {
-      const inn = initmass[0].inn
-      init_ref.current = initmass
-      const massnodes = getMainMass(initmass)
-      setCard(initmass[0].inn)
-      setNodes(massnodes[0]);
-      setEdges(massnodes[1])
-       return inn;
-    })
-      .then
-      (inn => f_getforms(inn)
-        .then(h => { seth([h]) }))
-
-  }, []);
-
-  // EVENTS /////////////////////////////////////////////////////////////////////////////
-
-  async function updatechart(holder, inn = null) {
-   inn && await f_getforms(inn).then(h => { setCard(inn); seth([h]) })
-    await h_get_initialstate(holder).then(mass => {
-      if (!mass.length) {
-        setNodes([]);
-        setEdges([])
-      } else {
-        const massnodes = getMainMass(mass)
-        setNodes(massnodes[0]);
-        setEdges(massnodes[1])
       }
-    }).then(flow.fitView())
-  }
+        )
+        .finally(setTimeout(()=>{flow?.fitView({ 
+          minZoom: 0.5,
+          maxZoom: 2
+        })},1000))}
+        ,[flow])
+
+    useEffect( () => {
+       h_get_initialstate(null,null)
+      .then(obj=>{
+        setMass(obj?.src);  
+        const massnodes = getMainMass() ;
+        console.log(massnodes)
+        setNodes(massnodes[0]);
+        setEdges([]) ;
+      
+      } )
+    }, []);
+
+  ////////////////////////////////////////////////////////////////////
+   // EVENTS //
+//////////////////////////////////////////////////////////////////////
+
+
+ 
   const onNodesChange = useCallback(
     (changes) => {
-      setNodes((nds) => applyNodeChanges(changes, nds)) ;
-      flow.fitView({ 
-        padding: 80,
-        minZoom: 1,
-        maxZoom: 5
+      setNodes((nds) => applyNodeChanges(changes, nds)) ;},
+    []);
 
-      })
-    },
-    [flow]
-  );
   const onEdgesChange = useCallback(
     (changes) => setEdges((eds) => applyEdgeChanges(changes, eds)),
     []
@@ -86,7 +97,7 @@ function COWNER_LINKS({ setActionList }) {
     (params) =>
       setEdges((eds) => addEdge({
         ...params, animated: true
-        , style: { stroke: '#fff' }
+        , style: { stroke: 'red' }
       }, eds)),
     []
   );
@@ -105,7 +116,6 @@ function COWNER_LINKS({ setActionList }) {
         } 
         return el }))}
       
-
   }, [nodes,edges])
 
   const onNodeMouseLeave = useCallback((_, node) => {
@@ -124,32 +134,46 @@ function COWNER_LINKS({ setActionList }) {
 
   }, [nodes,edges])
 
-  const onNodeDoubleClick =  useCallback((_, node) => {
-         
-    if (node?.inn) {
-         f_getforms(node.inn)
-         .then(x=>{
-             
-            const mass  = [...h,...[x]]
-            seth(mass)
-           
-         
-          })
-           
+  const onNodeDoubleClick =  useCallback(async (_, node) => {
+    const _is =h?.filter(el=> el?.holder === node?.id )
+ if (_is.length) 
+  {  setCard (_is.inn);
+     setNodes(_is.nodes);
+     setEdges(_is.edges); 
+  }
+  if (!_is.length) {  updatechart(node?.id)}
+          
       
+  }, [h,updatechart])
 
-      }
-
-   
-
-  }, [h])
-   // EVENTS /////////////////////////////////////////////////////////////////////////////
-
-   console.log(h)
-
-  return (
+const   onLoad =  e=>{
+  setFlow(e);
+  setTimeout(()=>{ e?.fitView({ 
+  minZoom: 0.5,
+  maxZoom: 2
+})},1000);}
+//////////////////////////////////////////////////////////////////////
+   // EVENTS ///////
+//////////////////////////////////////////////////////////////////////
+return (
     <> 
     <LABEL setActionList={setActionList} />
+    {/* <div style={{color:'white',overflow:'auto',padding:30,height:'800px'}}> 
+    {h.map((el,i) =>
+     <p style={{background: i%2===0 ? 'brown' :'none' }} key={i}>
+     {`${i+1})\n*********  ${JSON.stringify(el,null,4)}`}
+     </p>)}
+    </div> */}
+    
+     <div  style={{
+      justifyItems:'center'
+      ,width:'100%',display:'flex'
+      ,height:'auto'
+      ,alignItems:'center'
+      ,justifyContent:'center'
+      }}> 
+    
+   </div> 
       <div className={s.wrapper} >
       <div style={{
         gridRow:1
@@ -170,21 +194,21 @@ function COWNER_LINKS({ setActionList }) {
         ,display:'flex'
         ,marginLeft:'2em'
         ,alignItems:'center'
-  
         ,flexWrap:'wrap'
-   
-        
+     
       
         }} >
           {h?.length ? h.map ((btn,i)=>{
             return (
-               <div style= {{
+               <div 
+               onClick={()=>console.log(btn.sparkid)}
+               key={i} style= {{
                 
                 width:'150px'
-                ,cursor:'pointer'
-                ,textAlign:'center'
+              ,cursor:'pointer'
+              ,textAlign:'center'
               ,borderRadius:'8px'
-                ,fontSize:'11px'
+              ,fontSize:'11px'
               ,marginRight:'2em'
               ,border:'1px solid green'
               ,padding:'7px'}}>{btn.shortnamerus}
@@ -198,7 +222,8 @@ function COWNER_LINKS({ setActionList }) {
         </div>
         <div className={s.gr_lvl2} >
    
-        <HOLDER_LIST massHolders={init_ref.current} card={card} updatechart={updatechart} />
+        <HOLDER_LIST massHolders={mass} card={card}
+         updatechart={updatechart} />
         </div>
         <div style={{
           gridColumn: 4
@@ -207,14 +232,14 @@ function COWNER_LINKS({ setActionList }) {
           , height: '80%'
         }}>
           <ReactFlow
-            onInit = {onInit}
+            onInit = {onLoad}
             nodes={nodes}
             onNodesChange={onNodesChange}
             nodeTypes={nodeTypes}
             edges={edges}
             onEdgesChange={onEdgesChange}
             style={{ background: 'white' }}
-            fitView
+            // fitView = {{ minZoom:0.5,maxZoom: 2}}
             attributionPosition="bottom-left"
             onConnect={onConnect}
             defaultViewport ={{ x: 400, y: 200, zoom: 1 }}
@@ -223,9 +248,11 @@ function COWNER_LINKS({ setActionList }) {
             onNodeDoubleClick = {onNodeDoubleClick}
           // className="intersection-flow"
           >
-            <MAINCARD />
+           {!isLoad ? <MAINCARD />:null}  
+           {isLoad ? <SVG_LOADER/>:null} 
             <Background />
-            <MiniMap nodeStrokeWidth={3}
+            <MiniMap 
+              nodeStrokeWidth={4}
               zoomable
               pannable
               nodeColor={(n) => {
@@ -246,7 +273,13 @@ function COWNER_LINKS({ setActionList }) {
    const company = [h[h?.length-1]]
   if (h?.length>0){
       return (
-        <div style={{position: 'absolute', top: '5px', width: '350px', left: '5px', zIndex: 100 }} className=''>
+        <div style={{
+          position: 'absolute'
+          ,top: '5px'
+          ,width: '350px'
+          ,left: '5px'
+          ,zIndex: 100 
+          }} className=''>
         <div style={{position: 'relative',padding:'5px',background:'white' }}> 
           <div style={{ margin:'10px', display: 'block' }}>
           <HOLDER h={company} />

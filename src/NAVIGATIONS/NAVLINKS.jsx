@@ -34,8 +34,8 @@ return (
           
           if(el.type==='div') { return <div key={el.id}  className = "navdiv">{el.name}</div>}
           if(el.type==='nav') { return <>
-          <NavLink key={el.id} to={el.path}>
-            {<span  style={{margin:0,padding:0}}>{el.isCom ? img:''} {el.name}</span>}
+          <NavLink  to={el.path}>
+            {<span key={el.id} style={{margin:0,padding:0}}>{el.isCom ? img:''} {el.name}</span>}
             </NavLink> <br /></>}
           return null
         })}

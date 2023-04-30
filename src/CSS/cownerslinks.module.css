@@ -1,6 +1,10 @@
+:root{
+    --b: "ИНН: "
+}
 .divbtn {
    color: white;
-    border: 1px solid #c59f20;
+    border: 1px solid #47c247;
+    border-radius: 5px;
     padding: 8px;
     margin-left: 15px;
     height: fit-content;
@@ -8,6 +12,7 @@
     scale: 1;
     font-size: 14px;
     z-index: 5;
+    cursor: pointer;
 }
 .divbtn:hover{
     border: 1px solid #c6daca;
@@ -110,6 +115,45 @@ cursor: pointer;
   
 
   }
+  .main_node_up {
+    display:flex;
+    width:'100%';
+    background: white;
+    font-size: 8px;
+    padding: 3px;
+    font-weight: 600;
+  }
+  .main_up_info {
+    color:blue;
+    margin-left: 5px;
+  }
+  .main_up_info::before {
+    content:attr(title);
+    font-size: 8px;
+    color:black;
 
+  }
+  .main_node{
+    background-color: rgb(109, 77, 77);
+    border-radius: 2px;
+    height: auto;
+    width: 170px;
+    text-align: left;
+
+  }
+.main_node_body{
+    min-height: 30px;
+    color: white;
+    font-weight: 700;
+     font-size: 11px;
+    padding: 5px;
+
+}
+.main_node_footer{
+    padding: '5px';
+    background: #455769;
+    font-size: 8px;
+
+}
 
   

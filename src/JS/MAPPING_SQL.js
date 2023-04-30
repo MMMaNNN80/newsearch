@@ -13,8 +13,9 @@ export const getMainform = async (obj) => {
                    mainForm = {...objX[0], inn: {value:objX[0].inn_branch}} 
                     return mainForm
                 }
-                
+                console.log(objX[0])
                 mainForm.report_id.value = objX[0].report_id
+                mainForm.fin_json.value = objX[0].fin_json
                 mainForm.rosstat_report_id.value = objX[0].rosstat_report_id
                 mainForm.dataport_id.value = objX[0].dataport_id
                 mainForm.full_name.value = objX[0].fullnamerus
@@ -291,8 +292,8 @@ export function getOBJpublic (p='UL') {
      rosstat_report_id: {name:  'Идентификатор отчета в Росстат на 159 сервере', value: ''},
      branches_count: {name:  'Количество филиалов', value: ''},
      compReg: {name:  'Компания регистратор', value: ''},
-     knm_cnt:{name:  'Количество проверок государственными органами', value: ''}
-     
+     knm_cnt:{name:  'Количество проверок государственными органами', value: ''},
+     fin_json : {value:''}
 }
     }
     if (p==='IP') {
